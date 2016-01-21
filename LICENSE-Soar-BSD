@@ -9,18 +9,23 @@
 *                                                                             * 
 * In any case, the following applies:                                         *
 *                                                                             *
-*    --> ALL CHANGES to the original files are covered under the GPL. <--     *
+*   --> ALL CHANGES to the original files are covered under the GPL. <--      *
 *                                                                             *
 * WHAT THIS MEANS: If you want to hide source then start with Soar 8.5.2 and  *
 * release YOUR changes under whatever license you like. If you want to use    *
 * SiOO then you are legally bound by the GPL when you use ANY of our          *
 * modifications to the original Soar 8.5.2                                    *
 *                                                                             *
-* The original 2 commits to this repo created a README.md and loaded the      * 
+* The original commits to this repo created a README.md and loaded the        * 
 * entire SoarSuite 8.5.2 source tree specifically to enable you to fork       * 
 * from that repository and create a BSD licensed (or possibly public domain)  *
 * Soar 8.5.2 project for your own development.                                *
 *                                                                             *
+* Release Page:                                                               *
+* https://github.com/Sonophoto/sioo/releases/tag/SoarSuite-8.5.2              *
+*                                                                             *
+* Or direct zip link:                                                         *
+* https://github.com/Sonophoto/sioo/archive/SoarSuite-8.5.2.zip               *
 *******************************************************************************
 
 BSD LICENSE FOR SOAR 8.5.2
