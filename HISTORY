@@ -98,9 +98,7 @@ SiOO 9.9.2 will be our "stable release" of our version of essentially the
 soar 8.5.2 kernel with a *nix style interactive command interface, 
 documentation (man pages), CLI demos with .soar knowledge files, and
 a native C API with extern calls to allow interfacing to any language that 
-can load and call a C library. SiOO 9.9.2 will be released under the same 
-BSD license as Soar 8.5.2; - after that all changes are GPL, and all bets 
-are off on compatibility between Soar and SiOO.
+can load and call a C library. 
 
 At this point, our filename extension of .sioo will clarify differences 
 though SiOO should be able to pull in soar productions from .soar files for
