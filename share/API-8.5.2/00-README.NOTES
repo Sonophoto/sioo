@@ -1,0 +1,3 @@
+These headers are the interface to the soar system and kernel.
+They are here for DOCUMENTATION and REFERENCE ONLY.
+The offical headers for the api are in ../../kernel

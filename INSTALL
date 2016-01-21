@@ -1,0 +1,35 @@
+*******************************************************************************
+*             B u i l d i n g   a n d   R u n n i n g   S i O O               *
+*******************************************************************************
+
+REQUIREMENTS:
+
+* GNU Tool Chain including autotools, gcc, /bin/sh and the *nix userland.
+* We are using bash but your posix shell should work fine.
+
+There is no porting or portability to MS Windows or Mac OSX. Sorry.
+
+DEFAULT BUILD:
+
+To build the entire system with default settings in a terminal:
+
+cd to the root of the source tree
+
+./make-SiOO
+
+For now, the make-SiOO(sh) shell script erases all intermediary files and all 
+output files before beginning the build process. This is simply for testing 
+sanity to ensure consistency between builds. Source trees that are controlled 
+by autotools scripts are "make distclean". Files moved or created by 
+make-SiOO(sh) are erased by the same.
+
+The build will progress rapidly and verbosely. The finished files are in the 
+"out" directory and can be run from there or moved wherever you wish to 
+install them. We will have an automagical install target by 9.9.2.
+
+
+Debugger: compile with -g and use gdb. 
+
+There is no visual IDE, visual Debugger, or GUI of any sort. Sorry.
+
+

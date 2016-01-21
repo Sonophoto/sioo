@@ -1,0 +1,6 @@
+This is a binary file containing the output of the api call save_rete.
+The intention is that an agent can be saved as a binary file and then
+loaded later dynamically or statically built into a program file.
+
+First examples will be the demos which will have the retenets for their
+knowledge compiled into their executables.

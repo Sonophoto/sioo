@@ -1,0 +1,62 @@
+###############################################################################
+                        
+                           SiOO
+
+     share / tutorial / documentation / demo  directory
+
+   SiOO is an Acronym: State-input Operator Output - SiOO
+
+   SiOO is a production system based on Soar 8.5.2 which is a production 
+   system created on the research of GPS (General Problem Solver)
+   which can trace its history deep into the 1960s.
+
+   If you are serious about using this system we very highly recommend
+   that you acquire and study these books:
+
+      * Unified Theories of Cognition
+           -- Allen Newell, Harvard Univ. Press (1994, 3rd printing) 
+
+      * The Soar Cognitive Architecture  
+           -- John Laird, MIT Press (2012)
+
+   Both of these books are Seminal texts on this subject and contain in-depth
+   references to the research literature.
+
+   Additional reading that may be helpful to students and professionals
+
+      * Artificial Intelligence - A Modern Approach, 2nd Ed. (NOT the 3rd Ed.)
+           -- Russell, Norvig, Prentice Hall
+
+      * The C Programming Language (ANSI Ed.)
+           -- Brian Kernighan and Dennis Ritchie
+
+   To learn about the history of Soar (GPS), GOFAI, and AI in general, along
+   with some amazing technical discussions and brilliant insights:
+
+   * Introduction to Artificial Intelligence - Second, Enlarged Edition
+           -- Philip C. Jackson Jr., Dover reprint (1985)
+
+###############################################################################
+
+   SoarManual-8.5.pdf      - Manual included with the Soar 8.5.2 system
+                             title: Soar 8.5, 1st Edition, 03-June-2004
+
+   tutorial                - Soar 8 tutorial documents
+
+   SiOO-filetypes          - notes on filetypes for SiOO 10.0.0
+
+   API-8.5.2               - directory containing the c header files to the
+                             canonical interface. They are here to evolve
+                             into stand alone interface documentation.
+
+   demos-no-gui            - Soar code examples that are runnable via stdio
+                             (documentation for each demo is in its 
+                              directory or in its code comments)
+
+   default.soar            - Large collection of productions with comments
+                             written by John Laird and others
+
+   soar7-to-soar8.txt      - notes on converting soar7 rules to soar8
+                             this is critical if you are using old rule sets
+   
+

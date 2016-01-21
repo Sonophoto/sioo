@@ -1,0 +1,36 @@
+
+*******************************************************************************
+
+        SiOO:  State-input Operator Output   9 . 9 . 1  C H A N G E S 
+
+ Summary of changes between SiOO 9.9.0 and SiOO 9.9.1             January 2016
+*******************************************************************************
+  We will stick a fork in the codebase for 9.9.1 when we reach the following:
+
+  Solid build system and a solid, usable, unix cli interface to the kernel.
+
+   #DONE Build system 
+
+      #DONE  All source is commited into github, tagging for 9.9.1
+      #DONE  User side is an (sh) script, autotools under the hood.
+      #DONE  Build options are (moving into) the make-SiOO(.sh) file.
+      #DONE  Makes API headers and libraries, cli, sioo, and man pages.
+             (cli is old-style cmd-line, sioo is brand new cmd-line)
+      #DONE  Installs to @INSTALL_PREFIX@/bin, @14@/lib, etc. 
+             (system installs will require SU privileges)
+
+   #DONE CLI working correctly
+
+      #DONE  Demos: goodmorning-demo counter-demo toh-demo (mac-demo?)
+      #DONE  Help system (on invocation (getopt) and in CLI (readline(3))
+      #DONE  Readline input method
+      #DONE  Readline history system
+      #DONE  .sioo-config configuration file from $PWD then $HOME
+      #DONE  fall through to selected bash built-ins (ls, cd, mkdir)
+      #DONE  bang arbitrarty cmds into (!)display / (!!)input buffer 
+             (!grep [...], etc.)
+   
+   #DOING designing tests for commands
+   #DOING RHS function modifications
+   #DOING (roughed-in) RHS plugin system
+   #DOING ...  

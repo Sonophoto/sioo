@@ -1,0 +1,115 @@
+#!/bin/sh
+
+#TODO we want to take some arguments specifying which targets to build
+#     targets are:
+#     # Present and working...
+#     [default: build all] no argument at all
+#     # targets that need to be written...
+#     install [local | prefix] 
+#     build [agentball | agent | binary | tarball | all | cli | kernel | dox | demos ]
+#     (tarball target is a binary install wad with configure script)
+#     (binary is a kernel build without a built-in parser, this build
+#      can only load rete-nets it CANNOT load text productions)
+#     (agent is a binary build with a preloaded rete-net found in a 
+#      directory named "AgentName" in the build root (make-SiO2) )
+#     (agentball is an agent in a tarball with an install script) 
+# echo "Assert: We should be in the root of the SiOO directory"
+# pwd && sleep 2
+
+echo "\n\n"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo " * Cleaning up the previous build and old files...         *"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+sleep 1 
+
+echo "Cleaning the output directory of all files..."
+cd out && pwd && rm *.a && rm *.h && rm sioo && echo ""
+sleep 1
+
+cd .. 
+echo "Cleaning the kernel build area..."
+cd kernel && pwd && make distclean && echo ""
+sleep 1
+
+cd ..
+echo "Cleaning the command line interface build area..."
+cd cli && pwd && make distclean && echo ""
+sleep 1
+cd ..
+
+# echo "Assert: We should be in the root of the SiOO directory"
+# pwd && sleep 2
+echo "\n\n"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo " * Next we build the kernel and SiOO_api                   *"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+sleep 1
+
+#First (second) we build the kernel
+cd kernel
+chmod u+x ./configure
+./configure && make 
+
+# Next lets move our finished output to the ../out
+# TODO Libraries to ../out/lib
+cp libsoarkernel.a ../out
+
+# TODO Headers to ../out/include
+# These are the highlevel, lowlevel and enhandced debugging APIs
+cp soarapi.h ../out
+cp soar_core_api.h ../out
+cp soar_ecore_api.h ../out
+
+# Deep breath...
+sleep 1
+
+# echo "Assert: We should be in the root of the SiOO directory"
+# pwd && sleep 2
+echo "\n\n"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo " * Next we build the SiOO CLI (sioo)                       *"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+sleep 1
+
+cd ../cli
+# TODO setup the cli as an autotools project
+# chmod u+x ./configure
+# ./configure --prefix=../.. --with-kernel=../kernel
+make 
+cp SiOO ../out 
+cp libSiOO.a ../out
+cd ../out
+ln SiOO sioo
+chmod u+x SiOO 
+chmod u+x sioo 
+cd ../cli
+
+cd ..
+sleep 1
+
+# echo "Assert: We should be in the root of the SiOO directory"
+# pwd && sleep 2
+
+# Make Documentation and move to -/out/ [man | share]
+#TODO Make man pages, mv catman to -/out/man
+#TODO Make html pages, mv to -/out/share/html
+#TODO Make default .SiOO.rc, mv to -/out/
+#TODO Make API reference pdf and move to -/out/share
+#TODO Make link sioo -> SiOO, mv to -/out/bin
+
+#TODO mv LOG.01.BUILD, LOG.02.TEST, LOG.03.INSTALL, LOG.04.README
+#     to -/out/share A-F-T-E-R the entire processes is complete
+#     and then install them as well... (In the share directory)
+#TODO Point out explicitly in the README that we do it this way...
+
+
+
+# echo "Assert: We should be in the root of the SiOO directory"
+# pwd && sleep 2
+echo "\n\n"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo " *   B U I L D   O F  SiOO  I S   C O M P L E T E :        *"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo " Version: "
+cat VERSION
+echo "\n\n"

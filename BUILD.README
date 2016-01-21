@@ -1,0 +1,15 @@
+The idea here is to use autotools for the actual building of source
+trees but to use a bourne shell script for assembling and installing
+the various pieces. The rationale is simply this: lots and lots of 
+people can hack an sh script but few people can hack an autotools
+system with any confidence.
+
+The autotools can then be wrapped up and ignored by essentially
+all users that just want to use a working production matcher in 
+several different ways but the full power of autotools is under
+the hood when needed by whoever.
+
+So to build SiOO, (in a terminal) change into the root of the project 
+and type:
+
+./make-SiOO

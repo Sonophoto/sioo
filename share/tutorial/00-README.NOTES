@@ -1,0 +1,79 @@
+If you are new to Soar, cognitive modeling, PSCM(See NOTES below),
+and production systems, do yourself a favor and go through the 
+tutorial on the latest version of Soar (9.5.0) and use the visual 
+debugger and tanksoar to learn how to use these kinds of tools.
+
+What you learn about production systems, IO, and the decision cycle
+will map directly over to the SiO2 version. We may one day have these
+tools, but only if Soar stops being our best way to learn productions.
+
+###  F U L L   D I S C L O S U R E ! ###
+
+In the interest of full disclosure - You may want to look into these 
+other systems as well; we cannot advise you in any way because we have
+not used them in depth but they are well received by their user bases:
+
+Herbal:
+Essentially an abstraction of production design for (PSCM) systems
+that comes in the form of an Eclipse plugin.
+
+Act-R:
+Another production system similar to  Soar except it is based on a
+somewhat different working theory of cognition and has different 
+features and extensions.
+
+Jess:
+A java based production system that is far easier to use than Soar (or 
+Silicon Dioxide for that matter). Often mentioned by educators using
+robotics and lego mindstorms.
+
+JSoar:
+This is a pure java implementation of the Soar PSCM. Lacks features of
+current versions of soar (just like Silicon Dioxide) but may be just
+what a Java coder is looking for.
+
+Soartech:
+If you are looking for a full professional system with support you 
+probably want to contact Soartech and arrange for a consultation
+with their experts.
+
+###   N O T E S   a n d   R E F E R N E C E S  ###
+
+(1) PSCM 
+--> Problem Space Computing Model or Problem STATE Computing Model.
+
+This is a fundamental part of the scientific theory behind Soar and other
+"production systems" that seek to model human cognition. In essence, all 
+knowledge is broken down into primitive statements called productions. 
+these statements are conditional and posit ways and means to change state
+from the states that they match to states that may (or may not) lead closer
+to the goal of the system. The architecture is designed to process these
+productions and various methods are used to evaluate (search) for the best
+production to execute.
+
+John Laird has been overheard stating that he does not differentiate 
+between the terms "rules" and "productions" so we can think of productions
+as "rules". 
+
+Now we can think:
+
+     PSCM Implementation: 
+
+           Systems of rules describing the possible states of a
+           system and the ways and means of changing state from
+           one valid state to another valid state to 
+           reach(search for) a goal(state) WITH the implication 
+           that if we are unable find a way forward we can 
+           re-frame the problem in a new state(space) and 
+          _search_ for a way to move closer to the _goal_.
+
+This is almost literally a machine implimentation of Richard Feynman's 
+'thinking about a problem in such a way that the solution becomes obvious'.
+
+Read John Laird's "The Soar Cognitive Architecture" (MIT 2012) for a more
+detailed discussion of PSCM; it has a mountain of references into the 
+pertinent literature.
+
+Iff you are really serious, read "Unified Theories of Cognition" by Allen
+Newell (Harvard University Press, 1990) for even more details on the PSCM
+and "production" system models of cognition and knowledge systems.
