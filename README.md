@@ -44,4 +44,8 @@ process but the CLI is built with a hand-rolled make file.
 
 **Using the CLI Demos**
 
-Note that you need to change to the build directory of the CLI system, and then run `sioo` from that directory or the system won't find the demos. The demos do work, and this hassle is a listed bug. **NOTE** the demos are named `counter-demo` and `toh-demo` 
+Note that you need to change to the build directory of the CLI system, and then run `sioo` from that directory or the system won't find the demos(this hassle is a listed bug). The demos do work and are run as commands in the CLI , the demos are named `counter-demo` and `toh-demo`.
+
+There is a demo for the Missionaries and Cannibals puzzle that comes as a binary rete network dump. Again, starting in the sioo/cli directory, run `./SiOO` (start fresh from scratch) and try `rete-net -load agents/mac.rete` once it is loaded you can then run it, try 100 Decision Cycle groups: `run 100` run this command 3 to 7 times (it varies) to see the system solve the problem. Notice that it takes hundreds of steps. To watch it run straight through, try `init-soar` to reset the system and then do `run` by itself. The system will blaze through the puzzle leaving a trail of steps. Lets turn on the actual learning system, "chunking" and see what happens. try `learn -on`. Next type `learn` you should see a statement that says _learn -on_. Lets reinitialize the system to start all over from scratch with `init-soar`, now we are ready for the next step.
+
+Learning changes the entire game in these toy domains. Now lets run the MaC simulation with learning on, try `run 100` you may or may not have to type it again. Note how many Decision Cycles(DC) it took to solve the problem. Now type `init-soar` again and do `run`. There is the magic number; once this domain is fully chunked, the system has found and remembered a set of rules that solves this configuration in optimal execution time.
