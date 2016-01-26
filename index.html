@@ -1,33 +1,42 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html>
   <head>
-    <meta charset="UTF-8">
-    <title>Sioo by Sonophoto</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">Sioo</h1>
-      <h2 class="project-tagline">Embeddable Cognitive Architecture based on Soar 8.5.2</h2>
-      <a href="https://github.com/Sonophoto/sioo" class="btn">View on GitHub</a>
-      <a href="https://github.com/Sonophoto/sioo/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/Sonophoto/sioo/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
 
-    <section class="main-content">
-      <h1>
-<a id="sioo" class="anchor" href="#sioo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>sioo</h1>
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Sioo by Sonophoto</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Sioo</h1>
+        <h2>Embeddable Cognitive Architecture based on Soar 8.5.2</h2>
+        <a href="https://github.com/Sonophoto/sioo" class="button"><small>View project on</small> GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
+<a id="sioo" class="anchor" href="#sioo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SiOO</h1>
 
 <h2>
-<a id="sioo-is-an-acronym-for-state-input-operator-output" class="anchor" href="#sioo-is-an-acronym-for-state-input-operator-output" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SIOO is an acronym for State Input Operator Output</h2>
+<a id="sioo-is-an-acronym-for-state-input-operator-output" class="anchor" href="#sioo-is-an-acronym-for-state-input-operator-output" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SiOO is an acronym for State Input Operator Output</h2>
 
-<p>SIOO is an embeddable cognitive architecture based on Soar 8.5.2
-and includes that kernel and a handful of other files from the 
-8.5.2 version of SoarSuite.</p>
+<p>SiOO is an embeddable cognitive architecture based on Soar 8.5.2. It is being enhanced with a *nix style command shell, an embeddable footprint, and modifications to the actual cognitive architecture. Modifications will reflect enhancements beyond human ability (and patience) </p>
+
+<p>Examples include specialized applications like energy management in the home or office or supervising scientific data collection activities across an entire project. The ability of the system to learn changes the game from preprogrammed but adaptable controllers - to full fledged agents that can seek solutions that were not considered at design time.</p>
 
 <p><strong>We do NOT document Domain Modeling or Production Systems. Sorry.</strong></p>
 
@@ -44,7 +53,7 @@ and includes that kernel and a handful of other files from the
 <h3>
 <a id="how-to-run-the-sioo-command-line-demos" class="anchor" href="#how-to-run-the-sioo-command-line-demos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HOW-TO run the SiOO Command Line Demos</h3>
 
-<p>Note that you need to change to the build directory of the CLI system, and then run <code>sioo</code> from that directory or the system won't find the demos(this hassle is a listed bug). The demos do work and are run as commands in the CLI , the demos are named <code>counter-demo</code> and <code>toh-demo</code>.</p>
+<p>Note that you need to change to the build directory of the CLI system, and then run <code>sioo</code> from that directory or the system won't find the demos(this hassle is a listed bug, yes, its simple, but its complicated too ;-). The demos do work and are run as commands in the CLI , the demos are named <code>counter-demo</code> and <code>toh-demo</code>. </p>
 
 <p><strong>Missionaries and Cannibals Puzzle</strong>
 There is a demo for the Missionaries and Cannibals puzzle that comes as a binary rete network dump. Again, starting in the sioo/cli directory, run <code>./SiOO</code> (start fresh from scratch) and try <code>rete-net -load agents/mac.rete</code> once it is loaded you can then run it, try 100 Decision Cycle groups: <code>run 100</code> run this command 3 to 7 times (it varies) to see the system solve the problem. Notice that it takes hundreds of steps. To watch it run straight through, try <code>init-soar</code> to reset the system and then do <code>run</code> by itself. The system will blaze through the puzzle leaving a trail of steps. </p>
@@ -58,64 +67,24 @@ Lets turn on the actual learning system, "chunking" and see what happens. try <c
 <a id="how-to-use-the-demos-as-reference-designs" class="anchor" href="#how-to-use-the-demos-as-reference-designs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HOW-TO use the demos as Reference Designs</h3>
 
 <p>Go to the <code>cli</code> directory and read the code. start at main.c. This is terrible advice, but the best available at this time.</p>
+        </section>
 
-<hr>
+        <aside id="sidebar">
+          <a href="https://github.com/Sonophoto/sioo/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/Sonophoto/sioo/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
 
-<h4>
-<a id="this-code-requires-the-gnu-compiler-collection-gcc" class="anchor" href="#this-code-requires-the-gnu-compiler-collection-gcc" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>This code requires the GNU Compiler Collection (GCC)</h4>
+          <p class="repo-owner"><a href="https://github.com/Sonophoto/sioo"></a> is maintained by <a href="https://github.com/Sonophoto">Sonophoto</a>.</p>
 
-<h4>
-<a id="this-code-will-probably-only-run-on-gnulinux" class="anchor" href="#this-code-will-probably-only-run-on-gnulinux" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>This code will probably only run on GNU/Linux.</h4>
-
-<h4>
-<a id="all-tcl-code-has-been-removed-from-the-source-tree-sorry" class="anchor" href="#all-tcl-code-has-been-removed-from-the-source-tree-sorry" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>All Tcl code has been removed from the source tree. Sorry.</h4>
-
-<h4>
-<a id="all-windows-and-win32-code-has-been-removed-sorry" class="anchor" href="#all-windows-and-win32-code-has-been-removed-sorry" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>All WINDOWS and WIN32 code has been removed. Sorry.</h4>
-
-<h4>
-<a id="all-macintosh-code-has-been-removed-sorry" class="anchor" href="#all-macintosh-code-has-been-removed-sorry" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ALL MACINTOSH code has been removed. Sorry.</h4>
-
-<h4>
-<a id="all-hp-ux-code-has-been-removed-sorry" class="anchor" href="#all-hp-ux-code-has-been-removed-sorry" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>All HP-UX code has been removed. Sorry.</h4>
-
-<hr>
-
-<p><strong>This is alpha code and is just now coming together.</strong></p>
-
-<p>This code is NOT for beginners (at all) and is intended for experts with the C language, (gcc) *nix tools, production systems, the PSCM, FSMs, and Knowledge/Domain Modeling. There is no support other than the source code. Debugging support is primitive, oh, and there is no test suite...</p>
-
-<p><strong>If you have not yet been scared off you should be able to to build it by changing into the root of the source tree, then try:</strong></p>
-
-<p><code>./make-sioo</code></p>
-
-<p>You may need to </p>
-
-<p><code>chmod u+x make-sioo</code></p>
-
-<p>This is a simple sh script that manages the process, it will build the kernel, headers and the cli interface and dump it all into the out directory. There is no install yet. Note that at this time the kernel is built with an autotools</p>
-
-<p><code>./configure &amp;&amp; make</code> </p>
-
-<p>process but the CLI is built with a hand-rolled make file.</p>
-
-<p><strong>Suggested Reading</strong> includes <em>Unified Theories of Cognition</em> by Allen Newell (Harvard Press), and <em>The Soar Cognitive Architecture</em> by John Laird (MIT Press). </p>
-
-<p><strong>Production Systems</strong> Wikipedia has a decent article on "<em>Production Systems (Computer Science)</em>" if you need a starting point on what this type of software system is used for and how.</p>
-
-<p><strong>Robot Systems</strong> If you are building a Robot, google "<em>Jess</em>" and also try "<em>Open Cognition</em>". SiOO is really a research project, not a ready to use AGI system. But it does work ;-)</p>
-
-<p><strong>Using the CLI Demos</strong></p>
-
-<p>Note that you need to change to the build directory of the CLI system, and then run <code>sioo</code> from that directory or the system won't find the demos. The demos do work, and this hassle is a listed bug. <strong>NOTE</strong> the demos are named <code>counter-demo</code> and <code>toh-demo</code> </p>
-
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/Sonophoto/sioo">Sioo</a> is maintained by <a href="https://github.com/Sonophoto">Sonophoto</a>.</span>
-
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
-
-    </section>
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
 
   
   </body>
