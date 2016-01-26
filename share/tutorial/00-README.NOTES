@@ -1,10 +1,12 @@
+##The files in this directory are tutorial for Soar 8.5.2
+
 If you are new to Soar, cognitive modeling, PSCM(See NOTES below),
 and production systems, do yourself a favor and go through the 
 tutorial on the latest version of Soar (9.5.0) and use the visual 
 debugger and tanksoar to learn how to use these kinds of tools.
 
 What you learn about production systems, IO, and the decision cycle
-will map directly over to the SiO2 version. We may one day have these
+will map directly over to the SiOO version. We may one day have these
 tools, but only if Soar stops being our best way to learn productions.
 
 ###  F U L L   D I S C L O S U R E ! ###
