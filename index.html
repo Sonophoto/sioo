@@ -53,7 +53,7 @@
 <h3>
 <a id="how-to-run-the-sioo-command-line-demos" class="anchor" href="#how-to-run-the-sioo-command-line-demos" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HOW-TO run the SiOO Command Line Demos</h3>
 
-<p>Note that you need to change to the build directory of the CLI system, and then run <code>sioo</code> from that directory or the system won't find the demos(this hassle is a listed bug, yes, its simple, but its complicated too ;-). The demos do work and are run as commands in the CLI , the demos are named <code>counter-demo</code> and <code>toh-demo</code>. </p>
+<p>Note that you need to change to the build directory of the CLI system, and then run <code>sioo</code> from that directory or the system won't find the demos. (this hassle is a listed bug, yes, its simple, but its complicated too ;-).</p>
 
 <p><strong>Missionaries and Cannibals Puzzle</strong>
 There is a demo for the Missionaries and Cannibals puzzle that comes as a binary rete network dump. Again, starting in the sioo/cli directory, run <code>./SiOO</code> (start fresh from scratch) and try <code>rete-net -load agents/mac.rete</code> once it is loaded you can then run it, try 100 Decision Cycle groups: <code>run 100</code> run this command 3 to 7 times (it varies) to see the system solve the problem. Notice that it takes hundreds of steps. To watch it run straight through, try <code>init-soar</code> to reset the system and then do <code>run</code> by itself. The system will blaze through the puzzle leaving a trail of steps. </p>
@@ -63,10 +63,12 @@ Lets turn on the actual learning system, "chunking" and see what happens. try <c
 
 <p>Learning changes the entire game in these toy domains. Now lets run the MaC simulation with learning on, try <code>run 100</code> you may or may not have to type it again. Note how many Decision Cycles(DC) it took to solve the problem. Now type <code>init-soar</code> again and do <code>run</code>. There is the magic number; once this domain is fully chunked, the system has found and remembered a set of rules that solves this configuration in optimal execution time.</p>
 
-<h3>
-<a id="how-to-use-the-demos-as-reference-designs" class="anchor" href="#how-to-use-the-demos-as-reference-designs" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>HOW-TO use the demos as Reference Designs</h3>
+<p><strong>Other Demos</strong>
+Restart SiOO from scratch again, just to be sure we clear everything (This IS Alpha software). At the command line you can do either of these:</p>
 
-<p>Go to the <code>cli</code> directory and read the code. start at main.c. This is terrible advice, but the best available at this time.</p>
+<p><code>counter-demo</code> and <code>toh-demo</code></p>
+
+<p>Next you will try <code>run 1</code> and then repeat that to see these demonstrations perform their tasks. Remember you can use any number after <code>run</code> and no number at all to run until completed. </p>
         </section>
 
         <aside id="sidebar">
