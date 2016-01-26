@@ -7,7 +7,7 @@ the latest stable versions, ready to use on GNU/Linux libc systems.
 
 ***
 
-_It is perfectly reasonable to want to make a custom build so read on:_
+**_It is perfectly reasonable to want to make a custom build so read on:_**
 
 ###Overview
 
