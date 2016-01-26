@@ -5,7 +5,7 @@
 Look in the `[prefix]/sioo/out` directory. These are supposed to be
 the latest stable versions, ready to use on GNU/Linux libc systems.
 
-It is perfectly reasonable to want to make a custom build, read on:
+_It is perfectly reasonable to want to make a custom build so read on:_
 
 ###Overview
 
@@ -20,15 +20,17 @@ all users that just want to use a working production matcher in
 several different ways but the full power of autotools is under
 the hood when needed by whoever.
 So to build SiOO, (in a terminal) change into the root of the project 
-and type:
+and do:
 
-./make-SiOO
+`./make-SiOO`
 
 Currently there are kernel build options that are being ignored,
 those will be pulled into the upper level configuration. If you need
 these they are accessed in the following files:
 
 `[prefix]/sioo/kernel/README.BuildOptions` (Human Readable, LateX markup)
+
 `[prefix]/sioo/kernel/soarBuildOptions.h` (C header file)
+
 `[prefix]/sioo/kernel/soarBuildInfo.c` (C source file)
 
