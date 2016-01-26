@@ -2,7 +2,7 @@
 
 ## SIOO is an acronym for State Input Operator Output
 
-SIOO is an embeddable cognitive architecture based on Soar 8.5.2. It is being enhanced with a *nix style command shell, and embeddable footprint, and modifications to the actual cognitive architecture to reflect enhanccements beyond human ability.
+SIOO is an embeddable cognitive architecture based on Soar 8.5.2. It is being enhanced with a *nix style command shell, an embeddable footprint, and modifications to the actual cognitive architecture to reflect enhanccements beyond human ability.
 
 ***
 
