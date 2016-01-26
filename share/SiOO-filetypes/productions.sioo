@@ -1,6 +1,6 @@
 VERSION 9.9.X
 The .sioo extension is a production file just like .soar files during SiOO 9.9.x
-During this cycle the system will be converted to GNULinux and the GNU toolchain
+During this cycle the system will be converted to GNU/Linux and the GNU toolchain
 using the compiler extensions and full capabilities of those systems including 
 testing and diagnostics.
 
