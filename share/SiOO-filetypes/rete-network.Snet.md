@@ -11,4 +11,4 @@ loaded later dynamically or statically built into a program file.
 
 First examples will be the demos which will have the retenets for their
 knowledge compiled into their executables. The executables can be created
-as dynamic or static linked, with statics fully-linked single-image files.
+as dynamic or static linked, with statics fully-linked as single-image files.
