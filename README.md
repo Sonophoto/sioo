@@ -17,8 +17,8 @@ SIOO is an embeddable cognitive architecture based on Soar 8.5.2. It is being en
 
 **This is alpha code and is just now coming together.**
 
-This code is NOT for beginners (at all) and is intended for experts with the C language, (gcc) *nix tools, production systems, the PSCM, FSMs, and Knowledge/Domain Modeling. There is no support other than the source code. Debugging support is primitive, oh, and there is no test suite...
+This code is NOT for beginners (at all) and is intended for experts with the C language, (gcc) *nix tools, production systems, the PSCM, FSMs, and Knowledge/Domain Modeling. There is no support other than the source code. Debugging support is primitive, and there is no test suite...
 
-**If we haven't scared you off you can get a step by step how-to on the wiki How-To page**
+**If we haven't scared you off you can get a step by step how-to on the wiki Home page**
 
 https://github.com/Sonophoto/sioo/wiki
