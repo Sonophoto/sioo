@@ -1,6 +1,6 @@
 #Work in Progress
 
-This is a standalone binary agent. 
+This is the file extension for a standalone binary agent. 
 
 Everything is built-in to one executable file. 
 
