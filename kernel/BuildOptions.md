@@ -1,4 +1,9 @@
- 
+#KERNEL BUILD OPTIONS DOCUMENTATION
+
+###This is a LateX file interpreted as Markdown, it is way easier to read the text source ;-) 
+
+
+
 /**
  *  \file BuildOptions
  *
