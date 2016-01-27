@@ -12,7 +12,7 @@ hash_table *gSoarCommands;
 list *gDirectoryStack = NULL;
 
 /*
- * SECTION 1:  INTERFACE-DEFINED COMMANDS
+ * SECTION 1:  REINVENTING TICKLE ALL OVER AGAIN
  *
  *  Within this first section, we define a number of commands
  *  particular to this shell-interface to Soar.  These include
@@ -23,10 +23,9 @@ list *gDirectoryStack = NULL;
  */
 
 
-/*
- *  This function is registered with the Soar kernel, and called 
- *  upon system termination.  It is here mainly for illustrative
- *  purposes.
+/*  This function is registered with the Soar kernel, and called 
+ *  upon system termination.  Any last second clean-ups or exit
+ *  notifications should be added to this function body
  */
 void cb_exit ( agent *the_agent, soar_callback_data d,soar_call_data c )
 {
@@ -36,19 +35,20 @@ void cb_exit ( agent *the_agent, soar_callback_data d,soar_call_data c )
     exit( 0 );
   }
 }
-  
-/*
- *  This funtion is registered with the Soar kernel and called when
+ 
+ 
+/*  This funtion is registered with the Soar kernel and called when
  *  Soar generates output.  In this simple shell-interface, we need only
  *  print that output using standard IO function calls
  */
 void cb_print ( agent *the_agent, soar_callback_data d,	soar_call_data c )
 {
+ /** BUGBUG #9 Does this function not add a linefeed to STDOUT? */
 	printf( "%s", (char *)c );
 }
 
-/*
- *  This is command is invoked by the user with the following
+
+/*  This is command is invoked by the user with the following
  *  syntax:
  *             set <what> <value>
  *
@@ -119,7 +119,8 @@ int interface_pushd( int argc, const char **argv, soarResult *res )
  *  the particualr implementation may vary based upon OS and interface
  *  details.
  */
-int interface_popd ( int argc, const char **argv, soarResult *res ) {
+int interface_popd ( int argc, const char **argv, soarResult *res ) 
+{
   
   cons *c;
 
@@ -147,8 +148,8 @@ int interface_popd ( int argc, const char **argv, soarResult *res ) {
  *  the particualr implementation may vary based upon OS and interface
  *  details.
  */
-int interface_Source( int argc, const char **argv, soarResult *res ) {
-
+int interface_Source( int argc, const char **argv, soarResult *res ) 
+{
   FILE *f;
   bool eof_reached;
 
@@ -209,46 +210,44 @@ int interface_echo( int argc, const char **argv, soarResult *res ) {
  *             counter-demo
  *
  *  It loads the agent, and initializes soar for running the demo
+ * 
+ *  This agent reads off the input-link and writes to the 
+ *  output-link providing a simple example of how to create a 
+ *  closed loop connection with any external environment.
  */
-int interface_counter_demo( int argc, const char **argv, soarResult *res ) {
+int interface_counter_demo( int argc, const char **argv, soarResult *res )
+   {
+   /* ON LOAD we excise all existing productions and (re)init-soar */
+   soar_cExciseAllProductions();
+   soar_cReInitSoar();
 
-  soar_cExciseAllProductions();
-  soar_cReInitSoar();
-  executeCommand( "source ./agents/adder.soar" );
+   /* BUGBUG #8 This is where the agent file name is hardcoded*/
+   executeCommand( "source ./agents/adder.soar" );
 
-  /*
-   * remove any old input/output functions
-   */
-  soar_cRemoveAllCallbacksForEvent( soar_agent, INPUT_PHASE_CALLBACK );
-  soar_cRemoveAllCallbacksForEvent( soar_agent, OUTPUT_PHASE_CALLBACK );
+   /* Remove all Input Phase Callbacks */
+   soar_cRemoveAllCallbacksForEvent( soar_agent, INPUT_PHASE_CALLBACK );
 
-  /* 
-   * Initialize global variables used by the IO functions
-   */
-  last_tt = -1;
-  number_received = -1;
+   /* Remove all Output Phase Callbacks */
+   soar_cRemoveAllCallbacksForEvent( soar_agent, OUTPUT_PHASE_CALLBACK );
 
-  /*
-   *  Add input and output functions, to illustrate Soar IO.
-   *  Built with this option, Soar can be run with the adder.soar
-   *  agent.  This agent reads off the input-link and writes to the 
-   *  output-link providing an extremely simple (but still useful) 
-   *  example of how to connect Soar to an external environment.
-   */
-  
-  soar_cAddOutputFunction( soar_cGetCurrentAgent(),
-			   (soar_callback_fn) io_output_fn ,
-			   NULL, NULL, "output-link" );
+   /* Initialize global variables used by the IO functions */
+   last_tt = -1;
+   number_received = -1;
 
-  soar_cAddInputFunction( soar_cGetCurrentAgent(),
+   /* Now we Add an Input Function for our agent */
+   soar_cAddInputFunction( soar_cGetCurrentAgent(),
 			  (soar_callback_fn) io_input_fn ,
 			  NULL, NULL,"input-link" );
 
+   /* Now we Add an Output Function for our agent */
+   soar_cAddOutputFunction( soar_cGetCurrentAgent(),
+			   (soar_callback_fn) io_output_fn ,
+			   NULL, NULL, "output-link" );
 
-  setSoarResultResult( res, "counter demo ready" );
-  return SOAR_OK;
+   /* output status to CLI and return */
+   setSoarResultResult( res, "counter demo ready" );
+   return SOAR_OK;
 }
-
 
 
 /*
@@ -258,59 +257,35 @@ int interface_counter_demo( int argc, const char **argv, soarResult *res ) {
  *
  *  It loads the agent, and initializes soar for running the demo
  */
-int interface_toh_demo( int argc, const char **argv, soarResult *res ) {
+int interface_toh_demo( int argc, const char **argv, soarResult *res ) 
+   {
+   /* ON LOAD we excise all existing productions and (re)init-soar */
+   soar_cExciseAllProductions();
+   soar_cReInitSoar();
+   /* BUGBUG #8 This is where the agent file name is hardcoded*/
+   executeCommand( "source ./agents/toh.soar" );
+ 
+   soar_cSetWaitSNC( TRUE );
+
+   /* Remove all Input Phase Callbacks */
+   soar_cRemoveAllCallbacksForEvent( soar_agent, INPUT_PHASE_CALLBACK );
+
+   /* Remove all Output Phase Callbacks */
+   soar_cRemoveAllCallbacksForEvent( soar_agent, OUTPUT_PHASE_CALLBACK );
+
+   /* Now we Add an Input Function for our agent */
+   soar_cAddInputFunction( soar_cGetCurrentAgent(),
+			  (soar_callback_fn) toh_input_fn ,
+			  (soar_callback_data) NULL, NULL,"input-link" );
   
-  int type;
-  
-  if ( argc == 2 && !strcmp( argv[1], "-pause" ) ) type = 1;
-  else if ( argc == 2 && !strcmp( argv[1], "-nowait" ) ) type = 2;
-  else type = 0;
-	
-  soar_cExciseAllProductions();
-  soar_cReInitSoar();
-  executeCommand( "source ./agents/toh.soar" );
-  soar_cSetWaitSNC( TRUE );
-  /*
-   * remove any old input/output functions
-   */
-  soar_cRemoveAllCallbacksForEvent( soar_agent, INPUT_PHASE_CALLBACK );
-  soar_cRemoveAllCallbacksForEvent( soar_agent, OUTPUT_PHASE_CALLBACK );
+   /* Now we Add an Output Function for our agent */
+   soar_cAddOutputFunction( soar_cGetCurrentAgent(),
+			   (soar_callback_fn) toh_output_fn ,
+			   (soar_callback_data) NULL, NULL, "output-link" );
 
-  /*
-   *  Add input and output functions, to illustrate Soar IO.
-   *  Built with this option, Soar can be run with the adder.soar
-   *  agent.  This agent reads off the input-link and writes to the 
-   *  output-link providing an extremely simple (but still useful) 
-   *  example of how to connect Soar to an external environment.
-   */
-
-  soar_cAddOutputFunction( soar_cGetCurrentAgent(),
-						   (soar_callback_fn) toh_output_fn ,
-						   (soar_callback_data)type, NULL, "output-link" );
-
-  soar_cAddInputFunction( soar_cGetCurrentAgent(),
-						  (soar_callback_fn) toh_input_fn ,
-						  (soar_callback_data) type, NULL,"input-link" );
-
-		
-  switch ( type ) {
-  case 0:
-	setSoarResultResult( res, "toh demo ready (non-pausing-style)" );
-	break;
-  case 1:
-	setSoarResultResult( res, "toh demo ready (pausing-style)" );
-	break;
-  case 2:
-	setSoarResultResult(res,"toh demo ready (pausing-style w/ wait override)");
-	soar_cPushCallback( soar_cGetCurrentAgent(), WAIT_CALLBACK,
-						(soar_callback_fn) toh_wait_cb ,
-						NULL, NULL );
-	break;
-  }
-	
-
-
-  return SOAR_OK;
+   /* output status to CLI and return */
+   setSoarResultResult( res, "toh demo ready (non-pausing-style)" );
+   return SOAR_OK;
 }
 
 

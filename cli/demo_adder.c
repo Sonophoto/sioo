@@ -8,7 +8,6 @@
  */
 int number_received;
 int last_tt;
-char* buff;
 
 /*
  *   The input function
@@ -75,65 +74,61 @@ void io_input_fn( agent *a, soar_callback_data data, soar_call_data call_data )
 void io_output_fn( agent *a, soar_callback_data data, soar_call_data call_data )
    {
 
+   char* buff;
    io_wme *o_wme;
    number_received = -1;
 
-   switch( ((output_call_info *)call_data)->mode ) {
-    
-   case MODIFIED_OUTPUT_COMMAND:
-   case ADDED_OUTPUT_COMMAND:
-
-   /* 
-    *  Just to show how the output-function is being invoked...
-    */
-   if ( ((output_call_info *)call_data)->mode == MODIFIED_OUTPUT_COMMAND )
+   switch( ((output_call_info *)call_data)->mode )
       {
-      print ("\nA command on the output-link has been modified!\n" );
-      }
-   else if (((output_call_info *)call_data)->mode == ADDED_OUTPUT_COMMAND)
-      {
-      print ("\nA new command has been added to the output-link!\n" );
-      }
+      case MODIFIED_OUTPUT_COMMAND:
+      case ADDED_OUTPUT_COMMAND:
 
-   /*
-    *  Cycle through all wmes which were added to the output-link
-    */
-   for( o_wme = ((output_call_info *)call_data)->outputs; 
+      /*  Just to show how the output-function is being invoked...
+      */
+      if ( ((output_call_info *)call_data)->mode == MODIFIED_OUTPUT_COMMAND )
+         {
+         print ("\nA command on the output-link has been modified!\n" );
+         }
+      else if (((output_call_info *)call_data)->mode == ADDED_OUTPUT_COMMAND)
+         {
+         print ("\nA new command has been added to the output-link!\n" );
+         }
+
+      /*  Cycle through all wmes which were added to the output-link
+      */
+      for( o_wme = ((output_call_info *)call_data)->outputs; 
                o_wme != NULL; 
                o_wme = o_wme->next )
-      {
+         {
      
-      /*
-       *  Look for a wme whose attribute is "number"...This is the only one
-       *  we care about...
-       * 
-       *  Here we use the soar core api's wme accessor functions to yield
-       *  string representations of the wme's data.  It is possible to
-       *  do this in other ways, one useful method is to preallocate
-       *  a buffer "big enough" to hold any attribute, or value, and
-       *  pass this as the second argument to the accessor function.
-       *  This means that a new buffer is not allocated, and does not
-       *  need to be freed, and can result in significant time savings.
-       *  See the documentation in soar_core_api.h for details.
-       *  
-       */
-      buff = soar_cGetWmeAttr( o_wme, NULL, 0 );
-      if ( !strcmp( buff, "number")) 
-         {
-         free( buff );
-         buff = soar_cGetWmeValue( o_wme, NULL, 0 );
-         number_received = atoi( buff );
-         free( buff );
-         print( "Received number %d from the output link\n", number_received);
-         }
-      else 
-         {
-         free( buff );
-         }
-      }    
-   break;
-   } 
+         /*
+         *  Look for a wme whose attribute is "number"...This is the only one
+         *  we care about...
+         * 
+         *  Here we use the soar core api's wme accessor functions to yield
+         *  string representations of the wme's data.  It is possible to
+         *  do this in other ways, one useful method is to preallocate
+         *  a buffer "big enough" to hold any attribute, or value, and
+         *  pass this as the second argument to the accessor function.
+         *  This means that a new buffer is not allocated, and does not
+         *  need to be freed, and can result in significant time savings.
+         *  See the documentation in soar_core_api.h for details.
+         *  
+         */
+         buff = soar_cGetWmeAttr( o_wme, NULL, 0 );
+         if ( !strcmp( buff, "number")) 
+            {
+            free( buff );
+            buff = soar_cGetWmeValue( o_wme, NULL, 0 );
+            number_received = atoi( buff );
+            free( buff );
+            print( "Received number %d from the output link\n", number_received);
+            }
+         else 
+            {
+            free( buff );
+            }
+         }    
+      break;
+      } 
 }
-
-
-
