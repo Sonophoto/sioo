@@ -6,6 +6,10 @@
 /* ExcludeFromBuildInfo __ultrix__ */
 /* ExcludeFromBuildInfo __hpux__ */
 
+
+/* See bottom of file for details on our specifics. Line Number 682 */
+#define AKA_SIOO
+
 /**
  *  \file BuildOptions
  *
@@ -440,6 +444,12 @@
  *       or possibly crash, but if you are intending to run for long 
  *       periods of time, where memory may become an issue, it is worth
  *       testing your system with this option
+ *
+ *       #BUGBUG #10 - Brig Young, 26-Jan-2015:
+ *       This does in fact make a diference. counter-demo only runs for
+ *       1.6M DCs before crashing without, runs for 5M+ DCs with this
+ *       flag defined. This needs to be figured out so that there are 
+ *       NO memory leaks!
  */
 /* #define NO_TOP_LEVEL_REFS */
 
@@ -675,14 +685,16 @@
  *
  ***************************************************************************/
 
-#ifdef AKaSOAR
+#ifdef AKA_SIOO
 
 /* We do not expect to need more than the basic set of callbacks, for now... */
 #define FEW_CALLBACKS
 /* Prevent justifications from being built on the top level, they are useless*/
 #define NO_TOP_JUSTS
+/* Possibly prevent memory links for top state heavy systems (like counter-demo) */
+#define NO_TOP_LEVEL_REFS 
 
-#endif                          /* AKa SOAR */
+#endif   /* AKA_SIOO */
 
 
 
