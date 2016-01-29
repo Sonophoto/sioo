@@ -4,79 +4,146 @@
 #include "parsing.h"
 #include "soarInterfaceCommands.h"
 #include "ask.h"
+#include "linenoise.h"
+#include "encodings/utf8.h"
 #include <stdio.h>
 
 
-/* This is the entry point for the CLI */
+/* Invocation help text */
+void usage_help(char* progname) 
+   {
+   fprintf(stderr, "Usage: %s [--multiline] [--keycodes] [--help]\n", progname);
+   }
+
+/* Command line completion strings */
+void completion(const char *buf, linenoiseCompletions *lc)
+   {
+   if (buf[0] == 'h')
+      {
+      linenoiseAddCompletion(lc,"SiOO");
+      linenoiseAddCompletion(lc,"SiOO*");
+      }
+   }
+
+/* MAIN *************************************************************
+*/
+
 int main( int argc, char *argv[] )
-{
-  int cmd_error;
-  agent *agent_handle;
-  bool eof_reached;
-  int i;
-  soarResult res;
-  char **temp;
+   {
+   /* Lets go through these carefully for any #CRUFT */
+   char *progname = argv[0];    /* NEED */
+   agent *agent_handle;         /* NEED */
+   soarResult res;              /* NEED */
+   char *line;                  /* NEED */
+   int cmd_error;               /* NEED */
 
-   /* FIRST We start the Soar kernel */
-  soar_cInitializeSoar();
+/* CONFIGURATION OF SiOO DEFAULTS AND INVOCATION ********************
+*/
+
+   /* FIRST: open our rc file and load any options */
+   /* sioo_getconfig("~/.sioorc"); */
+
+   /* SECOND: lets load our options on the Invocation */
+   while(argc > 1) {
+      argc--;
+      argv++;
+      if (!strcmp(*argv,"--multiline")) {
+	 linenoiseSetMultiLine(1);
+         printf("Multi-line mode enabled.\n");
+
+      } else if (!strcmp(*argv,"--keycodes")) {
+         linenoisePrintKeyCodes();
+         exit(0);
+
+      } else if (!strcmp(*argv, "--help")) {
+         usage_help(progname);
+         exit(0);
+
+      } else {
+         usage_help(progname);
+         exit(1);
+      }
+   }   
+
+/* START THE SiOO KERNEL ********************************************
+*/
+
+   /* THIRD: We start the Soar kernel */
+   soar_cInitializeSoar();
   
-  /* SECOND We create an agent to work with */
-  soar_cCreateAgent( "theAgent" );
-  agent_handle = soar_cGetAgentByName( "theAgent" );
+   /* FOURTH: We create an agent to work with */
+   soar_cCreateAgent( "theAgent" );
+   agent_handle = soar_cGetAgentByName( "theAgent" );
 
-  /* NEXT We register a callback function to handle print statements */
-  soar_cPushCallback( agent_handle,
+   /* FIFTH: We register our callback functions */
+   soar_cPushCallback( agent_handle,
                       PRINT_CALLBACK,
                       (soar_callback_fn) cb_print,
                       NULL, NULL );
 
-  /* NEXT We register our destructor function */
-  soar_cPushCallback( agent_handle, 
+   /* Register our destructor function */
+   soar_cPushCallback( agent_handle, 
                       SYSTEM_TERMINATION_CALLBACK, 
 		      (soar_callback_fn) cb_exit,
                       NULL, NULL );
 
-  /* */
+  /* Register our ask callback */
   soar_cPushCallback( agent_handle,
                       ASK_CALLBACK, 
                       (soar_callback_fn) askCallback,
                       NULL, NULL);
 
-  /* NEXT We initialize our command table */
+  /* SIXTH:  We initialize our command table */
   init_soar_command_table();
 
-  /*
-   * WTH???
-   *
-   * This small block of code allows Soar to deal with command-line 
-   * arguments.  At most one argument is expected.  If such an argument is
-   * found, it is taken to be the name of a file which is dealt with as 
-   * though the user had typed "source <filename>" at the Soar prompt.
-   */
-  temp = (char **)malloc( 2 * sizeof( char * ) );
-  temp[0] = (char *)malloc( 7 * sizeof( char ) );
-
-  strcpy( temp[0], "source" );
-  for( i = 1; i < argc; i++ ) 
-  {
-   print( "Sourcing '%s'\n", argv[i] );
-   init_soarResult( res );
-   temp[1] = (char *)malloc( (strlen(argv[i]) + 1) * sizeof( char ) );
-   strcpy( temp[1], argv[i] );
-   interface_Source( 2, temp, &res );
-  } 
+/* LINENOISE SETUP **************************************************
+*/
     
-    
-  /* The event loop */
-  for (;;)
-     {
-     /* (cmd_error) ? prompt_error = itoa(cmd_error) : prompt_error = "-OK-" */
-     print( "\n(-OK-)SiOO--> " );
-     executeCommand ( getCommandFromFile( fgetc, stdin, &eof_reached ) );
-     }
+   /* Setup the linenoise encoding functions for UTF8 */
+    linenoiseSetEncodingFunctions( linenoiseUtf8PrevCharLen, 
+                                   linenoiseUtf8NextCharLen, 
+                                   linenoiseUtf8ReadCode);
 
+    /* Set the completion callback. */
+    /* This will be called every time the user uses the <tab> key. */
+    linenoiseSetCompletionCallback(completion);
+
+    /* Load history from file. Plain text, /n delimited */
+    linenoiseHistoryLoad("~/.sioo_history");
+
+    /* Now this is the main loop of the typical linenoise-based application.
+     * The call to linenoise() will block as long as the user types something
+     * and presses enter.*/
+    while(1)
+	 {
+	 /* Get a line from linenoise */
+	 line = linenoise("\x1b[32;1m[-OK-]\x1b[31;1mSiOO --\x1b[0m> ");
+	 /* Sanitize and Sanity-ize the string */
+	 if (line[0] != '\0' && line[0] != '/') 
+	    {
+
+	    /* ALL OF THE ACTION GOES HERE */
+	    /* so here we have a (char* line) from linenoise();... */
+	    /* and we need to get it to executeCommand() */
+	    executeCommand ( line );
+
+            /* Update history */
+            linenoiseHistoryAdd(line);
+            /* Update history file */
+            linenoiseHistorySave("~/.sioo_history");
+            /* Check for command to update history length */
+	    } else if (!strncmp(line,"/historylen",11)) {
+	       int len = atoi(line+11);
+	       linenoiseHistorySetMaxLen(len);
+	       /* Catch everything we don't recognize and warn user */
+	    } else if (line[0] == '/') {
+	       printf("Unreconized command: %s\n", line);
+	    }
+        /* CALLER MUST FREE EACH LINE RETURNED! */
+        free(line);
+	 }
+return 0;
 }
-
 
 
 

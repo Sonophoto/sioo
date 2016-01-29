@@ -77,7 +77,9 @@ OBJS =	parsing.o\
 	soarInterfaceCommands.o\
 	ask.o \
         demo_adder.o \
-	demo_toh.o
+	demo_toh.o \
+        linenoise.o \
+        encodings/utf8.o
 
 all:	SiOO  lib
 
