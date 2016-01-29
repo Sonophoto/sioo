@@ -1,0 +1,165 @@
+This file contains any messages produced by compilers while
+running configure, to aid debugging if configure makes a mistake.
+
+configure:540: checking for gcc
+configure:653: checking whether the C compiler (gcc  ) works
+configure:669: gcc -o conftest    conftest.c  1>&5
+configure:695: checking whether the C compiler (gcc  ) is a cross-compiler
+configure:700: checking whether we are using GNU C
+configure:709: gcc -E conftest.c
+configure:728: checking whether gcc accepts -g
+configure:762: checking for ranlib
+configure:795: checking how to run the C preprocessor
+configure:816: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:879: checking for X
+configure:946: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1022: gcc -o conftest -g -O -Werror   conftest.c -lXt  1>&5
+configure:1113: checking for dirent.h that defines DIR
+configure:1126: gcc -c -g -O -Werror  conftest.c 1>&5
+configure:1151: checking for opendir in -ldir
+configure:1170: gcc -o conftest -g -O -Werror   conftest.c -ldir   1>&5
+/usr/bin/ld: cannot find -ldir
+collect2: error: ld returned 1 exit status
+configure: failed program was:
+#line 1159 "configure"
+#include "confdefs.h"
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char opendir();
+
+int main() {
+opendir()
+; return 0; }
+configure:1234: checking for ANSI C header files
+configure:1247: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1314: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+configure: In function 'main':
+configure:1309:67: error: incompatible implicit declaration of built-in function 'exit' [-Werror]
+ if (XOR (islower (i), ISLOWER (i)) || toupper (i) != TOUPPER (i)) exit(2);
+                                                                   ^
+cc1: all warnings being treated as errors
+configure: failed program was:
+#line 1303 "configure"
+#include "confdefs.h"
+#include <ctype.h>
+#define ISLOWER(c) ('a' <= (c) && (c) <= 'z')
+#define TOUPPER(c) (ISLOWER(c) ? 'A' + ((c) - 'a') : (c))
+#define XOR(e, f) (((e) && !(f)) || (!(e) && (f)))
+int main () { int i; for (i = 0; i < 256; i++)
+if (XOR (islower (i), ISLOWER (i)) || toupper (i) != TOUPPER (i)) exit(2);
+exit (0); }
+
+configure:1341: checking for sys/time.h
+configure:1351: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1341: checking for unistd.h
+configure:1351: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1341: checking for limits.h
+configure:1351: gcc -E  conftest.c >/dev/null 2>conftest.out
+configure:1384: checking for working const
+configure:1438: gcc -c -g -O -Werror  conftest.c 1>&5
+configure:1459: checking for size_t
+configure:1492: checking whether time.h and sys/time.h may both be included
+configure:1506: gcc -c -g -O -Werror  conftest.c 1>&5
+configure:1527: checking whether struct tm is in sys/time.h or time.h
+configure:1540: gcc -c -g -O -Werror  conftest.c 1>&5
+configure:1591: checking return type of signal handlers
+configure:1613: gcc -c -g -O -Werror  conftest.c 1>&5
+configure:1632: checking for vprintf
+configure:1660: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+configure:1644:6: error: conflicting types for built-in function 'vprintf' [-Werror]
+ char vprintf();
+      ^
+cc1: all warnings being treated as errors
+configure: failed program was:
+#line 1637 "configure"
+#include "confdefs.h"
+/* System header to define __stub macros and hopefully few prototypes,
+    which can conflict with char vprintf(); below.  */
+#include <assert.h>
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char vprintf();
+
+int main() {
+
+/* The GNU C library defines this for functions which it implements
+    to always fail with ENOSYS.  Some functions are actually named
+    something starting with __ and the normal name is an alias.  */
+#if defined (__stub_vprintf) || defined (__stub___vprintf)
+choke me
+#else
+vprintf();
+#endif
+
+; return 0; }
+configure:1684: checking for _doprnt
+configure:1712: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+/tmp/cc7nfMKm.o: In function `main':
+/home/brig/Desktop/AKa/sioo/kernel/configure:1706: undefined reference to `_doprnt'
+collect2: error: ld returned 1 exit status
+configure: failed program was:
+#line 1689 "configure"
+#include "confdefs.h"
+/* System header to define __stub macros and hopefully few prototypes,
+    which can conflict with char _doprnt(); below.  */
+#include <assert.h>
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char _doprnt();
+
+int main() {
+
+/* The GNU C library defines this for functions which it implements
+    to always fail with ENOSYS.  Some functions are actually named
+    something starting with __ and the normal name is an alias.  */
+#if defined (__stub__doprnt) || defined (__stub____doprnt)
+choke me
+#else
+_doprnt();
+#endif
+
+; return 0; }
+configure:1739: checking for gethostname
+configure:1767: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+configure:1739: checking for gettimeofday
+configure:1767: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+configure:1739: checking for getwd
+configure:1767: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+/tmp/ccIDxzQC.o: In function `main':
+/home/brig/Desktop/AKa/sioo/kernel/configure:1761: warning: the `getwd' function is dangerous and should not be used.
+configure:1739: checking for strtol
+configure:1767: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+configure:1739: checking for strtoul
+configure:1767: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+configure:1739: checking for snprintf
+configure:1767: gcc -o conftest -g -O -Werror   conftest.c  1>&5
+configure:1751:6: error: conflicting types for built-in function 'snprintf' [-Werror]
+ char $ac_func();
+      ^
+cc1: all warnings being treated as errors
+configure: failed program was:
+#line 1744 "configure"
+#include "confdefs.h"
+/* System header to define __stub macros and hopefully few prototypes,
+    which can conflict with char snprintf(); below.  */
+#include <assert.h>
+/* Override any gcc2 internal prototype to avoid an error.  */
+/* We use char because int might match the return type of a gcc2
+    builtin and then its argument prototype would still apply.  */
+char snprintf();
+
+int main() {
+
+/* The GNU C library defines this for functions which it implements
+    to always fail with ENOSYS.  Some functions are actually named
+    something starting with __ and the normal name is an alias.  */
+#if defined (__stub_snprintf) || defined (__stub___snprintf)
+choke me
+#else
+snprintf();
+#endif
+
+; return 0; }
