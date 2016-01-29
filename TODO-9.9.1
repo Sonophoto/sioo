@@ -13,25 +13,46 @@
 
       CHECK #DONE  All source is commited into github, tagging for 9.9.1
       CHECK #DONE  User side is an (sh) script, autotools under the hood.
-      #DONE  Build options are (moving into) the make-SiOO(.sh) file.
-      #DONE  Makes API headers and libraries, cli, sioo, and man pages.
-             (cli is old-style cmd-line, sioo is brand new cmd-line)
-      MOVED TO 9.9.2 #DONE  Installs to @INSTALL_PREFIX@/bin, @14@/lib, etc. 
+      CHECK #DONE  Build options are (moving into) the make-SiOO(.sh) file.
+        System is configured kernel/BuildOptions.h our configuration is:
+        #define AKA_SIOO
+        #define MATCHTIME_INTERRUPT         (Default)
+        #define O_REJECTS_FIRST             (Default)
+        #define NUMERIC_INDIFFERENCE        (Default)
+        #define MAX_SIMULTANEOUS_AGENTS 128 (Default)
+        #define USE_STDARGS                 (Default)
+        #define BUG_139_WORKAROUND          (Default)
+        #define USE_CAPTURE_REPLAY          (Default)
+        #ifdef AKA_SIOO
+        /* We do not expect to need more than the basic set of callbacks, for now... */
+                #define FEW_CALLBACKS
+        /* Prevent justifications from being built on the top level, they are useless*/
+        /* It appears that top justifications has a terrible memory leak.            */
+        /* SO this is really a work-around to avoid a memory problem                 */
+                #define NO_TOP_JUSTS
+        /* Possibly prevent memory links for top state heavy systems (like counter-demo) */
+        /* Reference counting on the top state appears to leak memory, turning this off  */
+        #define NO_TOP_LEVEL_REFS 
+        #endif   /* AKA_SIOO */
+     CHECK #DONE  Makes API headers and libraries, sioo, SiOO.
+      
+     MOVED TO 9.9.2 #DONE  Installs to @INSTALL_PREFIX@/bin, @14@/lib, etc. 
              (system installs will require SU privileges)
 
-   CHECK #DONE CLI working correctly
+     CHECK #DONE CLI working correctly
 
-      #DONE  Demos: goodmorning-demo counter-demo toh-demo 
-      (mac-demo?) DONE! setup using the mac.rete with rete-net command
+      CHECK #DONE  Demos: counter-demo toh-demo (mac-demo?) 
+            DONE! setup using the mac.rete with rete-net command
       #DONE  Help system (on invocation (getopt) and in CLI (readline(3))
-      #DONE  Readline input method
-      #DONE  Readline history system
-      #DONE  .sioo-config configuration file from $PWD then $HOME
+      CHECK #DONE  Readline input method
+      CHECK #DONE  Readline history system
+      CHECK #DONE  ~/.sioo_history file stores CLI history
+      #DONE  ~/.sioorc configuration file from $PWD then $HOME
       #DONE  fall through to selected bash built-ins (ls, cd, mkdir)
       #DONE  bang arbitrarty cmds into (!)display / (!!)input buffer 
              (!grep [...], etc.)
    
    #DOING designing tests for commands
    #DOING RHS function modifications
-   #DOING (roughed-in) RHS plugin system
+   #DOING (roughed-in) RHS plugin system (doesn't work, sucks bad)
    #DOING ...  
