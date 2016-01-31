@@ -15,16 +15,40 @@ void usage_help(char* progname)
    fprintf(stderr, "Usage: %s [--multiline] [--keycodes] [--help]\n", progname);
    }
 
-/* Command line completion strings */
-void completion(const char *buf, linenoiseCompletions *lc)
-   {
-   if (buf[0] == 'h')
+void completion(const char *buf, linenoiseCompletions *lc) {
+    if (buf[0] == 'a')
       {
-      linenoiseAddCompletion(lc,"SiOO");
-      linenoiseAddCompletion(lc,"SiOO*");
-      }
-   }
-
+        linenoiseAddCompletion(lc,"add-wme");
+      } else if (buf[0] == 'b') {
+        linenoiseAddCompletion(lc,"bye");
+      } else if (buf[0] == 'c') {
+        linenoiseAddCompletion(lc,"counter-demo");
+      } else if (buf[0] == 'e') {
+        linenoiseAddCompletion(lc,"excise -all");
+        linenoiseAddCompletion(lc,"excise");
+        linenoiseAddCompletion(lc,"exit");
+      } else if (buf[0] == 'i') {
+        linenoiseAddCompletion(lc,"init-soar");
+      } else if (buf[0] == 'p') {
+        linenoiseAddCompletion(lc,"popd");
+        linenoiseAddCompletion(lc,"pushd");
+      } else if (buf[0] == 'q') {
+        linenoiseAddCompletion(lc,"quit");
+      } else if (buf[0] == 'r') {
+        linenoiseAddCompletion(lc,"run 1");
+        linenoiseAddCompletion(lc,"run 10");
+        linenoiseAddCompletion(lc,"run 100");
+        linenoiseAddCompletion(lc,"rete-net");
+      } else if (buf[0] == 's') {
+        linenoiseAddCompletion(lc,"source");
+      } else if (buf[0] == 't') {
+        linenoiseAddCompletion(lc,"toh-demo");
+/*
+      } else if (buf[0] == '') {
+      linenoiseAddCompletion(lc,"exit");
+*/
+      } /* END if (buf[0]) */
+} /* END completion() */
 /* MAIN *************************************************************
 */
 
@@ -33,9 +57,9 @@ int main( int argc, char *argv[] )
    /* Lets go through these carefully for any #CRUFT */
    char *progname = argv[0];    /* NEED */
    agent *agent_handle;         /* NEED */
-   soarResult res;              /* NEED */
+/*   soarResult res;              NEED */
    char *line;                  /* NEED */
-   int cmd_error;               /* NEED */
+/*   int cmd_error;              NEED */
 
 /* CONFIGURATION OF SiOO DEFAULTS AND INVOCATION ********************
 */
@@ -60,7 +84,8 @@ int main( int argc, char *argv[] )
          exit(0);
 
       } else {
-         usage_help(progname);
+         printf("Bad command usage, please review your options:\n\n");
+	 usage_help(progname);
          exit(1);
       }
    }   
@@ -117,14 +142,16 @@ int main( int argc, char *argv[] )
     while(1)
 	 {
 	 /* Get a line from linenoise */
+	 /* TODO: So here we want to check for an error condition and return a prompt
+		  based on it. Display an -OK- in green if all is well and display
+		  the error code in red if something went wrong on the last command
+	 */
 	 line = linenoise("\x1b[32;1m[-OK-]\x1b[31;1mSiOO --\x1b[0m> ");
 	 /* Sanitize and Sanity-ize the string */
 	 if (line[0] != '\0' && line[0] != '/') 
 	    {
 
 	    /* ALL OF THE ACTION GOES HERE */
-	    /* so here we have a (char* line) from linenoise();... */
-	    /* and we need to get it to executeCommand() */
 	    executeCommand ( line );
 
             /* Update history */
