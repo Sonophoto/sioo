@@ -3,7 +3,7 @@
 #include "soarkernel.h"
 #include "parsing.h"
 #include "soarInterfaceCommands.h"
-#include "ask.h"
+/* #include "ask.h" */
 #include "linenoise.h"
 #include "encodings/utf8.h"
 #include <stdio.h>
@@ -15,32 +15,55 @@ void usage_help(char* progname)
    fprintf(stderr, "Usage: %s [--multiline] [--keycodes] [--help]\n", progname);
    }
 
-void completion(const char *buf, linenoiseCompletions *lc) {
+/* Linenoise command completion callbacks */
+/*
+*  This completion system needs fixed or replaced. If you have a habit
+*  of tabbing for filename completion, you will be very disappointed
+*  when it erases your command string...
+*/
+void completion_CB(const char *buf, linenoiseCompletions *lc) {
     if (buf[0] == 'a')
       {
         linenoiseAddCompletion(lc,"add-wme");
+
       } else if (buf[0] == 'b') {
         linenoiseAddCompletion(lc,"bye");
+
       } else if (buf[0] == 'c') {
         linenoiseAddCompletion(lc,"counter-demo");
+
       } else if (buf[0] == 'e') {
         linenoiseAddCompletion(lc,"excise -all");
         linenoiseAddCompletion(lc,"excise");
         linenoiseAddCompletion(lc,"exit");
+
       } else if (buf[0] == 'i') {
         linenoiseAddCompletion(lc,"init-soar");
+
       } else if (buf[0] == 'p') {
-        linenoiseAddCompletion(lc,"popd");
-        linenoiseAddCompletion(lc,"pushd");
+	 if (buf[1] == 'o')
+	    { 
+	    linenoiseAddCompletion(lc,"popd");
+	    } else {
+	    linenoiseAddCompletion(lc,"pushd");
+	    }
+
       } else if (buf[0] == 'q') {
         linenoiseAddCompletion(lc,"quit");
+
       } else if (buf[0] == 'r') {
-        linenoiseAddCompletion(lc,"run 1");
-        linenoiseAddCompletion(lc,"run 10");
-        linenoiseAddCompletion(lc,"run 100");
-        linenoiseAddCompletion(lc,"rete-net");
+	 if (buf[1] == 'e')
+	    { 
+	    linenoiseAddCompletion(lc,"rete-net"); 
+	    } else {
+	    linenoiseAddCompletion(lc,"run 1");
+	    linenoiseAddCompletion(lc,"run 10");
+	    linenoiseAddCompletion(lc,"run 100");
+	    }
+        
       } else if (buf[0] == 's') {
         linenoiseAddCompletion(lc,"source");
+
       } else if (buf[0] == 't') {
         linenoiseAddCompletion(lc,"toh-demo");
 /*
@@ -49,17 +72,42 @@ void completion(const char *buf, linenoiseCompletions *lc) {
 */
       } /* END if (buf[0]) */
 } /* END completion() */
+
+/* TODO: Stray Callback for the SiOO kernel needs a new home */
+void askCallback( soar_callback_agent the_agent,
+		  soar_callback_data data,
+		  soar_call_data call_data ) {
+  
+  int num_candidates;
+  preference *cand;
+
+  *((soar_apiAskCallbackData *)call_data)->selection = 
+    ((soar_apiAskCallbackData *)call_data)->candidates;
+
+  num_candidates = 0;
+
+  for (cand = ((soar_apiAskCallbackData *)call_data)->candidates;
+       cand!=NIL; cand=cand->next_candidate) {
+    num_candidates++;
+    print( " --> %s\n", symbol_to_string( cand->value, TRUE, NULL, 0 ) );
+  }
+}
+
 /* MAIN *************************************************************
 */
 
 int main( int argc, char *argv[] )
    {
-   /* Lets go through these carefully for any #CRUFT */
-   char *progname = argv[0];    /* NEED */
-   agent *agent_handle;         /* NEED */
-/*   soarResult res;              NEED */
-   char *line;                  /* NEED */
-/*   int cmd_error;              NEED */
+   /* CLI System Variables 
+   */
+   char *progname = argv[0];	 /* Store invocation name */
+   char *line;			 /* Current command line from linenoise */
+   /* int cmd_error; */		 /* Error Number for CLI Errors on prompt */
+
+   /* SiOO Kernel Variables 
+   */
+   agent *agent_handle;		 /* Just what it says */
+   /*   soarResult res;	*/	 /* Error Number from Soar kernel */
 
 /* CONFIGURATION OF SiOO DEFAULTS AND INVOCATION ********************
 */
@@ -70,7 +118,7 @@ int main( int argc, char *argv[] )
    /* SECOND: lets load our options on the Invocation */
    while(argc > 1) {
       argc--;
-      argv++;
+      argv++; /* we stored argv[0] as (char*) progname */
       if (!strcmp(*argv,"--multiline")) {
 	 linenoiseSetMultiLine(1);
          printf("Multi-line mode enabled.\n");
@@ -93,14 +141,15 @@ int main( int argc, char *argv[] )
 /* START THE SiOO KERNEL ********************************************
 */
 
-   /* THIRD: We start the Soar kernel */
+   /* FIRST: We start the Soar kernel */
    soar_cInitializeSoar();
   
-   /* FOURTH: We create an agent to work with */
+   /* SECOND: We create an agent to work with */
    soar_cCreateAgent( "theAgent" );
+      /* DECL: agent* agent_handle */
    agent_handle = soar_cGetAgentByName( "theAgent" );
 
-   /* FIFTH: We register our callback functions */
+   /* THIRD: We register our callback functions */
    soar_cPushCallback( agent_handle,
                       PRINT_CALLBACK,
                       (soar_callback_fn) cb_print,
@@ -118,35 +167,39 @@ int main( int argc, char *argv[] )
                       (soar_callback_fn) askCallback,
                       NULL, NULL);
 
-  /* SIXTH:  We initialize our command table */
-  init_soar_command_table();
+   /* We now have an agent handle which we use to make calls into the kernel
+   *  for loading productions, setting execution options, and running our
+   *  our agent. */
 
-/* LINENOISE SETUP **************************************************
+/* COMMAND PROCESSING SETUP **************************************************
 */
+   /* Setup the command table from siooInterfaceCommands.c 
+   */
+   init_soar_command_table();
     
    /* Setup the linenoise encoding functions for UTF8 */
     linenoiseSetEncodingFunctions( linenoiseUtf8PrevCharLen, 
                                    linenoiseUtf8NextCharLen, 
                                    linenoiseUtf8ReadCode);
 
-    /* Set the completion callback. */
-    /* This will be called every time the user uses the <tab> key. */
-    linenoiseSetCompletionCallback(completion);
+    /* Set the completion callback. User triggers with <TAB> key */
+    linenoiseSetCompletionCallback(completion_CB);
 
     /* Load history from file. Plain text, /n delimited */
     linenoiseHistoryLoad("~/.sioo_history");
 
-    /* Now this is the main loop of the typical linenoise-based application.
-     * The call to linenoise() will block as long as the user types something
-     * and presses enter.*/
+   /* REPL -->
+      * call to linenoise() blocks until the user invokes the command or aborts
+      */
     while(1)
 	 {
-	 /* Get a line from linenoise */
 	 /* TODO: So here we want to check for an error condition and return a prompt
 		  based on it. Display an -OK- in green if all is well and display
 		  the error code in red if something went wrong on the last command
 	 */
+	 /* Get a line from linenoise */
 	 line = linenoise("\x1b[32;1m[-OK-]\x1b[31;1mSiOO --\x1b[0m> ");
+	 
 	 /* Sanitize and Sanity-ize the string */
 	 if (line[0] != '\0' && line[0] != '/') 
 	    {
@@ -168,7 +221,10 @@ int main( int argc, char *argv[] )
 	    }
         /* CALLER MUST FREE EACH LINE RETURNED! */
         free(line);
-	 }
+	 } /* END: REPL LOOP */
+
+/* TODO: Cleanup everything for an honest exit */
+
 return 0;
 }
 

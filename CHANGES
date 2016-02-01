@@ -25,6 +25,8 @@ Completely revamped the command line interface by
    Adding a help screen for supported commands
    Fixing demos to make them easier to use
 
+removed cli/ask.c and cli/ask.h and put it in cli/main.c
+
 *******************************************************************************
 
       SiOO: State-input Operator Output   9 . 9 . 0  C H A N G E S 

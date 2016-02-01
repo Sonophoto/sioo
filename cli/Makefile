@@ -75,11 +75,13 @@ LIBS =			$(KERNEL_LIB_SPEC)  -ldl \
 # The objects
 OBJS =	parsing.o\
 	soarInterfaceCommands.o\
-	ask.o \
         demo_adder.o \
 	demo_toh.o \
         linenoise.o \
         encodings/utf8.o
+# DEPRECATED: removing ask.h ask.c and ask.o
+# OBJS did contain ask.o
+#	ask.o \
 
 all:	SiOO  lib
 
