@@ -1,9 +1,3 @@
-/* This is silently disabling the msvc header file bug with warning level
-   4 turned on.  See bugzilla bug 167 */
-#ifdef _MSC_VER
-#pragma warning(disable : 4115)
-#endif
-
 /*************************************************************************
  *
  *  file:  soarkernel.h
@@ -56,26 +50,10 @@
 #ifndef _SOAR_H_INCLUDED        /* ExcludeFromBuildInfo */
 #define _SOAR_H_INCLUDED
 
-#ifndef _MSC_VER
 #define _GNU_SOURCE
-#endif
 
-#if defined(MACINTOSH)          /* excludeFromBuildInfo */
-#include <utime.h>
-#include <signal.h>
-#include <stdlib.h>
-#include <time.h>
-
-#elif defined(WIN32)            /* excludeFromBuildInfo */
-#include <stdlib.h>
-#include <time.h>
-#include <windows.h>
-
-#else
 #include <sys/time.h>
 #include <stdlib.h>
-#endif
-
 #include <string.h>
 #include <stdio.h>
 #include <stddef.h>
@@ -112,11 +90,6 @@
 #ifndef tolower
 /* I can't believe Sun's ctype.h doesn't have this. */
 extern int tolower(int);
-#endif
-
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#define vsnprintf _vsnprintf
 #endif
 
 /* this is the size of the buffers used to print out error messages, etc */
@@ -160,7 +133,7 @@ extern int tolower(int);
 
 #define MAJOR_VERSION_NUMBER 9
 #define MINOR_VERSION_NUMBER 9
-#define MICRO_VERSION_NUMBER 0
+#define MICRO_VERSION_NUMBER 1
 #define GREEK_VERSION_NUMBER ""
 
 extern char *soar_version_string;
