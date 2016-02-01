@@ -75,8 +75,8 @@ LIBS =			$(KERNEL_LIB_SPEC)  -ldl \
 # The objects
 OBJS =	parsing.o\
 	soarInterfaceCommands.o\
-        demo_adder.o \
-	demo_toh.o \
+        counter_demo.o \
+	toh_demo.o \
         linenoise.o \
         encodings/utf8.o
 # DEPRECATED: removing ask.h ask.c and ask.o
@@ -103,10 +103,10 @@ libSiOO.a: $(OBJS)
 #	$(RANLIB) libSiOO.a
 
 clean:
-	rm -f *.o core *~
+	rm -f *.o core *~ toh-moves.mov
 
 distclean:
-	rm -f *.o core *~ SiOO libSiOO.a
+	rm -f *.o core *~ SiOO libSiOO.a toh-moves.mov
 
 
 
