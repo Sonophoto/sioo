@@ -7,9 +7,6 @@
 /* ExcludeFromBuildInfo __hpux__ */
 
 
-/* See bottom of file for details on our specifics. Line Number 682 */
-#define AKA_SIOO
-
 /**
  *  \file BuildOptions
  *
@@ -64,6 +61,21 @@
 
 /* --------------- META LEVEL OPTIONS  (Select At Most 1) -------------- */
 
+#define AKA_SIOO
+
+/**
+ *  \def AKA_SIOO
+ *
+ *       This is a customized build for SiOO that includes all defaults 
+ *       of STD and adds the following defines
+ *       We do not expect to need more than the basic set of callbacks,
+ *       FEW_CALLBACKS
+ *       Prevent justifications from being built on the top level.
+ *       NO_TOP_JUSTS
+ *       Prevent memory links for top state heavy systems (like counter-demo)
+ *       NO_TOP_LEVEL_REFS 
+ */
+
 /**
  *  \def STD
  * 
@@ -76,7 +88,6 @@
  *	 \see LITE
  *	 \see HEAVY
  */
-#define STD
 
 /**
  *  \def HEAVY
@@ -89,7 +100,6 @@
  *	 \see LITE
  *	 \see STD
  */
-/* #define HEAVY */
 
 /**
  *  \def LITE
@@ -102,7 +112,7 @@
  *	 \see HEAVY
  *	 \see STD
  */
-/* #define LITE */
+
 
 /* ********************************************************************* */
 /* ************************     SECTION 2      ************************* */
