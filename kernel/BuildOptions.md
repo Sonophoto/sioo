@@ -64,7 +64,7 @@ Prevent justifications from being built on the top level.
 
 `#define NO_TOP_JUSTS`
 
-Prevent memory links for top state heavy systems (like counter-demo)
+Prevent memory leaks for top state heavy systems (like counter-demo)
 
 `#define NO_TOP_LEVEL_REFS` 
 
