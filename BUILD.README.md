@@ -59,15 +59,20 @@ We should have an automagical install target by 9.9.4
 For now, the make-SiOO(sh) shell script erases all intermediary files and all 
 output files before beginning the build process. This is simply for testing 
 sanity to ensure consistency between builds. Source trees that are controlled 
-by autotools scripts are "make distclean". Files moved or created by 
-make-SiOO(sh) are erased by the same.
+by autotools scripts are "make distclean". The source tree for the CLI is has
+a distclean target but the Makefile is handmade not Autotools. Files moved or
+created by make-SiOO(sh) are erased by the same.
 
 ***
 
 ###Kernel Build Notes!
-Currently there are kernel build options that are being ignored,
-those will be pulled into the upper level configuration. If you need
-these they are accessed in the following files:
+Currently the build options are preset in sioo/kernel/soarBuildOptions.h
+There is a custom tag #define AKA_SIOO that turns on the SiOO option set
+
+If you need to do a custom configuration:
+
+Remember, This is BLACK magic, you are "ON YOUR OWN" If you can't find the 
+option in the source code and understand what it does, maybe you shouldn't.
 
 `[prefix]/sioo/kernel/README.BuildOptions` (Human Readable, LateX markup)
 

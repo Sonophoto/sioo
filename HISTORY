@@ -104,14 +104,23 @@ At this point, our filename extension of .sioo will clarify differences
 though SiOO should be able to pull in soar productions from .soar files for
 some time.
 
-9.9.2 SiOO will have a larger number of installed rhs functions from its 
+9.9.3 SiOO will have a larger number of installed rhs functions from its 
 first version including debug functions, math functions and an embryonic 
 plugin system. SiOO knowledge code that uses these features should immediately
 adopt the .sioo filename extension because they obviously won't run on a 
 regular soar build.
 
-  --*BY 03-DEC-2015
+9.9.4 SiOO will be the first "stable" version of SiOO with the new features
 
+9.9.5 SiOO will be addressing changes to the rete-net code and parser.
+
+9.9.7 SiOO will be a full audit of the kernel with changes as needed.
+
+As time and needs arise tools will be added to the system as it progresses.
+
+
+  --*BY 03-DEC-2015
+  --*BY 31-JAN-2016 (Updated)
 ###############################################################################
 SOAR Versions (soar)
 ###############################################################################
