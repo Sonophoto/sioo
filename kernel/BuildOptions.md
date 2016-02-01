@@ -2,59 +2,73 @@
 
 ###This is a LateX file interpreted as Markdown, it is way easier to read the text source ;-) 
 
+#BuildOptions
+ 
+##Soar's compile time options.
+All compile time options described in this document should
+be defined prior to compilation in a file called
+"soarBuildOptions.h".  This file is included by all of 
+soar's kernel files.  Once a build is completed, you may
+determine the options it was built with using the two core api
+commands "soar_ecBuildInfo" and "soar_ecExcludedBuildInfo"
+it is expected that some compile time flags will be more informative
+than others.  These are listed in using the first command.  All
+remaining compile time flags have been explicitly hidden using 
+comments in the source code.  It is expected that they will be of
+no particular use, but for completeness, they can be view using the
+second command (soar_ecExcludedBuildInfo)
 
+###About the Options:
+The compile time options described below can all be used to modify
+the resulting Soar application.  Some of these options have only
+subtle effects, while others are much more overt.  To those getting
+started down this path, you might want to consider using one of
+the high level build options:
 
-/**
- *  \file BuildOptions
- *
- *  \brief Soar's compile time options.
- *
- *
- *   All compile time options described in this document should
- *   be defined prior to compilation in a file called
- *   "soarBuildOptions.h".  This file is included by all of 
- *   soar's kernel files.  Once a build is completed, you may
- *   determine the options it was built with using the two core api
- *   commands "soar_ecBuildInfo" and "soar_ecExcludedBuildInfo"
- *   it is expected that some compile time flags will be more informative
- *   than others.  These are listed in using the first command.  All
- *   remaining compile time flags have been explicitly hidden using 
- *   comments in the source code.  It is expected that they will be of
- *   no particular use, but for completeness, they can be view using the
- *   second command (soar_ecExcludedBuildInfo)
- *   
- *
- *
- *
- * \par About the Options:
- *   
- *   The compile time options described below can all be used to modify
- *   the resulting Soar application.  Some of these options have only
- *   subtle effects, while others are much more overt.  To those getting
- *   started down this path, you might want to consider using one of
- *   the high level build options:
- *
- *      STD        - make a "normal" version of Soar.
- *                     do not include Detailed Timers, or 
- *                     debugging facilities
- *      
- *     
- *      HEAVY      - make a "heavy" version of Soar. 
- *                     include Detailed Timers
- *
- *
- *      LITE       - make a "lite" version of Soar.
- *                     do not include many of the callbacks
- *                     do not include support for learning
- *                     perform special optimizations when possible
- *
- * \see STD
- * \see HEAVY
- * \see LITE
- *
- */
+####STD        - make a "normal" version of Soar.
 
-/**
+    do not include Detailed Timers, or debugging facilities
+     
+    
+####HEAVY      - make a "heavy" version of Soar.
+
+    includes Detailed Timers
+ 
+ 
+####LITE       - make a "lite" version of Soar.
+
+    do not include many of the callbacks
+    do not include support for learning
+    perform special optimizations when possible
+ 
+####AKA_SIOO    - make a Soar kernel for SiOO.
+
+**We use `STD` or the standard set of defines**
+`#define AKA_SIOO`
+`#define STD`
+`#define MATCHTIME_INTERRUPT`
+`#define O_REJECTS_FIRST`
+`#define NUMERIC_INDIFFERENCE`
+`#define MAX_SIMULTANEOUS_AGENTS 128`
+`#define USE_STDARGS`
+`#define BUG_139_WORKAROUND`
+`#define USE_CAPTURE_REPLAY`
+
+**For SiOO we add the following defines**
+
+We do not expect to need more than the basic set of callbacks,
+
+`#define FEW_CALLBACKS`
+
+Prevent justifications from being built on the top level.
+
+`#define NO_TOP_JUSTS`
+
+Prevent memory links for top state heavy systems (like counter-demo)
+
+`#define NO_TOP_LEVEL_REFS` 
+
+  /**
  *
  *
  *
