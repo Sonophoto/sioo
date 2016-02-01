@@ -1,20 +1,16 @@
 #include "soarapi.h"
 #include "soar_core_api.h"
 #include "soarkernel.h"
-#include "demo_adder.h"
+#include "counter_demo.h"
 
 /*
- *  two Global variables used to store state information between IO cycles.
+ * This demo is composed of two externed variables, these two kernel callbacks
+ * and the Tower of Hannoy domain knowledge in agents/toh.soar
  */
+
+/* BUGBUG SO! which version of these two global monsters are we actually using??? */
 int number_received;
 int last_tt;
-
-/* 
- * Prototypes
- */
-extern void io_input_fn( agent *a, soar_callback_data data, soar_call_data call_data );
-
-extern void io_output_fn( agent *a, soar_callback_data data, soar_call_data call_data );
 
 /*
  *   The input function

@@ -2,8 +2,8 @@
 #include "soarInterfaceCommands.h"
 #include "soarkernel.h"
 #include "parsing.h"
-#include "demo_adder.h"
-#include "demo_toh.h"
+#include "toh_demo.h"
+#include "counter_demo.h" 
 
 /*
  * Variable Declarations
@@ -38,13 +38,12 @@ void cb_exit ( agent *the_agent, soar_callback_data d,soar_call_data c )
  
  
 /*  This funtion is registered with the Soar kernel and called when
- *  Soar generates output.  In this simple shell-interface, we need only
- *  print that output using standard IO function calls
+ *  Soar generates output.  In this simple shell-interface, we need
+ *  only print that output using standard IO function calls
  */
 void cb_print ( agent *the_agent, soar_callback_data d,	soar_call_data c )
 {
- /** BUGBUG #9 Does this function not add a linefeed to STDOUT? */
-	printf( "%s", (char *)c );
+	 printf( "%s", (char*)c );
 }
 
 
@@ -222,7 +221,7 @@ int interface_counter_demo( int argc, const char **argv, soarResult *res )
    soar_cReInitSoar();
 
    /* BUGBUG #8 This is where the agent file name is hardcoded*/
-   executeCommand( "source ./agents/adder.soar" );
+   executeCommand( "source ./agents/counter.soar" );
 
    /* Remove all Input Phase Callbacks */
    soar_cRemoveAllCallbacksForEvent( soar_agent, INPUT_PHASE_CALLBACK );

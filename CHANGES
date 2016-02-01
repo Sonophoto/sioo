@@ -26,13 +26,15 @@ Completely revamped the command line interface by
    Fixing demos to make them easier to use
 
 removed cli/ask.c and cli/ask.h and put it in cli/main.c
+rearranged demo code and created a complete disaster
+re-rearranged demo code and it works again with only one ugly kludge
 
 *******************************************************************************
 
       SiOO: State-input Operator Output   9 . 9 . 0  C H A N G E S 
 
       Summary of changes between Soar 8.5.2 and SiOO 9.9.0 
-      November-December, 2015 
+      November-December, 2015    (...11 years later...)
 *******************************************************************************
 
 Soar 8.5.2 is being used as the basis for a new system called SiOO

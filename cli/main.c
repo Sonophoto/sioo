@@ -206,6 +206,7 @@ int main( int argc, char *argv[] )
 
 	    /* ALL OF THE ACTION GOES HERE */
 	    executeCommand ( line );
+	    printf("\n"); /* KLUDGE: Flush the output buffer */
 
             /* Update history */
             linenoiseHistoryAdd(line);
