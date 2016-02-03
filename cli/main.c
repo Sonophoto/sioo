@@ -3,9 +3,11 @@
 #include "soarkernel.h"
 #include "parsing.h"
 #include "soarInterfaceCommands.h"
-/* #include "ask.h" */
 #include "linenoise.h"
 #include "encodings/utf8.h"
+#include "callbacks.h"
+#include "utilfuncs.h"
+
 #include <stdio.h>
 
 
@@ -158,7 +160,7 @@ int main( int argc, char *argv[] )
 */
 
    /* FIRST: open our rc file and load any options */
-   /* sioo_getconfig("~/.sioorc"); */
+   /* sili_GetConfig("~/.sioorc"); */
 
    /* SECOND: lets load our options on the Invocation */
    while(argc > 1) {
@@ -190,8 +192,8 @@ int main( int argc, char *argv[] )
    soar_cInitializeSoar();
   
    /* SECOND: We create an agent to work with */
-   soar_cCreateAgent( "theAgent" );
       /* DECL: agent* agent_handle */
+   soar_cCreateAgent( "theAgent" );
    agent_handle = soar_cGetAgentByName( "theAgent" );
 
    /* THIRD: We register our callback functions */
@@ -212,9 +214,10 @@ int main( int argc, char *argv[] )
                       (soar_callback_fn) askCallback,
                       NULL, NULL);
 
-   /* We now have an agent handle which we use to make calls into the kernel
-   *  for loading productions, setting execution options, and running our
-   *  our agent. */
+   /* We now have an agent handle which we use to make calls into 
+    * the kernel for loading productions, setting execution options,
+    * and running our our agent. 
+    */
 
 /* COMMAND PROCESSING SETUP **************************************************
 */
@@ -251,25 +254,39 @@ int main( int argc, char *argv[] )
 
 	    /* ALL OF THE ACTION GOES HERE */
 	    executeCommand ( line );
-	    printf("\n"); /* KLUDGE: Flush the output buffer */
+	    printf("\n"); /* BY,BUG#8: Flush the kernel output buffer */
 
             /* Update history */
             linenoiseHistoryAdd(line);
+
             /* Update history file */
             linenoiseHistorySave("~/.sioo_history");
+
             /* Check for command to update history length */
 	    } else if (!strncmp(line,"/historylen",11)) {
 	       int len = atoi(line+11);
 	       linenoiseHistorySetMaxLen(len);
-	       /* Catch everything we don't recognize and warn user */
+
+	    /* Catch everything we don't recognize and warn user */
 	    } else if (line[0] == '/') {
 	       printf("Unreconized command: %s\n", line);
 	    }
+
         /* CALLER MUST FREE EACH LINE RETURNED! */
         free(line);
 	 } /* END: REPL LOOP */
 
 /* TODO: Cleanup everything for an honest exit */
+   /* Close any SiOO logs that are open */
+      /* executeCommand("log -off"); ? or call an API function*/
+
+   /* Shutdown Cleanly the SiOO kernel */
+      /* executeCommand() ? or call an API function? */
+
+   /* Save our configuration settings
+      /* sioo_SaveConfig("~/.sioorc"); */
+
+   /* Save application log file(s) */
 
 return 0;
 }
