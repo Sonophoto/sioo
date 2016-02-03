@@ -21,7 +21,7 @@ in the kernelBuildOptions.h
 
 Completely revamped the command line interface by
    Adding a history system
-   Adding a command completion system
+   Adding a command completion system (clunky but finished)
    Adding a help screen for supported commands
    Fixing demos to make them easier to use
 

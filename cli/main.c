@@ -24,51 +24,96 @@ void usage_help(char* progname)
 void completion_CB(const char *buf, linenoiseCompletions *lc) {
     if (buf[0] == 'a')
       {
-        linenoiseAddCompletion(lc,"add-wme");
+        linenoiseAddCompletion(lc, "add-wme");
 
       } else if (buf[0] == 'b') {
-        linenoiseAddCompletion(lc,"bye");
+        linenoiseAddCompletion(lc, "build-info");
+        linenoiseAddCompletion(lc, "bye");
 
       } else if (buf[0] == 'c') {
-        linenoiseAddCompletion(lc,"counter-demo");
+        linenoiseAddCompletion(lc, "counter-demo");
+        linenoiseAddCompletion(lc, "capture");
 
       } else if (buf[0] == 'e') {
-        linenoiseAddCompletion(lc,"excise -all");
-        linenoiseAddCompletion(lc,"excise");
-        linenoiseAddCompletion(lc,"exit");
+	 if (buf[1] == 'c')
+	    {
+	    linenoiseAddCompletion(lc, "echo");
+	    }
+	 if (buf[1] == 'x') 
+	    {
+	    linenoiseAddCompletion(lc, "excise -all");
+	    linenoiseAddCompletion(lc, "excise");
+	    linenoiseAddCompletion(lc, "exit");
+	    }
+
+      } else if (buf[0] == 'l') {
+	 if (buf[1] == 'e')
+	    { 
+	    linenoiseAddCompletion(lc, "learn");
+	    }
+	 if (buf[1] == 'o')
+	    { 
+	    linenoiseAddCompletion(lc, "log");
+	    }
 
       } else if (buf[0] == 'i') {
-        linenoiseAddCompletion(lc,"init-soar");
+        linenoiseAddCompletion(lc, "init-soar");
+        linenoiseAddCompletion(lc, "indifferent-selection");
 
       } else if (buf[0] == 'p') {
 	 if (buf[1] == 'o')
 	    { 
-	    linenoiseAddCompletion(lc,"popd");
-	    } else {
-	    linenoiseAddCompletion(lc,"pushd");
+	    linenoiseAddCompletion(lc, "popd");
+	    }
+	 if (buf[1] == 'r')
+	    { 
+	    linenoiseAddCompletion(lc, "print");
+	    linenoiseAddCompletion(lc, "pref");
+	    }
+	 if (buf[1] =='u')
+	    {
+	    linenoiseAddCompletion(lc, "pushd");
+	    }
+	 if (buf[1] =="f")
+	    {
+	    linenoiseAddCompletion(lc, "pfind");
 	    }
 
       } else if (buf[0] == 'q') {
-        linenoiseAddCompletion(lc,"quit");
+        linenoiseAddCompletion(lc, "quit");
 
       } else if (buf[0] == 'r') {
 	 if (buf[1] == 'e')
 	    { 
-	    linenoiseAddCompletion(lc,"rete-net"); 
-	    } else {
-	    linenoiseAddCompletion(lc,"run 1");
-	    linenoiseAddCompletion(lc,"run 10");
-	    linenoiseAddCompletion(lc,"run 100");
+	    linenoiseAddCompletion(lc, "rete-net"); 
+	    linenoiseAddCompletion(lc, "remove-wme");
+	    linenoiseAddCompletion(lc, "replay");
+	    }
+	 if (buf[1] == 'u')
+	    {
+	    linenoiseAddCompletion(lc, "run 1");
+	    linenoiseAddCompletion(lc, "run 10");
+	    linenoiseAddCompletion(lc, "run 100");
 	    }
         
       } else if (buf[0] == 's') {
-        linenoiseAddCompletion(lc,"source");
+        linenoiseAddCompletion(lc, "source");
+        linenoiseAddCompletion(lc, "stats");
+        linenoiseAddCompletion(lc, "set");
+        linenoiseAddCompletion(lc, "sp");
+
 
       } else if (buf[0] == 't') {
-        linenoiseAddCompletion(lc,"toh-demo");
+        linenoiseAddCompletion(lc, "toh-demo");
+
+      } else if (buf[0] == 'v') {
+      linenoiseAddCompletion(lc, "verbose");
+
+      } else if (buf[0] == 'w') {
+      linenoiseAddCompletion(lc, "watch");
 /*
       } else if (buf[0] == '') {
-      linenoiseAddCompletion(lc,"exit");
+      linenoiseAddCompletion(lc, "");
 */
       } /* END if (buf[0]) */
 } /* END completion() */

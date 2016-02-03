@@ -315,80 +315,113 @@ void init_soar_command_table( void ) {
   
   gSoarCommands = make_hash_table( 6, (hash_function)hash_soar_command );
   
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( ".", interface_Source ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "add-wme", soar_AddWme ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "build-info", soar_BuildInfo ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "counter-demo", interface_counter_demo ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "echo", interface_echo ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "excise", soar_Excise ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "indifferent-selection", 
-				       soar_IndifferentSelection ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "init-soar",
-				       soar_ReInitSoar ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "learn", soar_Learn ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "log", soar_Log ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "matches", soar_Matches ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "multi-attributes", 
-				       soar_MultiAttributes ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "p", soar_Print ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "pf", soar_ProductionFind ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "popd", interface_popd ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "pref", soar_Preferences ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "print", soar_Print ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "pushd", interface_pushd ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "quit", soar_Quit ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "exit", soar_Quit ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "bye", soar_Quit ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "remove-wme", soar_RemoveWme ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "rete-net", soar_ReteNet ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "run", soar_Run ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "set", interface_Set ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "source", interface_Source ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "sp", soar_Sp ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "stats", soar_Stats ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "toh-demo", interface_toh_demo ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "v", soar_Verbose ) );  
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "verbose", soar_Verbose ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "w", soar_Watch ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "watch", soar_Watch ) );
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( ".", interface_Source ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "add-wme", soar_AddWme ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "build-info", soar_BuildInfo ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "counter-demo", interface_counter_demo ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "echo", interface_echo ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "excise", soar_Excise ) );
+
+   add_to_hash_table( gSoarCommands,
+      new_soar_command( "indifferent-selection", soar_IndifferentSelection ) ); 
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "init-soar", soar_ReInitSoar ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "learn", soar_Learn ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "log", soar_Log ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "matches", soar_Matches ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "multi-attributes", soar_MultiAttributes ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "p", soar_Print ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "pf", soar_ProductionFind ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "pfind", soar_ProductionFind ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "popd", interface_popd ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "pref", soar_Preferences ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "print", soar_Print ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "pushd", interface_pushd ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "quit", soar_Quit ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "exit", soar_Quit ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "bye", soar_Quit ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "remove-wme", soar_RemoveWme ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "rete-net", soar_ReteNet ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "run", soar_Run ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "set", interface_Set ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "source", interface_Source ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "sp", soar_Sp ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "stats", soar_Stats ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "toh-demo", interface_toh_demo ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "v", soar_Verbose ) );
+
+   add_to_hash_table( gSoarCommands,
+      new_soar_command( "verbose", soar_Verbose ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "w", soar_Watch ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "watch", soar_Watch ) );
+   
 #ifdef USE_CAPTURE_REPLAY
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "capture", soar_CaptureInput ) );
-  add_to_hash_table( gSoarCommands,
-		     new_soar_command( "replay", soar_ReplayInput ) );
+   add_to_hash_table( gSoarCommands,
+      new_soar_command( "capture", soar_CaptureInput ) );
+   add_to_hash_table( gSoarCommands,
+      new_soar_command( "replay", soar_ReplayInput ) );
 #endif
 }
 
