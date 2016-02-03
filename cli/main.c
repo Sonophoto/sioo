@@ -2,7 +2,7 @@
 #include "soar_core_api.h"
 #include "soarkernel.h"
 #include "parsing.h"
-#include "soarInterfaceCommands.h"
+#include "commands.h"
 #include "linenoise.h"
 #include "encodings/utf8.h"
 #include "callbacks.h"
@@ -76,7 +76,7 @@ void completion_CB(const char *buf, linenoiseCompletions *lc) {
 	    {
 	    linenoiseAddCompletion(lc, "pushd");
 	    }
-	 if (buf[1] =="f")
+	 if (buf[1] == 'f')
 	    {
 	    linenoiseAddCompletion(lc, "pfind");
 	    }
@@ -283,7 +283,7 @@ int main( int argc, char *argv[] )
    /* Shutdown Cleanly the SiOO kernel */
       /* executeCommand() ? or call an API function? */
 
-   /* Save our configuration settings
+   /* Save our configuration settings */
       /* sioo_SaveConfig("~/.sioorc"); */
 
    /* Save application log file(s) */

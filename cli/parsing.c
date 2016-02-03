@@ -1,5 +1,5 @@
 #include "parsing.h"
-#include "soarInterfaceCommands.h"
+#include "commands.h"
 
 /*
  *  parsing.c

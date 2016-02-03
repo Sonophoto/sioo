@@ -1,5 +1,5 @@
 
-#include "soarInterfaceCommands.h"
+#include "commands.h"
 #include "soarkernel.h"
 #include "parsing.h"
 #include "toh_demo.h"
