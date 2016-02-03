@@ -75,6 +75,8 @@ LIBS =			$(KERNEL_LIB_SPEC)  -ldl \
 # The objects
 OBJS =	parsing.o\
 	commands.o\
+        callbacks.o \
+        utilfuncs.o \
         counter_demo.o \
 	toh_demo.o \
         linenoise.o \
