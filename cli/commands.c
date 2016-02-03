@@ -4,6 +4,7 @@
 #include "parsing.h"
 #include "toh_demo.h"
 #include "counter_demo.h" 
+#include "linenoise.h"
 
 /*
  * Variable Declarations
@@ -323,6 +324,10 @@ void init_soar_command_table( void ) {
 
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "build-info", soar_BuildInfo ) );
+
+/*  BUGBUG This segfaults on call... */
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "clear", linenoiseClearScreen ) );
 
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "counter-demo", interface_counter_demo ) );
