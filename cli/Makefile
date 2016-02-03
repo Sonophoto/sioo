@@ -102,10 +102,10 @@ libSiOO.a: $(OBJS)
 #	$(RANLIB) libSiOO.a
 
 clean:
-	rm -f *.o core *~ toh-moves.mov
+	rm -f *.o core *~ toh-moves.mov soarerror
 
 distclean:
-	rm -f *.o core *~ SiOO libSiOO.a toh-moves.mov
+	rm -f *.o core *~ SiOO libSiOO.a toh-moves.mov soarerror
 
 
 
