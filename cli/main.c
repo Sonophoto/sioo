@@ -3,8 +3,8 @@
 #include "soarkernel.h"
 #include "parsing.h"
 #include "commands.h"
-#include "linenoise.h"
-#include "encodings/utf8.h"
+#include "linenoise/linenoise.h"
+#include "linenoise/utf8.h"
 #include "callbacks.h"
 #include "utilfuncs.h"
 

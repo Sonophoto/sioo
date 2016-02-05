@@ -1,12 +1,12 @@
 #include "soarapi.h"
-#include "soar_core_api.h"
 #include "soarkernel.h"
+#include "soar_core_api.h"
 #include "parsing.h"
 #include "commands.h"
-#include "linenoise.h"
-#include "encodings/utf8.h"
 #include "callbacks.h"
 #include "utilfuncs.h"
+#include "linenoise/linenoise.h"
+#include "linenoise/utf8.h"
 
 #include <stdio.h>
 

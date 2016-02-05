@@ -77,10 +77,10 @@ OBJS =	parsing.o\
 	commands.o\
         callbacks.o \
         utilfuncs.o \
-        counter_demo.o \
-	toh_demo.o \
-        linenoise.o \
-        encodings/utf8.o
+        demos/counter_demo.o \
+	demos/toh_demo.o \
+        linenoise/linenoise.o \
+        linenoise/utf8.o
 
 all:	SiOO  lib
 
@@ -102,10 +102,11 @@ libSiOO.a: $(OBJS)
 #	$(RANLIB) libSiOO.a
 
 clean:
-	rm -f *.o core *~ toh-moves.mov soarerror
-
+	rm -f *.o demos/*.o linenoise/*.o
+	rm -f core *~ toh-moves.mov soarerror
 distclean:
-	rm -f *.o core *~ SiOO libSiOO.a toh-moves.mov soarerror
+	rm -f *.o demos/*.o linenoise/*.o
+	rm -f core *~ SiOO libSiOO.a toh-moves.mov soarerror
 
 
 

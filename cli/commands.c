@@ -2,9 +2,9 @@
 #include "commands.h"
 #include "soarkernel.h"
 #include "parsing.h"
-#include "toh_demo.h"
-#include "counter_demo.h" 
-#include "linenoise.h"
+#include "demos/toh_demo.h"
+#include "demos/counter_demo.h" 
+#include "linenoise/linenoise.h"
 
 /*
  * Variable Declarations
@@ -222,7 +222,7 @@ int interface_counter_demo( int argc, const char **argv, soarResult *res )
    soar_cReInitSoar();
 
    /* BUGBUG #8 This is where the agent file name is hardcoded*/
-   executeCommand( "source ./agents/counter.soar" );
+   executeCommand( "source ./demos/counter.soar" );
 
    /* Remove all Input Phase Callbacks */
    soar_cRemoveAllCallbacksForEvent( soar_agent, INPUT_PHASE_CALLBACK );
@@ -263,7 +263,7 @@ int interface_toh_demo( int argc, const char **argv, soarResult *res )
    soar_cExciseAllProductions();
    soar_cReInitSoar();
    /* BUGBUG #8 This is where the agent file name is hardcoded*/
-   executeCommand( "source ./agents/toh.soar" );
+   executeCommand( "source ./demos/toh.soar" );
  
    soar_cSetWaitSNC( TRUE );
 
