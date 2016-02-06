@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "\nTODO: gtk kernel mem viewer for debugging agents\n"

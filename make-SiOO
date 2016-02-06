@@ -76,26 +76,36 @@ cd ../cli
 # chmod u+x ./configure
 # ./configure --prefix=../.. --with-kernel=../kernel
 make 
-cp SiOO ../out 
-cp libSiOO.a ../out
-cd ../out
 ln SiOO sioo
-chmod u+x SiOO 
-chmod u+x sioo 
-cd ../cli
+chmod u+x SiOO && cp SiOO ../out 
+chmod u+x sioo && cp sioo ../out
+cp libSiOO.a ../out
 
 cd ..
 sleep 1
 
 # echo "Assert: We should be in the root of the SiOO directory"
 # pwd && sleep 2
+echo "\n\n"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo " * Next we build the SiOO tools (siooc, gsioo, soar2sioo)  *"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+sleep 1
+
+cd tools
+make
+chmod u+x siooc && cp siooc ../out
+chmod u+x gsioo && cp gsioo ../out
+chmod u+x soar2sioo && cp soar2sioo ../out
+
+cd ..
+sleep 1
+
 
 # Make Documentation and move to -/out/ [man | share]
 #TODO Make man pages, mv catman to -/out/man
 #TODO Make html pages, mv to -/out/share/html
-#TODO Make default .SiOO.rc, mv to -/out/
-#TODO Make API reference pdf and move to -/out/share
-#TODO Make link sioo -> SiOO, mv to -/out/bin
+#TODO Make API reference pdf and move to sioo/
 
 #TODO mv LOG.01.BUILD, LOG.02.TEST, LOG.03.INSTALL, LOG.04.README
 #     to -/out/share A-F-T-E-R the entire processes is complete

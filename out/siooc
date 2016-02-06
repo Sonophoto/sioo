@@ -1,0 +1,2 @@
+#!/bin/sh
+echo "\nTODO: compiles .sioo files into .Snet files\n"
