@@ -108,7 +108,7 @@ distclean:
 	rm -f *.o demos/*.o linenoise/*.o
 	rm -f core *~ SiOO libSiOO.a toh-moves.mov soarerror
 
-tests:
+testing:
 # Foreach test passed, output " *PASS* Test_00N Description_string_for_test\n"
 # If all tests are passed, output " *PASS* SiOO PASSES ALL TESTS\n"
 	# ./SiOO cli/testing/test_001
