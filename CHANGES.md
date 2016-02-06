@@ -12,7 +12,8 @@ build system to enhance its flexibility why bringing all of the options into
 a single file for controlling builds: sioo/make-SiOO
 
 Currently SiOO 9.9.1 can run more than 5 million Decision Cycles << 1GB
-   (There is much work remaining to be done on the kernel...)
+
+   (There is much work remaining to be done updating the kernel...)
 
 Modified the kernel build options to reflect the need for speed and smale size
 
@@ -20,10 +21,12 @@ Reduced a massive memory leak in the kernel by defining NO_TOP_LEVEL_REFS
 in the kernelBuildOptions.h
 
 Completely revamped the command line interface by
+```
    Adding a history system
    Adding a command completion system (clunky but finished)
    Adding a help screen for supported commands
    Fixing demos to make them easier to use
+```
 
 removed cli/ask.c and cli/ask.h and put it in cli/main.c
 rearranged demo code and created a complete disaster
