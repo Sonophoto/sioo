@@ -66,20 +66,27 @@ also very much an active research project (unstable). It is written in
 C++, thats OK but C is better for our needs.  
 
 This system is designed to be used on GNU/Linux and build using the GCC
-toolset. It is not portable to OSX or Windows because that introducces
+toolset. It is not portable to OSX or Windows because that introduces
 bugs we don't have time to deal with and we don't use either OS anyway...
 
 
 To Date: accomplished, in progress, and TODO:
 
 6) DONE: System builds mostly clean but is in transition
+
 1) DONE: Entire system is being converted to use gcc cross-compiler suite
+
 4) DONE: Tcl is being removed. Sorry :-(
+
 2) DOING: All references in source tree to WINDOWS and WIN32 are being 
    removed. This includes conditional code and headers. Sorry :-(
+   
 3) DOING: All references to MACINTOSH are being removed. Sorry :-(
+
 7) DOING: ALL refernces to HPUX and that madness (??) Going, no apology.
+
 5) DOING: CLI is being rebuilt to use standard *nix style command shell
+
 8) TODO: Reorder numbers in todo list.
 
 And PLEASE NOTE: This is not a better/faster version of Soar, it is a 
