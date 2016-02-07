@@ -104,9 +104,10 @@ libSiOO.a: $(OBJS)
 clean:
 	rm -f *.o demos/*.o linenoise/*.o
 	rm -f core *~ toh-moves.mov soarerror
+
 distclean:
 	rm -f *.o demos/*.o linenoise/*.o
-	rm -f core *~ SiOO libSiOO.a toh-moves.mov soarerror
+	rm -f core *~ SiOO sioo libSiOO.a toh-moves.mov soarerror
 
 testing:
 # Foreach test passed, output " *PASS* Test_00N Description_string_for_test\n"

@@ -16,95 +16,121 @@
 # echo "Assert: We should be in the root of the SiOO directory"
 # pwd && sleep 2
 
+####   R A T I O N A L E  F O R  bin/sh  B U I L D  S C R I P T  ####
+#
+#    /bin/sh is ubiquitous and should be POSIX (ish) everywhere.
+#    /bin/bash is a very popular shell, it runs this file just fine. 
+#    Anyone familiar with *nix toolset can read this file just fine.
+#    This is meant to be naive, trivial, **clear** and _diagnosable_
+#    No tricks, just simple shell code with literate notation.
+#
+#####################################################################
+
 echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Cleaning up the previous build and old files...         *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo "We should be in sioo/: "
+echo "We are in $PWD"
 sleep 1 
 
 echo "Cleaning the output directory of all files..."
-cd out && pwd && rm *.a && rm *.h && rm sioo && echo ""
-sleep 1
-
+cd out && pwd && rm *.a && rm *.h && rm sioo && rm SiOO && echo "Successful!"
 cd .. 
+
+echo "We should be in sioo/: "
+echo "We are in $PWD"
+sleep 1
+
 echo "Cleaning the kernel build area..."
-cd kernel && pwd && make distclean && echo ""
+cd kernel && pwd && make distclean && echo "Successful!"
+cd ..
+
+echo "We should be in sioo/: "
+echo "We are in $PWD"
 sleep 1
 
-cd ..
 echo "Cleaning the command line interface build area..."
-cd cli && pwd && make distclean && echo ""
-sleep 1
+cd cli && pwd && make distclean && echo "Successful!"
 cd ..
 
-# echo "Assert: We should be in the root of the SiOO directory"
-# pwd && sleep 2
 echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Next we build the kernel and SiOO_api                   *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo "We should be in sioo/: "
+echo "We are in $PWD"
 sleep 1
 
 #First (second) we build the kernel
-cd kernel
-chmod u+x ./configure
-./configure && make 
+cd kernel && chmod u+x ./configure \
+&& ./configure && make && echo "Succesful!" 
 
-# Next lets move our finished output to the ../out
-# TODO Libraries to ../out/lib
-cp libsoarkernel.a ../out
-
-# TODO Headers to ../out/include
-# These are the highlevel, lowlevel and enhandced debugging APIs
-cp soarapi.h ../out
-cp soar_core_api.h ../out
-cp soar_ecore_api.h ../out
-
-# Deep breath...
+echo "\n"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo " * Next lets move our finished output to the ../out        *"
+echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo "We should still be in sioo/kernel:"
+echo "We are in $PWD"
 sleep 1
 
-# echo "Assert: We should be in the root of the SiOO directory"
-# pwd && sleep 2
+# HEADERS: kernel commands API, core SiOO API, and Extended APIs
+# TODO Headers to ../out/include
+# LIBRARIES: The entire kernel in one static chunk.
+# 1.79MB and shrinking...
+# TODO Libraries to ../out/lib
+#
+cp libsoarkernel.a ../out \
+&& cp soarkernel.h ../out \
+&& cp soarapi.h ../out \
+&& cp soar_core_api.h ../out \
+&& cp soar_core_utils.h ../out \
+&& cp soar_ecore_api.h ../out \
+&& cp soar_ecore_utils.h ../out \
+&& echo "Successful!"
+cd ..
+
+echo "We should be in sioo/: "
+echo "We are in $PWD"
+sleep 1
+
 echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Next we build the SiOO CLI (sioo)                       *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 sleep 1
 
-cd ../cli
 # TODO setup the cli as an autotools project
 # chmod u+x ./configure
 # ./configure --prefix=../.. --with-kernel=../kernel
-make 
-ln SiOO sioo
-chmod u+x SiOO && cp SiOO ../out 
-chmod u+x sioo && cp sioo ../out
-cp libSiOO.a ../out
-
+cd cli && make && ln SiOO sioo \
+&& chmod u+x SiOO && cp SiOO ../out \
+&& chmod u+x sioo && cp sioo ../out \
+&& cp libSiOO.a ../out && echo "Successful!"
 cd ..
-sleep 1
 
-# echo "Assert: We should be in the root of the SiOO directory"
-# pwd && sleep 2
 echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Next we build the SiOO tools (siooc, gsioo, soar2sioo)  *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo "We should be in sioo/: "
+echo "We are in $PWD"
 sleep 1
 
 cd tools
-make
-chmod u+x siooc && cp siooc ../out
-chmod u+x gsioo && cp gsioo ../out
-chmod u+x soar2sioo && cp soar2sioo ../out
-
+make \
+&& chmod u+x siooc && cp siooc ../out \
+&& chmod u+x gsioo && cp gsioo ../out \
+&& chmod u+x soar2sioo && cp soar2sioo ../out \
+&& echo "Successful!"
 cd ..
-sleep 1
 
+echo "We should be in sioo/: "
+echo "We are in $PWD"
+sleep 1
 
 # Make Documentation and move to -/out/ [man | share]
 #TODO Make man pages, mv catman to -/out/man
-#TODO Make html pages, mv to -/out/share/html
 #TODO Make API reference pdf and move to sioo/
 
 #TODO mv LOG.01.BUILD, LOG.02.TEST, LOG.03.INSTALL, LOG.04.README
@@ -112,10 +138,6 @@ sleep 1
 #     and then install them as well... (In the share directory)
 #TODO Point out explicitly in the README that we do it this way...
 
-
-
-# echo "Assert: We should be in the root of the SiOO directory"
-# pwd && sleep 2
 echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " *   B U I L D   O F  SiOO  I S   C O M P L E T E :        *"
