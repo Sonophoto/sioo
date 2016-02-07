@@ -107,7 +107,7 @@ clean:
 
 distclean:
 	rm -f *.o demos/*.o linenoise/*.o
-	rm -f core *~ SiOO sioo libSiOO.a toh-moves.mov soarerror
+	rm -f core *~ SiOO sioo libSiOO.a toh-moves.mov soarerror .sioo_history
 
 testing:
 # Foreach test passed, output " *PASS* Test_00N Description_string_for_test\n"

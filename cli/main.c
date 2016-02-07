@@ -111,7 +111,7 @@ int main( int argc, char *argv[] )
     linenoiseSetCompletionCallback(completion_CB);
 
     /* Load history from file. Plain text, /n delimited */
-    linenoiseHistoryLoad("~/.sioo_history");
+    linenoiseHistoryLoad(".sioo_history");
 
    /* REPL -->
       * call to linenoise() blocks until the user invokes the command or aborts
@@ -137,7 +137,7 @@ int main( int argc, char *argv[] )
             linenoiseHistoryAdd(line);
 
             /* Update history file */
-            linenoiseHistorySave("~/.sioo_history");
+            linenoiseHistorySave(".sioo_history");
 
             /* Check for command to update history length */
 	    } else if (!strncmp(line,"/historylen",11)) {
