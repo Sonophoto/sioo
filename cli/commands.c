@@ -317,6 +317,64 @@ void init_soar_command_table( void ) {
   gSoarCommands = make_hash_table( 6, (hash_function)hash_soar_command );
   
    add_to_hash_table( gSoarCommands, 
+      new_soar_command( "create-agent", soar_CreateAgent ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "destroy-agent", soar_DestroyAgent ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "capture-input", soar_CaptureInput ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "replay-input", soar_ReplayInput ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "chunk-name-format", soar_ChunkNameFormat ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "max-elaborations", soar_MaxElaborations ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "max-chunks", soar_MaxChunks ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "soar8-mode", soar_Operand2 ) );
+
+/* Deprecated DO NOT USE */
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "soar8", soar_Operand2 ) );
+/* Deprecated DO NOT USE */
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "operand2", soar_Operand2 ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+
+   add_to_hash_table( gSoarCommands, 
       new_soar_command( ".", interface_Source ) );
 
    add_to_hash_table( gSoarCommands, 
