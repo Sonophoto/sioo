@@ -1,10 +1,10 @@
-
-#include "commands.h"
+#include "soarapi.h"
 #include "soarkernel.h"
 #include "parsing.h"
 #include "demos/toh_demo.h"
 #include "demos/counter_demo.h" 
 #include "linenoise/linenoise.h"
+#include "commands.h"
 
 /*
  * Variable Declarations
@@ -348,32 +348,79 @@ void init_soar_command_table( void ) {
       new_soar_command( "operand2", soar_Operand2 ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "waitsnc", soar_WaitSNC ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "input-period", soar_InputPeriod ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "multi-attributes", soar_MultiAttributes ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "numeric-indifferent-mode", soar_NumericIndifferentMode ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "o-support-mode", soar_OSupportMode ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "explain-backtraces", soar_ExplainBacktraces ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "firing-counts", soar_FiringCounts ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "format-watch", soar_FormatWatch ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "",  ) );
+      new_soar_command( "indifferent-selection", soar_IndifferentSelection ) );
 
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "internal-symbols", soar_InternalSymbols ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "memories", soar_Memories ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "production-find", soar_ProductionFind ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "preferences", soar_Preferences ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "pwatch", soar_PWatch ) );
+
+#ifdef USE_DEBUG_UTILS
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "pool", soar_Pool ) );
+#endif
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "stop-soar", soar_Stop ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "verbose", soar_Verbose ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "warnings", soar_Warnings ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "log", soar_Log ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "attribute-preferences-mode", soar_AttributePreferencesMode ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "default-wme-depth", soar_DefaultWmeDepth ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "ex-build-info", soar_ExcludedBuildInfo ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "interrupt", soar_Interrupt ) );
+
+/*   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "",  ) );
+*/
    add_to_hash_table( gSoarCommands, 
       new_soar_command( ".", interface_Source ) );
 
@@ -383,7 +430,8 @@ void init_soar_command_table( void ) {
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "build-info", soar_BuildInfo ) );
 
-/*  BUGBUG This segfaults on call... */
+/*  BUGBUG This segfaults on call...      */
+/*  rptd as bug #20 but cant reproduce it */
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "clear", linenoiseClearScreen ) );
 
@@ -482,12 +530,11 @@ void init_soar_command_table( void ) {
    
 #ifdef USE_CAPTURE_REPLAY
    add_to_hash_table( gSoarCommands,
-      new_soar_command( "capture", soar_CaptureInput ) );
+      new_soar_command( "capture-input", soar_CaptureInput ) );
    add_to_hash_table( gSoarCommands,
-      new_soar_command( "replay", soar_ReplayInput ) );
+      new_soar_command( "replay-input", soar_ReplayInput ) );
 #endif
 }
-
 
 
 int hash_soar_command_string( char *name, short nbits ) {
@@ -517,7 +564,6 @@ int hash_soar_command_string( char *name, short nbits ) {
   return val & masks_for_n_low_order_bits[nbits];
     
 }  
-
 
 
 /* 

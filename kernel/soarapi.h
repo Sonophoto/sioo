@@ -116,7 +116,8 @@
  *  
  */
 
-extern int soar_ReInitSoar(int argc, const char *argv[], soarResult * res);
+extern int
+soar_ReInitSoar(int argc, const char *argv[], soarResult * res);
 
 /**
  *
@@ -154,7 +155,8 @@ extern int soar_ReInitSoar(int argc, const char *argv[], soarResult * res);
  * 
  */
 
-extern int soar_CreateAgent(int argc, const char *argv[], soarResult * res);
+extern int
+soar_CreateAgent(int argc, const char *argv[], soarResult * res);
 
 /**
  * 
@@ -225,7 +227,8 @@ extern int soar_CreateAgent(int argc, const char *argv[], soarResult * res);
  *           Runs the Soar agents for the indicated duration
  * 
  * */
-extern int soar_Run(int argc, const char *argv[], soarResult * res);
+extern int
+soar_Run(int argc, const char *argv[], soarResult * res);
 
 /**
  *
@@ -258,7 +261,8 @@ extern int soar_Run(int argc, const char *argv[], soarResult * res);
  *
  *
  */
-extern int soar_DestroyAgent(int argc, const char *argv[], soarResult * res);
+extern int
+soar_DestroyAgent(int argc, const char *argv[], soarResult * res);
 
 /**
  *
@@ -291,7 +295,8 @@ extern int soar_DestroyAgent(int argc, const char *argv[], soarResult * res);
  *
  *
  */
-extern int soar_Quit(int argc, const char *argv[], soarResult * res);
+extern int
+soar_Quit(int argc, const char *argv[], soarResult * res);
 
 /*@}*/
 
@@ -358,7 +363,8 @@ extern int soar_Quit(int argc, const char *argv[], soarResult * res);
  *
  */
 
-extern int soar_ReteNet(int argc, const char *argv[], soarResult * res);
+extern int
+soar_ReteNet(int argc, const char *argv[], soarResult * res);
 
 /**
  *
@@ -407,7 +413,8 @@ extern int soar_ReteNet(int argc, const char *argv[], soarResult * res);
  *           Adds the given wme to working memory.
  *
  * */
-extern int soar_AddWme(int argc, const char *argv[], soarResult * res);
+extern int
+soar_AddWme(int argc, const char *argv[], soarResult * res);
 
 /**
  *
@@ -449,7 +456,8 @@ extern int soar_AddWme(int argc, const char *argv[], soarResult * res);
  *
  * */
 
-extern int soar_RemoveWme(int argc, const char *argv[], soarResult * res);
+extern int
+soar_RemoveWme(int argc, const char *argv[], soarResult * res);
 
 /**
  *
@@ -491,7 +499,8 @@ extern int soar_RemoveWme(int argc, const char *argv[], soarResult * res);
  *           For -all and -task, does an init-soar.
  *
  * */
-extern int soar_Excise(int argc, const char *argv[], soarResult * res);
+extern int
+soar_Excise(int argc, const char *argv[], soarResult * res);
 
 /*@}*/
 
@@ -547,7 +556,8 @@ extern int soar_Excise(int argc, const char *argv[], soarResult * res);
  *           Opens and/or closes captured input files.  
  *
  * */
-extern int soar_CaptureInput(int argc, const char *argv[], soarResult * res);
+extern int
+soar_CaptureInput(int argc, const char *argv[], soarResult * res);
 
 /**
  *
@@ -1631,7 +1641,7 @@ extern int soar_PWatch(int argc, const char *argv[], soarResult * res);
  *
  *
  * soar_Pool --
- *
+ * 
  * \brief  This is the command procedure for the "pool" command, which 
  *         yields debugging information on various internal memory pools
  *
@@ -1676,7 +1686,8 @@ extern int soar_PWatch(int argc, const char *argv[], soarResult * res);
  *
  */
 #ifdef USE_DEBUG_UTILS
-extern int soar_Pool(int argc, const char *argv[], soarResult * res);
+extern int
+soar_Pool(int argc, const char *argv[], soarResult * res);
 #endif
 
 /**

@@ -30,25 +30,26 @@ echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Cleaning up the previous build and old files...         *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-echo "We should be in sioo/: "
-echo "We are in $PWD"
-sleep 1 
+echo ""
+#echo "We should be in sioo/: "
+#echo "We are in $PWD"
+#sleep 1 
 
 echo "Cleaning the output directory of all files..."
 cd out && pwd && rm *.a && rm *.h && rm sioo && rm SiOO && echo "Successful!"
 cd .. 
 
-echo "We should be in sioo/: "
-echo "We are in $PWD"
-sleep 1
+#echo "We should be in sioo/: "
+#echo "We are in $PWD"
+#sleep 1
 
 echo "Cleaning the kernel build area..."
 cd kernel && pwd && make distclean && echo "Successful!"
 cd ..
 
-echo "We should be in sioo/: "
-echo "We are in $PWD"
-sleep 1
+#echo "We should be in sioo/: "
+#echo "We are in $PWD"
+#sleep 1
 
 echo "Cleaning the command line interface build area..."
 cd cli && pwd && make distclean && echo "Successful!"
@@ -58,9 +59,10 @@ echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Next we build the kernel and SiOO_api                   *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-echo "We should be in sioo/: "
-echo "We are in $PWD"
-sleep 1
+echo ""
+#echo "We should be in sioo/: "
+#echo "We are in $PWD"
+#sleep 1
 
 #First (second) we build the kernel
 cd kernel && chmod u+x ./configure \
@@ -70,9 +72,10 @@ echo "\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Next lets move our finished output to the ../out        *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-echo "We should still be in sioo/kernel:"
-echo "We are in $PWD"
-sleep 1
+echo ""
+#echo "We should still be in sioo/kernel:"
+#echo "We are in $PWD"
+#sleep 1
 
 # HEADERS: kernel commands API, core SiOO API, and Extended APIs
 # TODO Headers to ../out/include
@@ -90,15 +93,18 @@ cp libsoarkernel.a ../out \
 && echo "Successful!"
 cd ..
 
-echo "We should be in sioo/: "
-echo "We are in $PWD"
-sleep 1
+#echo "We should be in sioo/: "
+#echo "We are in $PWD"
+#sleep 1
 
 echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Next we build the SiOO CLI (sioo)                       *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-sleep 1
+echo ""
+#echo "We should be in sioo/: "
+#echo "We are in $PWD"
+#sleep 1
 
 # TODO setup the cli as an autotools project
 # chmod u+x ./configure
@@ -113,9 +119,10 @@ echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " * Next we build the SiOO tools (siooc, gsioo, soar2sioo)  *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-echo "We should be in sioo/: "
-echo "We are in $PWD"
-sleep 1
+echo ""
+#echo "We should be in sioo/: "
+#echo "We are in $PWD"
+#sleep 1
 
 cd tools
 make \
@@ -125,9 +132,9 @@ make \
 && echo "Successful!"
 cd ..
 
-echo "We should be in sioo/: "
-echo "We are in $PWD"
-sleep 1
+#echo "We should be in sioo/: "
+#echo "We are in $PWD"
+#sleep 1
 
 # Make Documentation and move to -/out/ [man | share]
 #TODO Make man pages, mv catman to -/out/man
@@ -142,6 +149,7 @@ echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
 echo " *   B U I L D   O F  SiOO  I S   C O M P L E T E :        *"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
+echo ""
 echo " Version: "
 cat VERSION
 echo "\n\n"

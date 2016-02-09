@@ -133,8 +133,9 @@ extern int tolower(int);
 
 #define MAJOR_VERSION_NUMBER 9
 #define MINOR_VERSION_NUMBER 9
-#define MICRO_VERSION_NUMBER 1
-#define GREEK_VERSION_NUMBER ""
+#define MICRO_VERSION_NUMBER 2
+#define  NANO_VERSION_NUMBER 0
+#define GREEK_VERSION_NUMBER "beta"
 
 extern char *soar_version_string;
 extern char *soar_news_string;
