@@ -12,6 +12,34 @@
 hash_table *gSoarCommands;
 list *gDirectoryStack = NULL;
 
+void
+cmd_PrintBanner(void)
+   {
+print("\n\
+ ____  _  ___   ___       ___   ___   ___    ___   \n\
+/ ___|(_)/ _ \\ / _ \\     / _ \\ / _ \\ |__ \\  / _ \\  \n\
+\\___ \\| | | | | | | |   | (_) | (_) |  _) || | | | \n\
+ ___) | | |_| | |_| |    \\__, |\\__, | / _/ | |_| | \n\
+|____/|_|\\___/ \\___/       /_(_) /_(_)___(_)____/  beta\n\
+State<input> Operator Output 9.9.2.0 beta\n\
+\n\
+Copyright (C) 2016 Brig Young and many others. See HISTORY.\n\
+GNU GPLv3 -- https://www.gnu.org/licenses/gpl-3.0.html See LICENSE.\n\
+Development of SiOO sponsored by the generous support of:\n\
+Module Master LLC. http://modulemaster.com/rebuilds/about-us/\n\
+***************************************************************************\n\
+                    This is Liberated Software\n\
+    Type 'license' for details of your Rights and Responsibilities.\n\
+                    There is ABSOLUTELY NO WARRANTY!\n\
+   not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\ 
+***************************************************************************\n\
+useful commands: help, help help, license, build-info, version\n\
+\n");
+}
+
+
+
+
 /*
  * SECTION 1:  REINVENTING TICKLE ALL OVER AGAIN
  *
@@ -28,7 +56,8 @@ list *gDirectoryStack = NULL;
  *  upon system termination.  Any last second clean-ups or exit
  *  notifications should be added to this function body
  */
-void cb_exit ( agent *the_agent, soar_callback_data d,soar_call_data c )
+void
+cb_exit ( agent *the_agent, soar_callback_data d,soar_call_data c )
 {
   if (c == (soar_call_data) TRUE )
   {
@@ -42,7 +71,8 @@ void cb_exit ( agent *the_agent, soar_callback_data d,soar_call_data c )
  *  Soar generates output.  In this simple shell-interface, we need
  *  only print that output using standard IO function calls
  */
-void cb_print ( agent *the_agent, soar_callback_data d,	soar_call_data c )
+void
+cb_print ( agent *the_agent, soar_callback_data d,	soar_call_data c )
 {
 	 printf( "%s", (char*)c );
 }
@@ -55,7 +85,8 @@ void cb_print ( agent *the_agent, soar_callback_data d,	soar_call_data c )
  *  It is intended to help maintain some amount of consistency with
  *  the Tcl interface but as can be seen, it has only minimal functionality
  */
-int interface_Set( int argc, const char **argv, soarResult *res )
+int
+interface_Set( int argc, const char **argv, soarResult *res )
 {
   if ( argc < 2 )
   { 
@@ -84,7 +115,8 @@ int interface_Set( int argc, const char **argv, soarResult *res )
  *  the particualr implementation may vary based upon OS and interface
  *  details.
  */
-int interface_pushd( int argc, const char **argv, soarResult *res )
+int
+interface_pushd( int argc, const char **argv, soarResult *res )
 {
   cons *c;
   char *cdir;
@@ -463,9 +495,6 @@ void init_soar_command_table( void ) {
       new_soar_command( "multi-attributes", soar_MultiAttributes ) );
 
    add_to_hash_table( gSoarCommands, 
-      new_soar_command( "p", soar_Print ) );
-
-   add_to_hash_table( gSoarCommands, 
       new_soar_command( "pf", soar_ProductionFind ) );
 
    add_to_hash_table( gSoarCommands, 
@@ -478,7 +507,13 @@ void init_soar_command_table( void ) {
       new_soar_command( "pref", soar_Preferences ) );
 
    add_to_hash_table( gSoarCommands, 
+      new_soar_command( "p", soar_Print ) );
+
+   add_to_hash_table( gSoarCommands, 
       new_soar_command( "print", soar_Print ) );
+
+   add_to_hash_table( gSoarCommands, 
+      new_soar_command( "print-banner", cmd_PrintBanner ) );
 
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "pushd", interface_pushd ) );

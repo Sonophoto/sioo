@@ -113,10 +113,12 @@ int main( int argc, char *argv[] )
     /* Load history from file. Plain text, /n delimited */
     linenoiseHistoryLoad(".sioo_history");
 
+   /* THIS REMAINS IMMEDIATELY BEFORE while(42) loop */
+   cmd_PrintBanner();
    /* REPL -->
       * call to linenoise() blocks until the user invokes the command or aborts
       */
-    while(1)
+    while(42)
 	 {
 	 /* TODO: So here we want to check for an error condition and return a prompt
 		  based on it. Display an -OK- in green if all is well and display

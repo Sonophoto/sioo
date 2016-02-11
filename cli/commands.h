@@ -19,6 +19,8 @@ extern unsigned long masks_for_n_low_order_bits[];
 /*
  *  Prototypes
  */
+void cmd_PrintBanner(void);
+
 void cb_exit ( agent *the_agent, soar_callback_data data, soar_call_data call_data );
 
 void cb_print ( agent *the_agent, soar_callback_data data, soar_call_data call_data );
@@ -32,3 +34,4 @@ int interface_Source( int argc, const char **argv, soarResult *res );
 soar_command *find_soar_command_structure( char *name );
 
 void init_soar_command_table( void );
+
