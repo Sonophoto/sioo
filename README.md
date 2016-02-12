@@ -21,6 +21,6 @@ This code is NOT for beginners and is intended for experts with the C language, 
 
 There is no support other than the source code. Debugging support is primitive, There is no test suite...
 
-**If we haven't scared you off you can get a step by step how-to on the wiki Home page**
+**We haven't scared you off yet? Read the step-by-step how-to on the wiki Home page**
 
 https://github.com/Sonophoto/sioo/wiki
