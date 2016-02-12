@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include "soarapi.h"
 #include "soarkernel.h"
 #include "parsing.h"
@@ -6,6 +8,7 @@
 #include "linenoise/linenoise.h"
 #include "commands.h"
 
+#include <unistd.h>
 /*
  * Variable Declarations
  */

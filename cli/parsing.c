@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include "parsing.h"
 #include "commands.h"
 

@@ -1,3 +1,5 @@
+#define _GNU_SOURCE
+
 #include "soarapi.h"
 #include "soar_core_api.h"
 #include "soarkernel.h"
@@ -6,7 +8,7 @@
 #include "linenoise/linenoise.h"
 #include "linenoise/utf8.h"
 #include "callbacks.h"
-#include "utilfuncs.h"
+#include "utilifuncs.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -22,6 +24,7 @@ void usage_help(char* progname)
 
 int main( int argc, char *argv[], char *envp[] )
    {
+
    /* CLI System Variables 
    */
    char *progname = argv[0];	 /* Store invocation name */
@@ -37,24 +40,22 @@ int main( int argc, char *argv[], char *envp[] )
    */
 	char *env_TERM = getenv("TERM");
 	char *env_HOME = getenv("HOME");
+	char *env_SHELL = getenv("SHELL");
 	char FN_dotConfig[256] = "";
 	char FN_dotHistory[256] = "";
 
+	printf("\n\x1b[32;1mDEBUG: Starting Pre-Setup of %s...\n", progname);
 /* TODO Setup fall through commands */
 /*	char *env_SIOO_ENVIRO = getenv("SIOO_ENVIRO");
    	char *env_PATH = getenv("PATH");
 */
-	
-	if ( !strncmp("xterm", env_TERM, 4) 
+
+	if ( 	   !strncmp("xterm",  env_TERM, 4) 
 		|| !strncmp("vt-100", env_TERM, 6)
-		|| !strncmp("ansi", env_TERM, 4) )
-		{
-       		printf("DEBUG: Terminal type set to %s.\n", env_TERM);
-       		}
+		|| !strncmp("ansi",   env_TERM, 4) )
+		{ printf("DEBUG: Terminal type set to %s.\n", env_TERM); }
 	else
-		{
-		printf("WARNING: TERM set to: %s SiOO may not function correctly.\n", env_TERM);
-		}
+		{ printf("WARNING: TERM set to: %s SiOO may not function correctly.\n", env_TERM); }
  
 	if ( env_HOME ) 
 		{
@@ -66,13 +67,20 @@ int main( int argc, char *argv[], char *envp[] )
 		/* setup our configuration file name */
 		strcat(FN_dotConfig, env_HOME);
 		strcat(FN_dotConfig, "/.sioorc");	
-		printf("DEBUG Config File set to %s.\n", FN_dotConfig);
+		printf("DEBUG: Config File set to %s.\n", FN_dotConfig);
 		}
 	else 
 		{
-		print("WARNING: HOME Environment Variable is not Set!\n");
+		print("WARNING: HOME environment variable is not Set!\n");
 		print("WARNING: Setting HOME to Current Working Directory.\n");
 		}
+
+	if (env_SHELL) 
+		{ printf("DEBUG: Shell type set to %s.\n", env_SHELL); }
+	else
+		{ print("WARNING: SHELL Environment variable is not Set!\n"); }
+
+
 /*
 	if ( env_SIOO_ENVIRO ) 
 		{
@@ -101,6 +109,10 @@ int main( int argc, char *argv[], char *envp[] )
 		else { ; }
  */ 
   
+	printf("DEBUG: Pre-Setup of %s Complete!\n", progname);
+
+	printf("\nDEBUG: Starting Configuration of %s...\n", progname);
+
 /* CONFIGURATION OF SiOO DEFAULTS AND INVOCATION ********************
 */
 
@@ -129,6 +141,7 @@ int main( int argc, char *argv[], char *envp[] )
          exit(1);
       }
    }   
+	printf("DEBUG: Configuration of %s Complete!\n\n", progname);
 
 /* START THE SiOO KERNEL ********************************************
 */
@@ -163,6 +176,7 @@ int main( int argc, char *argv[], char *envp[] )
     * the kernel for loading productions, setting execution options,
     * and running our our agent. 
     */
+	print("DEBUG: SiOO kernel is running!\n");
 
 /* COMMAND PROCESSING SETUP **************************************************
 */
@@ -182,6 +196,8 @@ int main( int argc, char *argv[], char *envp[] )
     linenoiseHistoryLoad(FN_dotHistory);
 
    /* THIS REMAINS IMMEDIATELY BEFORE while(42) loop */
+   print("\nDEBUG: Starting the Command Interface...\x1b[0m\n");
+   linenoiseClearScreen();
    cmd_PrintBanner();
    /* REPL -->
       * call to linenoise() blocks until the user invokes the command or aborts

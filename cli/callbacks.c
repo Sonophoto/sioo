@@ -1,10 +1,12 @@
+#define _GNU_SOURCE
+
 #include "soarapi.h"
 #include "soarkernel.h"
 #include "soar_core_api.h"
 #include "parsing.h"
 #include "commands.h"
 #include "callbacks.h"
-#include "utilfuncs.h"
+#include "utilifuncs.h"
 #include "linenoise/linenoise.h"
 #include "linenoise/utf8.h"
 
