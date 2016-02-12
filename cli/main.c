@@ -9,7 +9,7 @@
 #include "utilfuncs.h"
 
 #include <stdio.h>
-
+#include <string.h>
 
 /* Invocation help text */
 void usage_help(char* progname) 
@@ -20,7 +20,7 @@ void usage_help(char* progname)
 /* MAIN *************************************************************
 */
 
-int main( int argc, char *argv[] )
+int main( int argc, char *argv[], char *envp[] )
    {
    /* CLI System Variables 
    */
@@ -31,8 +31,76 @@ int main( int argc, char *argv[] )
    /* SiOO Kernel Variables 
    */
    agent *agent_handle;		 /* Just what it says */
-   /*   soarResult res;	*/	 /* Error Number from Soar kernel */
+   /*   soarResult res;	*/	 /* Error result from Soar kernel */
 
+   /* SiOO Environment Variables
+   */
+	char *env_TERM = getenv("TERM");
+	char *env_HOME = getenv("HOME");
+	char FN_dotConfig[256] = "";
+	char FN_dotHistory[256] = "";
+
+/* TODO Setup fall through commands */
+/*	char *env_SIOO_ENVIRO = getenv("SIOO_ENVIRO");
+   	char *env_PATH = getenv("PATH");
+*/
+	
+	if ( !strncmp("xterm", env_TERM, 4) 
+		|| !strncmp("vt-100", env_TERM, 6)
+		|| !strncmp("ansi", env_TERM, 4) )
+		{
+       		printf("DEBUG: Terminal type set to %s.\n", env_TERM);
+       		}
+	else
+		{
+		printf("WARNING: TERM set to: %s SiOO may not function correctly.\n", env_TERM);
+		}
+ 
+	if ( env_HOME ) 
+		{
+		printf("DEBUG: Home Directory set to %s.\n", env_HOME);
+		/* setup our history file name */
+		strcat(FN_dotHistory, env_HOME);
+		strcat(FN_dotHistory, "/.sioo_history");	
+		printf("DEBUG: History File set to %s.\n", FN_dotHistory);
+		/* setup our configuration file name */
+		strcat(FN_dotConfig, env_HOME);
+		strcat(FN_dotConfig, "/.sioorc");	
+		printf("DEBUG Config File set to %s.\n", FN_dotConfig);
+		}
+	else 
+		{
+		print("WARNING: HOME Environment Variable is not Set!\n");
+		print("WARNING: Setting HOME to Current Working Directory.\n");
+		}
+/*
+	if ( env_SIOO_ENVIRO ) 
+		{
+		printf("SiOO Environment set to: %s.\n", env_SIOO_ENVIRO);
+		}
+		else
+	       	{
+		print("WARNING: SiOO Environment is not Set! No Options in affect!\n");
+		}
+ 
+	if ( env_PATH ) 
+		{
+		print("Using the Following PATH for non-built-ins and bang commands:\n");
+		printf("%s \n", env_PATH);
+		}
+		else
+		{
+		print("WARNING: PATH Environment Variable is not Set!\n");
+		print("WARNING: Setting PATH to Current Working Directory.\n");
+		} 
+	char *env_X = getenv(X);
+	if (env_X) 
+		{
+		;
+		}
+		else { ; }
+ */ 
+  
 /* CONFIGURATION OF SiOO DEFAULTS AND INVOCATION ********************
 */
 
@@ -110,8 +178,8 @@ int main( int argc, char *argv[] )
     /* Set the completion callback. User triggers with <TAB> key */
     linenoiseSetCompletionCallback(completion_CB);
 
-    /* Load history from file. Plain text, /n delimited */
-    linenoiseHistoryLoad(".sioo_history");
+    /* Load history from file. */
+    linenoiseHistoryLoad(FN_dotHistory);
 
    /* THIS REMAINS IMMEDIATELY BEFORE while(42) loop */
    cmd_PrintBanner();
@@ -139,7 +207,7 @@ int main( int argc, char *argv[] )
             linenoiseHistoryAdd(line);
 
             /* Update history file */
-            linenoiseHistorySave(".sioo_history");
+            linenoiseHistorySave(FN_dotHistory);
 
             /* Check for command to update history length */
 	    } else if (!strncmp(line,"/historylen",11)) {

@@ -21,7 +21,9 @@ print("\n\
 \\___ \\| | | | | | | |   | (_) | (_) |  _) || | | | \n\
  ___) | | |_| | |_| |    \\__, |\\__, | / _/ | |_| | \n\
 |____/|_|\\___/ \\___/       /_(_) /_(_)___(_)____/  beta\n\
+\n\
 State<input> Operator Output 9.9.2.0 beta\n\
+\n\
 \n\
 Copyright (C) 2016 Brig Young and many others. See HISTORY.\n\
 GNU GPLv3 -- https://www.gnu.org/licenses/gpl-3.0.html See LICENSE.\n\
