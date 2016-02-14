@@ -46,6 +46,9 @@ int
 cmd_PrintBanner( int argc, const char **argv, soarResult *res );
 */
 
+void
+cmd_PrintBanner(void);
+
 int
 interface_Set( int argc, const char **argv, soarResult *res );
 

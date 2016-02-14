@@ -34,8 +34,8 @@ list *gDirectoryStack = NULL;
 /*
 cmd_PrintBanner()
 */
-int
-cmd_PrintBanner( int argc, const char **argv, soarResult *res )
+void
+cmd_PrintBanner(void)
 {
   clearSoarResultResult( res );
 
@@ -61,11 +61,6 @@ Module Master LLC. http://modulemaster.com/rebuilds/about-us/\n\
 ***************************************************************************\n\
 useful commands: help, help help, license, build-info, version\n\
 \n");
-if (argc > 5) {printf("Wow! %d is a lot of arguments!\n", argc);}
-if (!strncmp(argv[0], "print-banner", 12)) {printf("42 --> %d\n", argc);}
-
-/* setSoarResultResult( res, "Too few arguments to 'set'\n" ); */
-return SOAR_ERROR;
 }
 
 /*
