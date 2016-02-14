@@ -1,3 +1,18 @@
+/* **************************************************************** *
+             _____     ____  _  ___   ___
+   GNU/     / ___/    / ___|(_)/ _ \ / _ \
+     /ANSI / /__      \___ \| | | | | | | |
+           \___/       ___) | | |_| | |_| |
+                      |____/|_|\___/ \___/
+ 
+   FILENAME: commands.h AUTHOR: BrigYoung 
+   COPYRIGHT: "2015, 2016 Brig Young" LICENSE: "GPLv3, see LICENSE"         
+   PURPOSE: "Monolithic file full of commands and helper functions."               
+   DERIVED: "From code by [original CLI author]'
+ * **************************************************************** */
+/* We are using ANSI C with GNU extensions */
+#define _GNU_SOURCE
+
 #include "soarapi.h"
 
 /*

@@ -1,9 +1,10 @@
 /* **************************************************************** *
-         _____
-    GNU / ___/
-       / /__  
-       \___/  
-  
+             _____     ____  _  ___   ___
+   GNU/     / ___/    / ___|(_)/ _ \ / _ \
+     /ANSI / /__      \___ \| | | | | | | |
+           \___/       ___) | | |_| | |_| |
+                      |____/|_|\___/ \___/
+ 
    FILENAME: cmd_hash.h AUTHOR: BrigYoung 
    COPYRIGHT: "2015, 2016 Brig Young" LICENSE: "GPLv3, see LICENSE"         
    PURPOSE: "Hash function maps command string to function pointer"               
