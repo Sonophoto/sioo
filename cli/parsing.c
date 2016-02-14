@@ -1,7 +1,22 @@
+/* **************************************************************** *
+         _____
+    GNU / ___/
+       / /__  
+       \___/  
+  
+   FILENAME: parsing.c AUTHOR: "Brig Young" 
+   COPYRIGHT: "2015, 2016 Brig Young" LICENSE: "GPLv3, see LICENSE"         
+   PURPOSE: ""               
+   DERIVED: "From code by [original CLI author]'
+ * **************************************************************** */
+/* We are using ANSI C with GNU extensions */
+
+
 #define _GNU_SOURCE
 
 #include "parsing.h"
 #include "commands.h"
+#include "linenoise/linenoise.h"
 
 /*
  *  parsing.c
@@ -47,7 +62,9 @@ string gString;
  *  and the remaining words are interpreted as arguments to that command
  *
  */
-int executeCommand( char *command ) {
+int
+executeCommand( char *command )
+{
 
   char **tokens;
   int ntokens;
@@ -67,44 +84,58 @@ int executeCommand( char *command ) {
   tokenizeString( command, &ntokens, &tokens, &token_terminator, &res );
 
 
-  if ( token_terminator ) {    
-    print( "\n\nError: Token unterminated...\n" );
-    return SOAR_ERROR;
-  }
+  if ( token_terminator )
+    {    
+      print( "\n\nError: Token unterminated...\n" );
+      return SOAR_ERROR;
+    }
   
   /*
    *  Check for no-op.
    */
-  if ( ntokens < 1 ) return SOAR_OK;
+  if ( ntokens < 1 )
+    {
+      return SOAR_OK;
+    }
   
-  
-
   /*
    *  the first token is the command name.  Look for it in the command
-   *  table.
+   *  table. Return NULL if command not found...
    */
   theCommand = find_soar_command_structure( tokens[0] );
   
-  /*
-   *  If the command doesn't exist, print an error
-   */
-  if ( !theCommand ) {
-    print( "Unknown command: '%s'\n", tokens[0] );
-    return SOAR_ERROR;
-  }
-  
-  /*
-   *  Otherwise, execute the command, passing the tokens along to it.
-   */
-  if ( (*theCommand->command)( ntokens, tokens, &res ) == SOAR_ERROR ) {
-    print( "Error evoking command: ");
-    print ( "%s\n%s\n", theCommand->command_name, res.result );    
-  }
-  else if ( *res.result ) {
-	print ( "   %s\n", res.result );
-  }
+  /* Did we get a command structure back from the hash? */
+  if ( !theCommand ) /* not a soarapi command */
+    {
+    if ( strncmp(tokens[0], "print-banner", 12) )
+      {
+        cmd_PrintBanner();
+        return SOAR_OK;
+      }
+    else if ( strncmp(tokens[0], "clear", 5) )
+      {
+        linenoiseClearScreen();
+        return SOAR_OK;
+      }
+    else
+      {
+        /* So our command is not a soarapi command... */
+        /* Lets feed it to /bin/sh and see what happens */
+        system(command);
+        return SOAR_OK;
+      }
+    }
 
-  
+  /* Otherwise, execute the command, passing the tokens along to it. */
+  if ( (*theCommand->command)( ntokens, tokens, &res ) == SOAR_ERROR )
+    {
+      printf( "Error evoking command: ");
+      printf( "%s\n%s\n", theCommand->command_name, res.result );    
+    }
+  else if ( *res.result )
+    { 
+      print ( "   %s\n", res.result );
+    }
   return SOAR_OK;
 }
 
@@ -127,7 +158,8 @@ int executeCommand( char *command ) {
  *
  */
 
-int tokenizeString( char *input, int *ntokens, char ***tokens, 
+int
+tokenizeString( char *input, int *ntokens, char ***tokens, 
 		     char *token_terminator, soarResult *res ) {
 
 
@@ -255,14 +287,6 @@ int tokenizeString( char *input, int *ntokens, char ***tokens,
   return( SOAR_OK );
 }
 
-
-
-
-
-
-
-
-
 /*
  * getCommandFromFile
  *
@@ -276,7 +300,8 @@ int tokenizeString( char *input, int *ntokens, char ***tokens,
  *  matching close braces are found. This allows single arguments to span
  *  multiple lines.
  */
-string getCommandFromFile( int (*readCharacter)(FILE *), FILE *f, 
+string
+getCommandFromFile( int (*readCharacter)(FILE *), FILE *f, 
 			  bool *eof_reached ) {
 
   static char input_str[LINE_BUFFER_LENGTH];
@@ -389,13 +414,10 @@ string getCommandFromFile( int (*readCharacter)(FILE *), FILE *f,
   return text_of_string(gString);
   
 }
+
 	
-
-
-
-
-
-string make_blank_string (void) {
+string
+make_blank_string (void) {
  string gs;
 
  gs = malloc (2*sizeof(int *) + INITIAL_STRING_SIZE );
@@ -405,7 +427,8 @@ string make_blank_string (void) {
  return gs;
 }
 
-void add_to_string (string *gs, char *string_to_add) {
+void
+add_to_string (string *gs, char *string_to_add) {
   int current_length, length_to_add, new_length, new_memsize;
   string new;
 
@@ -427,14 +450,16 @@ void add_to_string (string *gs, char *string_to_add) {
 
 }
 
-void clear_string (string gs) {
+void
+clear_string (string gs) {
   
   length_of_string( gs ) = 0;
   *(text_of_string(gs)) = 0;
 
 }
 
-void shorten_string( string *gs ) {
+void
+shorten_string( string *gs ) {
 
   int newlen;
 

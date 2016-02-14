@@ -57,31 +57,6 @@ useful commands: help, help help, license, build-info, version\n\
  */
 
 
-/*  This function is registered with the Soar kernel, and called 
- *  upon system termination.  Any last second clean-ups or exit
- *  notifications should be added to this function body
- */
-void
-cb_exit ( agent *the_agent, soar_callback_data d,soar_call_data c )
-{
-  if (c == (soar_call_data) TRUE )
-  {
-    print ("Good Bye! See You!\n");
-    exit( 0 );
-  }
-}
- 
- 
-/*  This funtion is registered with the Soar kernel and called when
- *  Soar generates output.  In this simple shell-interface, we need
- *  only print that output using standard IO function calls
- */
-void
-cb_print ( agent *the_agent, soar_callback_data d,	soar_call_data c )
-{
-	 printf( "%s", (char*)c );
-}
-
 
 /*  This is command is invoked by the user with the following
  *  syntax:
@@ -454,8 +429,8 @@ void init_soar_command_table( void ) {
 
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "interrupt", soar_Interrupt ) );
-
-/*   add_to_hash_table( gSoarCommands, 
+/*
+   add_to_hash_table( gSoarCommands, 
       new_soar_command( "",  ) );
 */
    add_to_hash_table( gSoarCommands, 
@@ -469,9 +444,10 @@ void init_soar_command_table( void ) {
 
 /*  BUGBUG This segfaults on call...      */
 /*  rptd as bug #20 but cant reproduce it */
+/*
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "clear", linenoiseClearScreen ) );
-
+*/
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "counter-demo", interface_counter_demo ) );
 
@@ -516,10 +492,10 @@ void init_soar_command_table( void ) {
 
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "print", soar_Print ) );
-
+/*
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "print-banner", cmd_PrintBanner ) );
-
+*/
    add_to_hash_table( gSoarCommands, 
       new_soar_command( "pushd", interface_pushd ) );
 
