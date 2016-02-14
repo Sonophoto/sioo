@@ -1,10 +1,31 @@
+/* **************************************************************** *
+         _____
+    GNU / ___/
+       / /__  
+       \___/  
+  
+   FILENAME: main.c AUTHOR: "Brig Young" 
+   COPYRIGHT: "2015, 2016 Brig Young" LICENSE: "GPLv3, see LICENSE"         
+   PURPOSE: "This is the main function and Eval Loop of SiOO-cli"               
+   DERIVED: "From code by [original CLI author]'
+ * **************************************************************** */
+/* We are using ANSI C with GNU extensions */
+#define _GNU_SOURCE
+
+
+
 #define _GNU_SOURCE
 
 #include "soarapi.h"
 #include "soar_core_api.h"
 #include "soarkernel.h"
 #include "parsing.h"
+
 #include "commands.h"
+/*
+#include "cmd_hash.h"
+#include "cmd_funcs.h"
+*/
 #include "linenoise/linenoise.h"
 #include "linenoise/utf8.h"
 #include "callbacks.h"

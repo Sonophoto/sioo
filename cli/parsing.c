@@ -14,10 +14,21 @@
 
 #define _GNU_SOURCE
 
-#include "parsing.h"
-#include "commands.h"
+#include "soarapi.h"
+#include "soarkernel.h"
+
+#include "commands.h" 
+/*
+#include "cmd_funcs.h"
+#include "cmd_hash.h"
+*/
+
 #include "linenoise/linenoise.h"
 
+#include "parsing.h"
+
+#include <stdlib.h>
+#include <unistd.h>
 #include <ctype.h>
 
 /*
@@ -72,7 +83,8 @@ executeCommand( char *command )
   int ntokens;
   char token_terminator;
   soarResult res;  
-  soar_command *theCommand; 
+  soar_command *theCommand;
+  char messy_buffer[256];
 
   init_soarResult( res );
 
@@ -109,14 +121,38 @@ executeCommand( char *command )
   /* Did we get a command structure back from the hash? */
   if ( !theCommand ) /* not a soarapi command */
     {
-    if ( !strncmp(command, "print-banner", 12) )
+    if ( !strncmp(command, "cd", 2) )
       {
-        cmd_PrintBanner();
+        /* do a manual cd I guess */
+	printf("cd is broke, CMD_STR: %s\n", command);
         return SOAR_OK;
       }
     else if ( !strncmp(command, "clear", 5) )
       {
         linenoiseClearScreen();
+        return SOAR_OK;
+      }
+    else if ( !strncmp(command, "shell", 5) )
+      {
+	system("/bin/bash -l");
+        return SOAR_OK;
+      }
+    else if ( !strncmp(command, "edit", 4) )
+      {
+printf("command string is: %s.\n", command);
+	strcpy(messy_buffer, "vim ");
+printf("messy_buffer is now: %s\n", messy_buffer);
+        strcat(messy_buffer, tokens[1]);        	
+printf("messy_buffer is now: %s\n", messy_buffer);
+        system(messy_buffer);
+printf("messy_buffer is now: %s\n", messy_buffer);
+        for(int findex = 0; findex < 256; findex ++) { messy_buffer[findex] = '\0'; }
+printf("messy_buffer is now: %s\n", messy_buffer);
+        return SOAR_OK;
+      }
+    else if ( !strncmp(command, "print-banner", 12) )
+      {
+        cmd_PrintBanner();
         return SOAR_OK;
       }
     else

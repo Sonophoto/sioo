@@ -35,7 +35,7 @@ TOP_DIR =		./..
 # gcc handles struct returns by default...
 # TODO: Drop this flag if we dont need it.
 # or just use --ansi which is essentially K&R ANSI C Edition.
-ANSI_FLAGS =		-fpcc-struct-return
+ANSI_FLAGS = -std=gnu99 -fpcc-struct-return
 
 # Is this needed if we are using gcc as the required compiler?
 # TODO Drop these flags if we don't need them (from the old Makefile.)
@@ -74,8 +74,8 @@ LIBS =			$(KERNEL_LIB_SPEC)  -ldl \
 
 # The objects
 OBJS =	parsing.o\
-	commands.o\
-        callbacks.o \
+        commands.o \
+	callbacks.o \
         utilifuncs.o \
         demos/counter_demo.o \
 	demos/toh_demo.o \

@@ -16,7 +16,13 @@
 #include "soarkernel.h"
 #include "soar_core_api.h"
 #include "parsing.h"
+
 #include "commands.h"
+/*
+#include "cmd_hash.h"
+#include "cmd_funcs.h"
+*/
+
 #include "callbacks.h"
 #include "utilifuncs.h"
 #include "linenoise/linenoise.h"
