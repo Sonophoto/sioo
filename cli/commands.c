@@ -19,8 +19,8 @@ void
 cmd_PrintBanner(void)
    {
 print("\n\
- ____  _  ___   ___       ___   ___   ___    ___   \n\
-/ ___|(_)/ _ \\ / _ \\     / _ \\ / _ \\ |__ \\  / _ \\  \n\
+____  _  ___   ___       ___   ___   ___    ___\n\
+/ ___|(_)/ _ \\ / _ \\     / _ \\ / _ \\ |__ \\  / _ \\ \n\
 \\___ \\| | | | | | | |   | (_) | (_) |  _) || | | | \n\
  ___) | | |_| | |_| |    \\__, |\\__, | / _/ | |_| | \n\
 |____/|_|\\___/ \\___/       /_(_) /_(_)___(_)____/  beta\n\
@@ -36,7 +36,7 @@ Module Master LLC. http://modulemaster.com/rebuilds/about-us/\n\
                     This is Liberated Software\n\
     Type 'license' for details of your Rights and Responsibilities.\n\
                     There is ABSOLUTELY NO WARRANTY!\n\
-   not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\ 
+   not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 ***************************************************************************\n\
 useful commands: help, help help, license, build-info, version\n\
 \n");

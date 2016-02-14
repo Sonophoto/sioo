@@ -18,6 +18,8 @@
 #include "commands.h"
 #include "linenoise/linenoise.h"
 
+#include <ctype.h>
+
 /*
  *  parsing.c
  *
@@ -107,12 +109,12 @@ executeCommand( char *command )
   /* Did we get a command structure back from the hash? */
   if ( !theCommand ) /* not a soarapi command */
     {
-    if ( strncmp(tokens[0], "print-banner", 12) )
+    if ( !strncmp(command, "print-banner", 12) )
       {
         cmd_PrintBanner();
         return SOAR_OK;
       }
-    else if ( strncmp(tokens[0], "clear", 5) )
+    else if ( !strncmp(command, "clear", 5) )
       {
         linenoiseClearScreen();
         return SOAR_OK;
@@ -127,9 +129,9 @@ executeCommand( char *command )
     }
 
   /* Otherwise, execute the command, passing the tokens along to it. */
-  if ( (*theCommand->command)( ntokens, tokens, &res ) == SOAR_ERROR )
+  if ( (*theCommand->command)( ntokens, (const char**) tokens, &res ) == SOAR_ERROR )
     {
-      printf( "Error evoking command: ");
+      print( "Error evoking command: ");
       printf( "%s\n%s\n", theCommand->command_name, res.result );    
     }
   else if ( *res.result )
