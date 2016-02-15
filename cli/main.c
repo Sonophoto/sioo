@@ -13,10 +13,6 @@
 /* We are using ANSI C with GNU extensions */
 #define _GNU_SOURCE
 
-
-
-#define _GNU_SOURCE
-
 #include "soarapi.h"
 #include "soar_core_api.h"
 #include "soarkernel.h"
@@ -36,104 +32,94 @@
 #include <string.h>
 
 /* Invocation help text */
-void usage_help(char* progname) 
+void
+usage_help(char* progname) 
    {
    fprintf(stderr, "Usage: %s [--multiline] [--keycodes] [--help]\n", progname);
    }
 
 /* MAIN *************************************************************
 */
+int
+main( int argc, char *argv[], char *envp[] )
+  {
 
-int main( int argc, char *argv[], char *envp[] )
-   {
+    /*
+    CLI System Variables 
+    */
+    char *progname = argv[0];   /* Store invocation name */
+    char *line;                 /* Current command line from linenoise */
+    /* int cmd_error;  */       /* Error Number for CLI Errors on prompt */
 
-   /* CLI System Variables 
-   */
-   char *progname = argv[0];	 /* Store invocation name */
-   char *line;			 /* Current command line from linenoise */
-   /* int cmd_error; */		 /* Error Number for CLI Errors on prompt */
+    /*
+    SiOO Kernel Variables 
+    */
+    agent *agent_handle;        /* Just what it says */
+    /* soarResult res; */       /* Error result from Soar kernel */
 
-   /* SiOO Kernel Variables 
-   */
-   agent *agent_handle;		 /* Just what it says */
-   /*   soarResult res;	*/	 /* Error result from Soar kernel */
-
-   /* SiOO Environment Variables
-   */
-	char *env_TERM = getenv("TERM");
-	char *env_HOME = getenv("HOME");
-	char *env_SHELL = getenv("SHELL");
-	char FN_dotConfig[256] = "";
-	char FN_dotHistory[256] = "";
-
-	printf("\n\x1b[32;1mDEBUG: Starting Pre-Setup of %s...\n", progname);
-/* TODO Setup fall through commands */
-/*	char *env_SIOO_ENVIRO = getenv("SIOO_ENVIRO");
-   	char *env_PATH = getenv("PATH");
-*/
-
-	if ( 	   !strncmp("xterm",  env_TERM, 4) 
-		|| !strncmp("vt-100", env_TERM, 6)
-		|| !strncmp("ansi",   env_TERM, 4) )
-		{ printf("DEBUG: Terminal type set to %s.\n", env_TERM); }
-	else
-		{ printf("WARNING: TERM set to: %s SiOO may not function correctly.\n", env_TERM); }
- 
-	if ( env_HOME ) 
-		{
-		printf("DEBUG: Home Directory set to %s.\n", env_HOME);
-		/* setup our history file name */
-		strcat(FN_dotHistory, env_HOME);
-		strcat(FN_dotHistory, "/.sioo_history");	
-		printf("DEBUG: History File set to %s.\n", FN_dotHistory);
-		/* setup our configuration file name */
-		strcat(FN_dotConfig, env_HOME);
-		strcat(FN_dotConfig, "/.sioorc");	
-		printf("DEBUG: Config File set to %s.\n", FN_dotConfig);
-		}
-	else 
-		{
-		print("WARNING: HOME environment variable is not Set!\n");
-		print("WARNING: Setting HOME to Current Working Directory.\n");
-		}
-
-	if (env_SHELL) 
-		{ printf("DEBUG: Shell type set to %s.\n", env_SHELL); }
-	else
-		{ print("WARNING: SHELL Environment variable is not Set!\n"); }
+    /*
+    SiOO Environment Variables
+    */
+    char *env_TERM = getenv("TERM");
+    char *env_HOME = getenv("HOME");
+    char *env_SHELL = getenv("SHELL");
+    char FN_dotConfig[256] = "";
+    char FN_dotHistory[256] = "";
 
 
-/*
-	if ( env_SIOO_ENVIRO ) 
-		{
-		printf("SiOO Environment set to: %s.\n", env_SIOO_ENVIRO);
-		}
-		else
-	       	{
-		print("WARNING: SiOO Environment is not Set! No Options in affect!\n");
-		}
- 
-	if ( env_PATH ) 
-		{
-		print("Using the Following PATH for non-built-ins and bang commands:\n");
-		printf("%s \n", env_PATH);
-		}
-		else
-		{
-		print("WARNING: PATH Environment Variable is not Set!\n");
-		print("WARNING: Setting PATH to Current Working Directory.\n");
-		} 
-	char *env_X = getenv(X);
-	if (env_X) 
-		{
-		;
-		}
-		else { ; }
- */ 
+/**************************************************************************/
+/***  S c r o l l i n g  S t a t u s  O u t p u t  ************************/
+/**************************************************************************/
+printf("\n\x1b[32;1mDEBUG: Starting Pre-Setup of %s...\n", progname);
+/**************************************************************************/
+
+
+    if ( !strncmp("xterm",  env_TERM, 5) 
+         || !strncmp("vt-100", env_TERM, 6)
+         || !strncmp("ansi",   env_TERM, 4) )
+      { printf("DEBUG: Terminal type set to %s.\n", env_TERM); }
+    else
+      { printf("WARNING: TERM set to: %s SiOO may not function correctly.\n", env_TERM); }
+
+    if ( env_HOME ) 
+      {
+        printf("DEBUG: Home Directory set to %s.\n", env_HOME);
+        /* setup our history file name */
+        strcat(FN_dotHistory, env_HOME);
+        strcat(FN_dotHistory, "/.sioo_history");	
+        printf("DEBUG: History File set to %s.\n", FN_dotHistory);
+        /* setup our configuration file name */
+        strcat(FN_dotConfig, env_HOME);
+        strcat(FN_dotConfig, "/.sioorc");	
+        printf("DEBUG: Config File set to %s.\n", FN_dotConfig);
+      }
+    else 
+      {
+        print("WARNING: HOME environment variable is not Set!\n");
+        print("WARNING: History and Configuration files cannot be loaded or saved.\n");
+      }
+
+    if (env_SHELL) 
+      { printf("DEBUG: Shell type set to %s.\n", env_SHELL); }
+    else
+      { print("WARNING: SHELL Environment variable is not Set!\n"); }
+
+    /*
+    char *env_X = getenv(X);
+    if (env_X) 
+      { ; }
+    else
+      { ; }
+    */ 
   
-	printf("DEBUG: Pre-Setup of %s Complete!\n", progname);
 
-	printf("\nDEBUG: Starting Configuration of %s...\n", progname);
+/**************************************************************************/
+/***  S c r o l l i n g  S t a t u s  O u t p u t  ************************/
+/**************************************************************************/
+printf("DEBUG: Pre-Setup of %s Complete!\n", progname);
+printf("\nDEBUG: Starting Configuration of %s...\n", progname);
+/**************************************************************************/
+
 
 /* CONFIGURATION OF SiOO DEFAULTS AND INVOCATION ********************
 */
@@ -163,7 +149,14 @@ int main( int argc, char *argv[], char *envp[] )
          exit(1);
       }
    }   
-	printf("DEBUG: Configuration of %s Complete!\n\n", progname);
+
+
+/**************************************************************************/
+/***  S c r o l l i n g  S t a t u s  O u t p u t  ************************/
+/**************************************************************************/
+printf("DEBUG: Configuration of %s Complete!\n\n", progname);
+/**************************************************************************/
+
 
 /* START THE SiOO KERNEL ********************************************
 */
@@ -182,13 +175,11 @@ int main( int argc, char *argv[], char *envp[] )
                       (soar_callback_fn) cb_print,
                       NULL, NULL );
 
-   /* Register our destructor function */
    soar_cPushCallback( agent_handle, 
                       SYSTEM_TERMINATION_CALLBACK, 
 		      (soar_callback_fn) cb_exit,
                       NULL, NULL );
 
-  /* Register our ask callback */
   soar_cPushCallback( agent_handle,
                       ASK_CALLBACK, 
                       (soar_callback_fn) askCallback,
@@ -198,7 +189,14 @@ int main( int argc, char *argv[], char *envp[] )
     * the kernel for loading productions, setting execution options,
     * and running our our agent. 
     */
-	print("DEBUG: SiOO kernel is running!\n");
+
+
+/**************************************************************************/
+/***  S c r o l l i n g  S t a t u s  O u t p u t  ************************/
+/**************************************************************************/
+print("DEBUG: SiOO kernel is running!\n");
+/**************************************************************************/
+
 
 /* COMMAND PROCESSING SETUP **************************************************
 */
@@ -218,7 +216,15 @@ int main( int argc, char *argv[], char *envp[] )
     linenoiseHistoryLoad(FN_dotHistory);
 
    /* THIS REMAINS IMMEDIATELY BEFORE while(42) loop */
-   print("\nDEBUG: Starting the Command Interface...\x1b[0m\n");
+
+
+/**************************************************************************/
+/***  S c r o l l i n g  S t a t u s  O u t p u t  ************************/
+/**************************************************************************/
+print("\nDEBUG: Starting the Command Interface...\x1b[0m\n");
+/**************************************************************************/
+
+
    linenoiseClearScreen();
    cmd_PrintBanner();
    /* REPL -->

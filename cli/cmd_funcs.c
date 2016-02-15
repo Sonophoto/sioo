@@ -57,7 +57,7 @@ Module Master LLC. http://modulemaster.com/rebuilds/about-us/\n\
 ***************************************************************************\n\
                     This is Liberated Software\n\
     Type 'license' for details of your Rights and Responsibilities.\n\
-                    There is ABSOLUTELY NO WARRANTY!\n\
+                 There is ABSOLUTELY NO WARRANTY!\n\
    not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\ 
 ***************************************************************************\n\
 useful commands: help, help help, license, build-info, version\n\

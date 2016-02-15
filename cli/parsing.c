@@ -7,7 +7,7 @@
  
    FILENAME: parsing.c AUTHOR: "Brig Young" 
    COPYRIGHT: "2015, 2016 Brig Young" LICENSE: "GPLv3, see LICENSE"         
-   PURPOSE: ""               
+   PURPOSE: "Code for dissecting soar_FuncName() calls"               
    DERIVED: "From code by [original CLI author]'
  * **************************************************************** */
 /* We are using ANSI C with GNU extensions */

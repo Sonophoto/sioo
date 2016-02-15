@@ -289,7 +289,7 @@ sp {tower-of-hanoi*monitor*operator-execution*move-disk
     (state <s> ^operator <o>)
    (<o> ^name move-disk
          ^disk <size>
-		 ^from <from>
+	 ^from <from>
          ^to <to-name>)
     -->
     (write (crlf) 

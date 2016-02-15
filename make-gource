@@ -1,0 +1,22 @@
+#!/bin/sh
+/* **************************************************************** *
+                  _           ____  _  ___   ___  
+   GNU/       ___| |__       / ___|(_)/ _ \ / _ \  
+     /bin/sh / __| '_ \      \___ \| | | | | | | | 
+    /        \__ \ | | |      ___) | | |_| | |_| | 
+   /GPLv3    |___/_| |_|     |____/|_|\___/ \___/
+
+   FILENAME: make-gource  AUTHOR: "Brig Young" 
+   COPYRIGHT: "2015, 2016 Brig Young" LICENSE: "GPLv3, see LICENSE"         
+   PURPOSE: "Make a gource video suitable for Vimeo"               
+
+   Project homepage for gource: http://gource.io/
+
+   Specific documentation used:
+      https://github.com/acaudwell/Gource/wiki/Controls
+      https://github.com/acaudwell/Gource/wiki/Videos
+
+* **************************************************************** */
+
+
+

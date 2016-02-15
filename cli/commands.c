@@ -32,7 +32,7 @@ void
 cmd_PrintBanner(void)
    {
 print("\n\
-____  _  ___   ___       ___   ___   ___    ___\n\
+ ____  _  ___   ___       ___   ___   ___    ___\n\
 / ___|(_)/ _ \\ / _ \\     / _ \\ / _ \\ |__ \\  / _ \\ \n\
 \\___ \\| | | | | | | |   | (_) | (_) |  _) || | | | \n\
  ___) | | |_| | |_| |    \\__, |\\__, | / _/ | |_| | \n\
@@ -48,14 +48,12 @@ Module Master LLC. http://modulemaster.com/rebuilds/about-us/\n\
 ***************************************************************************\n\
                     This is Liberated Software\n\
     Type 'license' for details of your Rights and Responsibilities.\n\
-                    There is ABSOLUTELY NO WARRANTY!\n\
+                 There is ABSOLUTELY NO WARRANTY!\n\
    not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n\
 ***************************************************************************\n\
 useful commands: help, help help, license, build-info, version\n\
 \n");
 }
-
-
 
 
 /*
@@ -68,8 +66,6 @@ useful commands: help, help help, license, build-info, version\n\
  *  user.
  *
  */
-
-
 
 /*  This is command is invoked by the user with the following
  *  syntax:
@@ -95,7 +91,6 @@ interface_Set( int argc, const char **argv, soarResult *res )
   setSoarResultResult( res, "Don't know how to set '%s'", argv[1] );
   return SOAR_ERROR;
 }
-
 
 
 /*
@@ -133,7 +128,6 @@ interface_pushd( int argc, const char **argv, soarResult *res )
 }
 
 
-
 /*
  *  This is command is invoked by the user with the following
  *  syntax:
@@ -160,7 +154,6 @@ int interface_popd ( int argc, const char **argv, soarResult *res )
   free( c );
   return SOAR_OK;
 }
-  
 
 
 /*
@@ -199,7 +192,6 @@ int interface_Source( int argc, const char **argv, soarResult *res )
   clearSoarResultResult( res );
   return SOAR_OK;
 }
-  
 
 
 /*
@@ -226,7 +218,6 @@ int interface_echo( int argc, const char **argv, soarResult *res ) {
   clearSoarResultResult( res );
   return SOAR_OK;
 }
-
 
 
 /*
