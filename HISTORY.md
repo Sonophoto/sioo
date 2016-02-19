@@ -18,6 +18,7 @@ It in fact has an very good discussion of state machines.
 
 (1) Concrete Mathematics, Graham-Knuth-Patashnik.
     -- Adison-Wesley (pp. viii) 2nd Ed. (1998 w/ updates to errata)
+    
 (2) Introduction to Artificial Intelligence, Philip C. Jackson Jr.
     -- Dover (reprint) 2nd, Enhanced Edition (1985)
 
