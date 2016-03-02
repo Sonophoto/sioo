@@ -70,6 +70,11 @@ GCC_FLAGS = -g -Wall -fprofile-arcs -ftest-coverage
 # TODO Drop these flags if we don't need them (from the old Makefile.)
 SHLIB_CFLAGS =		-fPIC
 
+### Define any tools we are using and flag variables
+RM = rm
+RM_FLAGS = -f
+
+
 #****************************************************************************
 #  Variables                   _       _     _           
 #             __   ____ _ _ __(_) __ _| |__ | | ___  ___ 
@@ -143,7 +148,7 @@ OBJS =	parsing.o\
 #
 #****************************************************************************
 
-# Since it is remotely possible this might matter, you are reminded:
+# DEFAULT targets, add any targets below or define your own.
 all:	SiOO  lib
 
 # This is not really useful at the moment, it is CRUFT for the future...
@@ -159,16 +164,17 @@ tests: tests.o $(OBJS)
 libSiOO.a: $(OBJS)
 	$(AR) $(ARFLAGS) libSiOO.a $(OBJS)
 
-# Since it is remotely possible this might matter...
+# Since it is remotely possible this might matter, you are reminded:
 #	$(RANLIB) libSiOO.a
 
 clean:
-	rm -f *.o demos/*.o linenoise/*.o *.gcno demos/*.gcno linenoise/*.gcno
-	rm -f core *~ toh-moves.mov soarerror
+	$(RM) $(RM_FLAGS) *.o demos/*.o linenoise/*.o *.gcno demos/*.gcno linenoise/*.gcno
+	$(RM) $(RM_FLAGS) *.gcda demos/*.gcda linenoise/*.gcda 
+	$(RM) $(RM_FLAGS) core *~ toh-moves.mov soarerror
 
 distclean:
-	rm -f *.o *.gcno demos/*.o demos/*.gcno linenoise/*.o linenoise/*.gcno
-	rm -f core *~ SiOO sioo libSiOO.a toh-moves.mov soarerror .sioo_history
+	$(RM) $(RM_FLAGS) *.o *.gcno demos/*.o demos/*.gcno linenoise/*.o linenoise/*.gcno
+	$(RM) $(RM_FLAGS) core *~ SiOO sioo libSiOO.a toh-moves.mov soarerror .sioo_history
 
 testing:
 # Foreach test passed, output " *PASS* Test_00N Description_string_for_test\n"
