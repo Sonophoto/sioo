@@ -14,6 +14,7 @@
  *
  * Copyright (c) 2010-2014, Salvatore Sanfilippo <antirez at gmail dot com>
  * Copyright (c) 2010-2013, Pieter Noordhuis <pcnoordhuis at gmail dot com>
+ * Copyright (c) 2015-2016, yhirose, [http://www.github.com/yhirose]
  *
  * All rights reserved.
  *
