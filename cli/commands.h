@@ -40,11 +40,17 @@ void cb_exit ( agent *the_agent, soar_callback_data data, soar_call_data call_da
 
 void cb_print ( agent *the_agent, soar_callback_data data, soar_call_data call_data );
 
+int shellnoise_pushd( int argc, const char **argv, soarResult *res );
+
+int shellnoise_popd( int argc, const char **argv, soarResult *res );
+
+int shellnoise_cd( int argc, const char **argv, soarResult *res );
+
+int interface_Source( int argc, const char **argv, soarResult *res );
+
 soar_command *new_soar_command( char *name, int (*cmd)(int, const char **, soarResult *) );
 
 int hash_soar_command( void * item, short nbits );
-
-int interface_Source( int argc, const char **argv, soarResult *res );
 
 soar_command *find_soar_command_structure( char *name );
 

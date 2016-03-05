@@ -172,9 +172,14 @@ clean:
 	$(RM) $(RM_FLAGS) *.gcda demos/*.gcda linenoise/*.gcda 
 	$(RM) $(RM_FLAGS) core *~ toh-moves.mov soarerror
 
-distclean:
-	$(RM) $(RM_FLAGS) *.o *.gcno demos/*.o demos/*.gcno linenoise/*.o linenoise/*.gcno
-	$(RM) $(RM_FLAGS) core *~ SiOO sioo libSiOO.a toh-moves.mov soarerror .sioo_history
+distclean: clean
+	$(RM) $(RM_FLAGS) SiOO sioo libSiOO.a .sioo_history
+
+#	$(RM) $(RM_FLAGS) *.o *.gcno demos/*.o demos/*.gcno linenoise/*.o linenoise/*.gcno
+#	$(RM) $(RM_FLAGS) *.gcda demos/*.gcda linenoise/*.gcda 
+#	$(RM) $(RM_FLAGS) core *~ toh-moves.mov soarerror
+	
+
 
 testing:
 # Foreach test passed, output " *PASS* Test_00N Description_string_for_test\n"

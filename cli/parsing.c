@@ -122,8 +122,7 @@ executeCommand( char *command )
     {
     if ( !strncmp(command, "cd", 2) )
       {
-        /* do a manual cd I guess */
-	printf("cd is broke, CMD_STR: %s\n", command);
+        sys_chdir(tokens[1]);
         return SOAR_OK;
       }
     else if ( !strncmp(command, "clear", 5) )
