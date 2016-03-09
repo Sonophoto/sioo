@@ -1,22 +1,49 @@
 #!/bin/sh
-/* **************************************************************** *
-                  _           ____  _  ___   ___  
-   GNU/       ___| |__       / ___|(_)/ _ \ / _ \  
-     /bin/sh / __| '_ \      \___ \| | | | | | | | 
-    /        \__ \ | | |      ___) | | |_| | |_| | 
-   /GPLv3    |___/_| |_|     |____/|_|\___/ \___/
+#####################################################################
+#                  _           ____  _  ___   ___  
+#   GNU/       ___| |__       / ___|(_)/ _ \ / _ \  
+#     /bin/sh / __| '_ \      \___ \| | | | | | | | 
+#    /        \__ \ | | |      ___) | | |_| | |_| | 
+#   /GPLv3    |___/_| |_|     |____/|_|\___/ \___/
+#
+#   FILENAME: make-gource  AUTHOR: "Brig Young" 
+#   COPYRIGHT: 2016 Brig Young" LICENSE: "GPLv3, see LICENSE"         
+#   PURPOSE: "Make a gource video of SiOO suitable for Vimeo"               
+#
+#   Project homepage for gource: http://gource.io/
+#
+#   Specific documentation used:
+#     https://github.com/acaudwell/Gource/wiki/Controls
+#     https://github.com/acaudwell/Gource/wiki/Videos
+#     http://ffmpeg.org/ffmpeg-codecs.html#libx264_002c-libx264rgb
+#     https://wiki.archlinux.org/index.php/FFmpeg#Encoding_examples
+#
+#   Requirements:
+#     gource
+#     libx264-dev
+#     ffmpeg built with "./configure --enable-libx264 --enable-gpl"
+#####################################################################
 
-   FILENAME: make-gource  AUTHOR: "Brig Young" 
-   COPYRIGHT: "2015, 2016 Brig Young" LICENSE: "GPLv3, see LICENSE"         
-   PURPOSE: "Make a gource video suitable for Vimeo"               
-
-   Project homepage for gource: http://gource.io/
-
-   Specific documentation used:
-      https://github.com/acaudwell/Gource/wiki/Controls
-      https://github.com/acaudwell/Gource/wiki/Videos
-
-* **************************************************************** */
-
+gource\
+ --viewport 1024x768\
+ --title "SiOO: State-input Operator Output"\
+ --font-colour FF0000\
+ --background-colour 000000\
+ --file-idle-time 0\
+ -disable-progress\
+ -stop-at-end\
+ -s 0.5\
+ -user-scale 2\
+ -highlight-all-users\
+ -output-ppm-stream -\
+ |\
+\
+ ffmpeg\
+ -y\
+ -f image2pipe\
+ -vcodec ppm -i -\
+ -vcodec libx264\
+ -b 5000K\
+ SiOO-gource.mp4
 
 

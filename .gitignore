@@ -1,48 +1,57 @@
+#
+# .gitignore file for the SiOO project
+#
+# These are here to keep the github clean but these
+# should all be removed with a distclean target
+#
+
+# Binary Executables
 sioo
 SiOO
 
+# Binary Outputs
+out/*
+
+# Tags and HTML Linked Code
 GTAGS
 GPATH
 GSYMS
 GRTAGS
 HTML/*
 
-out/*
+# Gource Video
+# These are all generated files, the video can be downloaded
+# from the sonophoto.github.io/sioo or vimeo.com/Sonophoto
+gource.rc
+SiOO-gource.ppm
+SiOO-gource.mp4
 
+# Editor Back-up and Swap Files
 *.swp
+*.~
+*.bak
 
-# Object files
+# Intermediate and Object files
 *.o
 *.ko
 *.obj
 *.elf
-
 *.gcno
 *.gcda
-
-# Precompiled Headers
 *.gch
 *.pch
-
-# Libraries
 *.lib
 *.a
 *.la
 *.lo
-
-# Shared objects (inc. Windows DLLs)
 *.dll
 *.so
 *.so.*
 *.dylib
-
-# Executables
 *.exe
 *.out
 *.app
 *.i*86
 *.x86_64
 *.hex
-
-# Debug files
 *.dSYM/
