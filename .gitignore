@@ -22,14 +22,17 @@ HTML/*
 # Gource Video
 # These are all generated files, the video can be downloaded
 # from the sonophoto.github.io/sioo or vimeo.com/Sonophoto
-gource/*
 gource.rc
-SiOO-gource.ppm
-SiOO-gource.mp4
+gource/gource.rc
+gource/*.ppm
+gource/*.mp4
+gource/*.jpeg
+gource/*.jpg
+gource/*.png
 
 # Editor Back-up and Swap Files
-*.swp
 *.~
+*.swp
 *.bak
 
 # Intermediate and Object files
