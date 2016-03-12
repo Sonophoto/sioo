@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: monitor</title>
+
+<style type="text/css">
+/*<![CDATA[*/
+ dt.c12 {font-weight: bold}
+/*]]>*/
+</style>
+</head>
+<body>
+<h2>NAME</h2>
+monitor - Manage attachment of scripts to Soar events
+<h2>SYNOPSIS</h2>
+<b>monitor</b> <i>action</i>
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command manages the attachment of scripts to Soar events. Soar
+events are important events that occur in Soar as an agent is being
+processed. Scripts can be attached to these Soar events so that they are
+invoked every time the Soar event occurs. These scripts can also be removed
+using the <b>monitor</b> command. The status of attachments can be listed
+and tested. If a new attachment is created, its identifier is returned as
+the result of this command. The identifier is used when deleting a script
+from an event.</p>
+<p>The specified <i>action</i> must have one of the following forms:</p>
+<dl>
+<dt><b>-add</b> <i>soar-event script [id]</i></dt>
+<dd>Add the <i>script</i> to the list of scripts to be invoked when the
+<i>soar-event</i> occurs in the Soar kernel. See below for a list of valid
+Soar event names. If the <i>id</i> is given, it is used to name the
+attachment. If no <i>id</i> is given, then a unique id is generated and
+returned.</dd>
+</dl>
+<dl>
+<dt><b>-delete</b> <i>soar-event [id]</i></dt>
+<dd>Remove scripts attached to <i>soar-event</i>. The <i>soar-event</i>
+must match a valid Soar event name (see below). If <i>id</i> is given after
+a <i>soar-event</i>, then only that particular attachment is removed.
+Otherwise, all attachments under <i>soar-event</i> are removed.</dd>
+</dl>
+<dl>
+<dt class="c12">-list</dt>
+<dd>List all attachments of scripts to Soar events</dd>
+</dl>
+<dl>
+<dt class="c12">-test</dt>
+<dd>Test the script attachment process by attaching a print message to
+every Soar event.</dd>
+</dl>
+<dl>
+<dt class="c12">-clear</dt>
+<dd>Remove <i>all</i> attached scripts.</dd>
+</dl>
+<h2>EXAMPLES</h2>
+This command creates an attachment which prints a message after every Soar
+decision cycle:
+<pre>
+<b>monitor -add after-decision-cycle {puts "Finished DC!"} </b>
+</pre>
+<p>This example creates an attachment which calls the Tcl procedure
+"DoSomething" (presumably user-defined) after every production firing:</p>
+<pre>
+<b>monitor -add firing DoSomething</b>
+</pre>
+<p>This example creates an attachment which processes pending X events
+after every decision cycle. This is needed in long-running Soar agents so
+that GUIs do not appear frozen:</p>
+<pre>
+<b>monitor -add after-decision-cycle update</b>
+</pre>
+<p>This example adds an attachment which ticks a simulator after each agent
+has completed a cycle in the Soar scheduler. Note that this example command
+is executed in the global agent's interpreter so that the simulator is
+ticked only once per schedule cycle. The "TickSimulator" command would be
+defined by the user.</p>
+<pre>
+<b>monitor -add after-schedule-cycle TickSimulator</b>
+</pre>
+<p>This example adds an attachment that could be used to inform the Soar
+development tool SDE that an agent has been selected for scheduling. SDE
+expects certain strings in Soar output and uses them to control some SDE
+operations.</p>
+<pre>
+<b>monitor -add before-schedule-cycle {puts "\nSelecting agent $soar_agent_name"}</b>
+</pre>
+<p>This example removes the single attachment "m1" which associates a
+script with the Soar event after-init-agent:</p>
+<pre>
+<b>monitor -delete after-init-agent m1</b>
+</pre>
+<p>This example removes all script attachments to the Soar event
+before-preference-phase-cycle:</p>
+<pre>
+<b>monitor -delete before-preference-phase-cycle</b>
+</pre>
+<p>This example removes all script attachments that have been added with
+the monitor command:</p>
+<pre>
+<b>monitor -clear</b>
+</pre>
+<h2>SOAR EVENTS</h2>
+This command utilizes the Soar callback system which can associate TCL or C
+functions with Soar events. The permissable Soar event names are:
+<dl>
+<dt class="c12">system-termination</dt>
+<dd>The Soar system is exiting.</dd>
+</dl>
+<dl>
+<dt class="c12">after-init-agent</dt>
+<dd>An agent has just been created and initialized.</dd>
+</dl>
+<dl>
+<dt class="c12">before-init-soar</dt>
+<dd>The agent is about to be initialized. The <b>init-soar</b> command will
+generate this event.</dd>
+</dl>
+<dl>
+<dt class="c12">after-init-soar</dt>
+<dd>The agent has just been initialized. The <b>init-soar</b> command will
+generate this event.</dd>
+</dl>
+<dl>
+<dt class="c12">after-halt-soar</dt>
+<dd>The agent has just been halted.</dd>
+</dl>
+<dl>
+<dt class="c12">before-schedule-cycle</dt>
+<dd>This event is triggered by the <b>schedule</b> command. In the global
+control agent, this event is triggered before each schedule cycle starts.
+In other agents, this event is triggered during the schedule cycle, just
+before the agent is run.</dd>
+</dl>
+<dl>
+<dt class="c12">after-schedule-cycle</dt>
+<dd>This event is triggered by the <b>schedule</b> command. In the global
+control agent, this event is triggered just after each schedule cycle ends.
+In other agents, this event is triggered during the schedule cycle, just
+after the agent is run.</dd>
+</dl>
+<dl>
+<dt class="c12">before-decision-cycle</dt>
+<dd>A decision cycle is just about to start.</dd>
+</dl>
+<dl>
+<dt class="c12">after-decision-cycle</dt>
+<dd>A decision cycle has just ended.</dd>
+</dl>
+<dl>
+<dt class="c12">before-input-phase</dt>
+<dd>An input phase is just about to start.</dd>
+</dl>
+<dl>
+<dt class="c12">after-input-phase</dt>
+<dd>An input phase has just ended.</dd>
+</dl>
+<dl>
+<dt class="c12">before-preference-phase-cycle</dt>
+<dd>A preference phase is just about to begin.</dd>
+</dl>
+<dl>
+<dt class="c12">after-preference-phase-cycle</dt>
+<dd>A preference phase has just ended.</dd>
+</dl>
+<dl>
+<dt class="c12">before-wm-phase-cycle</dt>
+<dd>A working memory phase is just about to begin.</dd>
+</dl>
+<dl>
+<dt class="c12">after-wm-phase-cycle</dt>
+<dd>A working memory phase is just about to begin.</dd>
+</dl>
+<dl>
+<dt class="c12">before-output-phase</dt>
+<dd>An output phase is just about to begin.</dd>
+</dl>
+<dl>
+<dt class="c12">after-output-phase</dt>
+<dd>An output phase has just ended.</dd>
+</dl>
+<dl>
+<dt class="c12">before-decision-phase-cycle</dt>
+<dd>A decision phase is about to begin.</dd>
+</dl>
+<dl>
+<dt class="c12">after-decision-phase-cycle</dt>
+<dd>A decision phase has just ended.</dd>
+</dl>
+<dl>
+<dt class="c12">wm-changes</dt>
+<dd>Changes to working memory have just completed.</dd>
+</dl>
+<dl>
+<dt class="c12">create-new-context</dt>
+<dd>A new state has been created on the goal stack.</dd>
+</dl>
+<dl>
+<dt class="c12">pop-context-stack</dt>
+<dd>A subgoal has finished.</dd>
+</dl>
+<dl>
+<dt class="c12">create-new-attribute-impasse</dt>
+<dd>A new attribute impasse has occurred.</dd>
+</dl>
+<dl>
+<dt class="c12">remove-attribute-impasse</dt>
+<dd>An attribute impasse has been removed.</dd>
+</dl>
+<dl>
+<dt class="c12">production-just-added</dt>
+<dd>A productions has just been added to the agent.</dd>
+</dl>
+<dl>
+<dt class="c12">production-just-about-to-be-excised</dt>
+<dd>A production is just about to be removed from the agent.</dd>
+</dl>
+<dl>
+<dt class="c12">firing</dt>
+<dd>A production instantiation has just fired.</dd>
+</dl>
+<dl>
+<dt class="c12">retraction</dt>
+<dd>A production instantiation is just about to retract.</dd>
+</dl>
+<dl>
+<dt class="c12">system-parameter-changed</dt>
+<dd>A system parameter has just been changed.</dd>
+</dl>
+</body>
+</html>

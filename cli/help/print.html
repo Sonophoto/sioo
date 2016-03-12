@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: print</title>
+
+<style type="text/css">
+/*<![CDATA[*/
+ dt.c14 {font-weight: bold}
+ dt.c13 {font-style: italic}
+/*]]>*/
+</style>
+</head>
+<body>
+<h2>NAME</h2>
+print - Print a Soar item from production memory or working memory
+<h2>SYNOPSIS</h2>
+<b>print</b> -stack [ <b>-state</b> | <b>-operator</b> ]*<br />
+<b>print</b> [<b>-depth</b> <i>n</i>] [<b>-internal</b>] { <i>identifier |
+integer | pattern</i>}<br />
+<b>print</b> [<b>-internal</b>] [<b>-name|-full</b>] { <i>prodname | -all |
+-chunks | -defaults | -justifications | -user</i>}
+<hr />
+<h2>DESCRIPTION</h2>
+<p>The <b>print</b> command is used to print items from production memory
+or working memory. It can take several kinds of arguments. When printing
+items from working memory, the Soar objects are printed unless the
+<b>-internal</b> flag is used, in which case the wmes themselves are
+printed. The <i>item</i>s to be printed may be one of the following:</p>
+<dl>
+<dt class="c13">production-name</dt>
+<dd>print the production named <i>production-name</i></dd>
+</dl>
+<dl>
+<dt class="c13">-all</dt>
+<dd>print the names of all productions currently loaded</dd>
+</dl>
+<dl>
+<dt class="c13">-chunks</dt>
+<dd>print the names of all chunks currently loaded</dd>
+</dl>
+<dl>
+<dt class="c13">-defaults</dt>
+<dd>print the names of all default productions currently loaded</dd>
+</dl>
+<dl>
+<dt class="c13">-justifications</dt>
+<dd>print the names of all justifications currently loaded</dd>
+</dl>
+<dl>
+<dt class="c13">-user</dt>
+<dd>print the names of all user productions currently loaded</dd>
+</dl>
+<dl>
+<dt class="c13">identifier</dt>
+<dd>print the object <i>identifier</i>. <i>identifier</i> must be a valid
+Soar symbol.</dd>
+</dl>
+<dl>
+<dt class="c13">integer</dt>
+<dd>print the object in working memory with the timetag <i>integer</i></dd>
+</dl>
+<dl>
+<dt class="c13">pattern</dt>
+<dd>print the object whose working memory elements matching the given
+<i>pattern</i>. The pattern is interpreted by the Soar kernel so it must be
+surrounded by curly braces or double quotes to avoid being parsed by Tcl. A
+<i>pattern</i> has the following form:</dd>
+</dl>
+<pre>
+       <b>(<i>identifier <b>^<i>attribute value</i></b></i></b> [<b>+</b>]<b>)</b>
+</pre>
+<p>The <i>pattern</i> is surrounded by parentheses. The <i>identifier</i>,
+<i>attribute</i>, and <i>value</i> must be valid Soar symbols or the
+wildcard symbol <b>*</b> which matches all occurences. The optional
+<b>+</b> symbol restricts pattern matches to acceptable preferences.</p>
+<h2>OPTIONS</h2>
+<p>All options apply only to arguments which follow them on the command
+line.</p>
+<dl>
+<dt><b>-depth</b> <i>n</i></dt>
+<dd>This option overrides the default printing depth (see the
+<b>default-print-depth</b> command for more detail). Note that a <b>-depth
+0</b> argument is meaningful only with accompanying integer and pattern
+arguments. It causes only the matching working memory elements to be
+printed, instead of all elements whose identifier is an identifier in one
+of the matching working memory elements.</dd>
+</dl>
+<dl>
+<dt class="c14">-internal</dt>
+<dd>Specifies that items should be printed in their internal form. For
+productions, this means leaving conditions in their reordered (rete net)
+form. For working memory, this means printing the individual elements with
+their timetags, rather than the objects.</dd>
+</dl>
+<dl>
+<dt class="c14">-full</dt>
+<dd>When printing productions, print the whole production. This is the
+default when printing a named production.</dd>
+</dl>
+<dl>
+<dt class="c14">-name</dt>
+<dd>When printing productions, print only the name and not the whole
+production. This is the default when printing any catorgory of productions,
+as opposed to a named production.</dd>
+</dl>
+<dl>
+<dt class="c14">-stack</dt>
+<dd>Specifies that the Soar goal stack should be printed. By default this
+includes both states and operators. The stack listing can be restricted by
+adding the <b>-states</b> and <b>-operator</b> restrictions. Giving both
+options is equivalent to the default. The predefined alias 'ps' is the same
+as <b>print -stack</b>.</dd>
+</dl>
+<h2>EXAMPLES</h2>
+<dl>
+<dt class="c14">print -internal {(s1 ^* v2)}</dt>
+<dd>Print the working memory elements (and their timetags) which have the
+identifier s1 as object and v2 as value.</dd>
+</dl>
+<dl>
+<dt class="c14">print -stack</dt>
+<dd>Print the Soar stack which includes states and operators.</dd>
+</dl>
+<dl>
+<dt class="c14">print -internal -full prodname</dt>
+<dd>Print the named production in its RETE form.</dd>
+</dl>
+<dl>
+<dt class="c14">print -user</dt>
+<dd>Print the names of all user productions currently loaded.</dd>
+</dl>
+<h2>WARNINGS</h2>
+The order of options and arguments to the <b>print</b> command do matter:
+options apply only to arguments which follow them.
+<dl>
+<dt class="c14">print -chunks -full</dt>
+<dd>prints only the names of chunks, while</dd>
+</dl>
+<dl>
+<dt class="c14">print -full -chunks</dt>
+<dd>prints the entire chunk for all chunks.</dd>
+</dl>
+<h2>SEE ALSO</h2>
+<b>default-wme-depth</b>, <b>predefined-aliases</b>
+</body>
+</html>

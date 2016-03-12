@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: matches</title>
+
+</head>
+<body>
+<h2>NAME</h2>
+matches - List production match information
+<h2>SYNOPSIS</h2>
+<b>matches</b> <i>production-name</i> [<b>-count</b> | <b>-timetags</b> |
+<b>-wmes</b> | <b>0</b> | <b>1</b> | <b>2</b>]<br />
+<b>matches</b> [<b>-assertions</b> | <b>-retractions</b>] [<b>-names</b> |
+<b>-timetags</b> | <b>-wmes</b> | <b>0</b> | <b>1</b> | <b>2</b>]
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command prints partial match information for a selected production.
+If issued at the end of the Decision Phase, it also prints the current set
+of productions that are about to fire or retract in the next preference
+phase. This information is useful for determining what changes to working
+memory are necessary in order to achieve a match of the left-hand sides of
+productions.</p>
+<p>If no production name is given, then it is assumed that the user desires
+information about the match set, including both assertions and
+retractions.</p>
+<h2>OPTIONS</h2>
+Normally both assertions and retractions are printed by the <b>matches</b>
+command. This can be restricted using one of the following options:
+<dl>
+<dt>-assertions</dt>
+<dd>List only those productions about to fire</dd>
+</dl>
+<dl>
+<dt>-retractions</dt>
+<dd>List only those productions about to retract</dd>
+</dl>
+<p>The optional detail specifies the kind of information desired and must
+be one of the following (the <b>0</b> option is the default):</p>
+<dl>
+<dt><b>-count</b> or <b>-names</b> or <b>0</b></dt>
+<dd>Print just the partial match counts. If the match set is being printed,
+then print just the production names.</dd>
+</dl>
+<dl>
+<dt><b>-timetags</b> or <b>1</b></dt>
+<dd>Print the same information as the <b>-count</b> option plus the
+timetags of wmes at the the first failing condition</dd>
+</dl>
+<dl>
+<dt><b>-wmes</b> or <b>2</b></dt>
+<dd>Print the same information as the <b>-timetags</b> option except print
+the full wmes rather than just their timetags</dd>
+</dl>
+<h2>EXAMPLES</h2>
+This example prints the productions which are about to fire and the wmes
+that match the productions on their left-hand sides:
+<pre>
+<b>matches -assertions -wmes</b>
+</pre>
+<p>This example prints the wme timetags for a single production. This
+example takes advantage of the unique prefix abbreviation feature of
+switches.</p>
+<pre7>
+matches -t my*first*production
+</pre>
+<h2>WARNINGS</h2>
+<p>In Soar 8, the Decision Phase occurs in the middle of the
+Decision Cycle, followed by the Apply Phase. Therefore, at the end of the
+Decision Cycle, productions will have already fired and the "matches"
+command will not be very helpful. To examine the match information in
+immediately after the Decision Phase in Soar 8, users can implement either
+of the following callbacks:</p>
+<pre>
+<b>monitor -add {matches -wmes} after-decision-phase-cycle</b>
+</pre>
+<pre>
+monitor -add {stop-soar -self} after-decision-phase-cycle
+</pre>
+<p><b>The first example can use any options to the matches</b> command,
+whatever the user finds most helpful. The second option, which stops Soar
+at the end of the Decision Phase, offers the most flexibility for
+debugging. It is recommended that users issue this callback for all agents,
+so they don't get out of synch when running. Once the productions have been
+debugged, the monitors can be deleted.</p>
+<h2>SEE ALSO</h2>
+<b>monitor</b>
+</body>
+</html>

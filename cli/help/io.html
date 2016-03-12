@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: io</title>
+</head>
+<body>
+<h2>NAME</h2>
+io - Manage attachment of scripts to Soar I/O
+<h2>SYNOPSIS</h2>
+<b>io</b> <i>action</i>
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command manages the attachment of scripts to Soar I/O. Soar has an
+event defined for input and another for output. Scripts can be attached to
+these Soar events so that they are invoked every time the Soar event
+occurs. These scripts can later be removed using the <b>io</b> command. The
+status of attachments can be listed also. If a new attachment is created,
+its identifier is returned as the result of this command.</p>
+<p>The specified <i>action</i> must have one of the following forms:</p>
+<dl>
+<dt><b>-add</b> [<b>-input</b> | <b>-output</b>] <i>script [id]</i></dt>
+<dd>Add the <i>script</i> to the list of scripts to be invoked when the
+<b>-input</b> or <b>output</b> event occurs in the Soar kernel. If the
+<i>id</i> is given, it is used to name the attachment. If no <i>id</i> is
+given, then a unique id is generated and returned. The id is necessary if a
+user ever wants to delete an action.</dd>
+</dl>
+<dl>
+<dt><b>-delete</b> [<b>-input</b> | <b>-output</b>] <i>id</i></dt>
+<dd>Remove script attachment named <i>id</i>.</dd>
+</dl>
+<dl>
+<dt><b>-list</b> [<b>-input</b> | <b>-output</b>]</dt>
+<dd>List all attachments of scripts to Soar input or output.</dd>
+</dl>
+<h2>EXAMPLES</h2>
+<p>A detailed example of using Soar I/O in Tcl is given in the file
+<b>demos/soar-io-using-tcl.tcl</b>.</p>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: log</title>
+
+</head>
+<body>
+<h2>NAME</h2>
+log - Log a Soar agent session
+<h2>SYNOPSIS</h2>
+<b>log</b> <i>action</i>
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command records the prompts, commands, printing, and command
+results that are printed to stdout for a given agent. The <i>action</i>
+must be one of the following:</p>
+<dl>
+<dt><b>-new</b> <i>pathname</i></dt>
+<dd>A log file named <i>pathname</i> is created and logging is
+initiated.</dd>
+</dl>
+<dl>
+<dt><b>-existing</b> <i>pathname</i></dt>
+<dd>An existing log file named <i>pathname</i> is opened and logging is
+added to the end of the file.</dd>
+</dl>
+<dl>
+<dt><b>-add</b> <i>string</i></dt>
+<dd>Add the given <i>string</i> to the open log file</dd>
+</dl>
+<dl>
+<dt>-query</dt>
+<dd>Returns <b>open</b> if logging is active or <b>closed</b> if logging is
+not active.</dd>
+</dl>
+<dl>
+<dt>-off</dt>
+<dd>Close the open log file.</dd>
+</dl>
+<h2>EXAMPLES</h2>
+This initiates logging and places the record in foo.log:
+<pre>
+<b>log -new foo.log</b>
+</pre>
+<p>This appends log data to an existing foo.log file:</p>
+<pre>
+<b>log -existing foo.log</b>
+</pre>
+<p>This terminates logging and closes the open log file:</p>
+<pre>
+<b>log -off</b>
+</pre>
+</body>
+</html>

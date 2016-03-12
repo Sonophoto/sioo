@@ -1,0 +1,3 @@
+#!/bin/sh
+tidy -m -c -asxhtml -w 76 -utf8 *.html^C
+

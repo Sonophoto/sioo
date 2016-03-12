@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: preferences</title>
+</head>
+<body>
+<h2>NAME</h2>
+preferences - Print slot preferences
+<h2>SYNOPSIS</h2>
+<b>preferences</b> [<i>id</i>] [[^]<i>attribute</i>] [ <i>0 | 1 | 2 | 3</i>
+] <b>preferences</b> [<i>id</i>] [[^]<i>attribute</i>] [ <i>-none | -names
+| -timetags | -wmes</i> ]
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command prints all the preferences for the given slot (i.e., object
+and attribute). The <i>id</i> and <i>attribute</i> indicate the slot of
+interest. If they are not specified, they default to the current state and
+the current operator. The '^' is optional when specifying the attribute.
+The optional arguments indicates the level of detail to print about each
+preference.</p>
+<h2>OPTIONS</h2>
+The optional <i>detail</i> must have one of the following values:
+<dl>
+<dt><b>-none</b> or <b>0</b></dt>
+<dd>Print just the preferences themselves</dd>
+</dl>
+<dl>
+<dt><b>-names</b> or <b>1</b></dt>
+<dd>Print the preferences and the names of the productions that generated
+them</dd>
+</dl>
+<dl>
+<dt><b>-timetags</b> or <b>2</b></dt>
+<dd>Print the information for the <b>-names</b> option above plus the
+timetags of the wmes matched by the indicated productions</dd>
+</dl>
+<dl>
+<dt><b>-wmes</b> or <b>3</b></dt>
+<dd>Print the information for the <b>-timetags</b> option above plus the
+entire wme.</dd>
+</dl>
+<p>If no <i>detail</i> is given, then the <b>-none</b> option is used.</p>
+<h2>EXAMPLES</h2>
+This example prints the preferences on the <b>S1 operator</b> slot and the
+production names which created the preferences:
+<pre>
+<b>preferences S1 operator -names</b>
+</pre>
+</body>
+</html>

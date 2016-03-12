@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Command: excise</title>
+
+<style type="text/css">
+/*<![CDATA[*/
+ dt.c2 {font-weight: bold}
+ dt.c1 {font-style: italic}
+/*]]>*/
+</style>
+</head>
+<body>
+<h2>NAME</h2>
+excise - Remove productions from Soar's memory
+<h2>SYNOPSIS</h2>
+<b>excise</b> <i>production-name</i> | <b>-chunks</b> | <b>-default</b> |
+<b>-task</b> | <b>-user</b> | <b>-all</b>
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command removes productions from Soar's memory. Each option given
+on the command line may be either a production name or the type of the
+standard set of productions (indicated by a keyword).</p>
+<h2>OPTIONS</h2>
+<dl>
+<dt>production-name</dt>
+<dd>Remove the production named <i>production-name</i> from memory</dd>
+</dl>
+<dl>
+<dt>-chunks</dt>
+<dd>Remove all chunks (learned productions) and justifications from
+memory</dd>
+</dl>
+<dl>
+<dt>-default</dt>
+<dd>Remove all default rules (:default) from memory</dd>
+</dl>
+<dl>
+<dt>-task</dt>
+<dd>Remove all non-default productions from memory and perform an
+<b>init-soar</b> command</dd>
+</dl>
+<dl>
+<dt>-user</dt>
+<dd>Remove all user productions (but not chunks or default rules) from
+memory.</dd>
+</dl>
+<dl>
+<dt>-all</dt>
+<dd>Remove all productions from memory and perform an <b>init-soar</b>
+command</dd>
+</dl>
+<h2>EXAMPLES</h2>
+<p>This removes the production my*first*production and all chunks:</p>
+<pre>
+<b>excise my*first*production -chunks</b>
+</pre>
+<p>This removes all productions and does an init-soar:</p>
+<pre>
+<b>excise -all</b>
+</pre>
+<h2>SEE ALSO</h2>
+<b>init-soar</b>
+</body>
+</html>

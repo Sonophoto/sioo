@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: stop-soar</title>
+</head>
+<body>
+<h2>NAME</h2>
+stop-soar - Stop Soar
+<h2>SYNOPSIS</h2>
+<b>stop-soar</b> [ <b>-self</b> [reason-string] ]
+<hr />
+<h2>DESCRIPTION</h2>
+<p>Agents may be run using the <b>run</b> command. The <b>stop-soar</b>
+command stops any running Soar agents. It sets a flag in the Soar kernel so
+that Soar will stop running at a "safe" point and return control to the
+user. This operates exactly as if the user had issued a control-C (SIGINT)
+interrupt to the Soar process.</p>
+<dl>
+<dt>-self</dt>
+<dd>Stop only the soar agent where the command is issued. All other agents
+continue running as previously specified.</dd>
+</dl>
+<dl>
+<dt class="c19">reason-string</dt>
+<dd>An optional string following <b>-self</b> which will be printed when
+Soar is stopped, to indicate why it was stopped. If left blank, no message
+will be printed when Soar is stopped.</dd>
+</dl>
+<p>This command is usually not issued at the command line prompt. A more
+common use of this command is as a side-effect of pressing a button on a
+Graphical User Interface (GUI), or as a monitor to be executed at a
+specific Soar Event. For example, a user may wish to examine an agent's
+"matches" after the Soar Decision Phase. In order to do this in Soar 8, the
+user must register a monitor, or callback, to issue the "stop-soar -self"
+command for the event, after-decision-phase-cycle.</p>
+<h2>EXAMPLES</h2>
+<p>This example shows how to stop Soar8 after this decision phase using
+<b>stop-soar -self</b> in a monitor to stop after the decision phase so
+that memory can be examined.</p>
+<pre>
+ monitor -add {stop-soar -self "after decision phase"} \
+        after-decision-phase-cycle
+
+</pre>
+<h2>WARNINGS</h2>
+<b>If the graphical interface doesn't periodically do a Tcl "update"
+command, then it may not be possible to interrupt a Soar agent from the
+command line.</b>
+<h2>SEE ALSO</h2>
+<b>run</b>, <b>monitor</b>, <b>matches</b>
+</body>
+</html>

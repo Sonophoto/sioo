@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: memories</title>
+
+</head>
+<body>
+<h2>NAME</h2>
+memories - Print partial match memory usage
+<h2>SYNOPSIS</h2>
+<b>memories</b> [<i>production-name</i> | <i>count</i> | <b>-chunk</b> |
+<b>-user</b> | <b>-default</b> | <b>-justification</b>]
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command prints information about memory use, in tokens, of partial
+matches of productions. With no options, memory use of all productions is
+printed. Other options indicate a subset of the productions.</p>
+<h2>OPTIONS</h2>
+If given, an option must match one of the following forms:
+<dl>
+<dt>production-name</dt>
+<dd>print memory usage of the production named <i>production-name</i></dd>
+</dl>
+<dl>
+<dt>count</dt>
+<dd>for all specified groups (chunk, default, user, and/or justification)
+print usage information on only <i>count</i> of each.</dd>
+</dl>
+<dl>
+<dt>-chunk</dt>
+<dd>print memory usage of chunks</dd>
+</dl>
+<dl>
+<dt>-user</dt>
+<dd>print memory usage of user productions</dd>
+</dl>
+<dl>
+<dt>-default</dt>
+<dd>print memory usage of the default productions</dd>
+</dl>
+<dl>
+<dt>-justification</dt>
+<dd>print memory usage of justifications</dd>
+</dl>
+</body>
+</html>

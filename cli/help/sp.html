@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: sp</title>
+
+<style type="text/css">
+/*<![CDATA[*/
+ dt.c17 {font-weight: bold}
+/*]]>*/
+</style>
+</head>
+<body>
+<h2>NAME</h2>
+sp - Define a Soar production
+<h2>SYNOPSIS</h2>
+<b>sp <i>rule</i></b>
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command defines a new Soar production. <i>rule</i> is a single
+argument parsed by the Soar kernel, so it should be enclosed in curly
+braces to avoid being parsed by Tcl. The overall syntax of a <i>rule</i> is
+as follows:</p>
+<pre>
+   <i>name</i> 
+       [<b>"</b><i>documentation-string</i><b>"</b>] 
+       [<i>FLAG</i>*]
+       <i>LHS</i>
+       <b>--&gt;</b>
+       <i>RHS</i>
+</pre>
+<p>The first element of a <i>rule</i> is its <i>name</i>. Conventions for
+<i>names</i> are given in the Soar Users Manual. If given, the
+<i>documentation-string</i> must be enclosed in double quotes. Optional
+flags define the type of rule and the form of support its right-hand side
+assertions will receive. The specific flags are listed in a separate
+section below. The <i>LHS</i> defines the left-hand side of the production
+and specifies the conditions under which the rule can be fired. Its syntax
+is given in detail in a subsequent section. The <b>--&gt;</b> symbol serves
+to separate the <i>LHS</i> and <i>RHS</i> portions. The <i>RHS</i> defines
+the right-hand side of the production and specifies the assertions to be
+made and the actions to be performed when the rule fires. The syntax of the
+allowable right-hand side actions are given in a later section. The Soar
+Users Manual gives an elaborate discussion of the design and coding of
+productions. Please see that reference for tutorial information about
+productions.</p>
+<p>More complex productions can be formed by surrounding the <i>rule</i>
+with double quotes instead of curly braces. This enables variable and
+command result substitutions in productions. If another production with the
+same name already exists, it is excised, and the new production is
+loaded.</p>
+<h2>RULE FLAGS</h2>
+<p>The optional <i>FLAG</i>s are given below. Note that these switches are
+preceeded by a colon instead of a dash -- this is a Soar parser
+convention.</p>
+<dl>
+<dt class="c17">:o-support</dt>
+<dd>specifies that all the RHS actions are to be given o-support when the
+production fires</dd>
+</dl>
+<dl>
+<dt class="c17">:no-support</dt>
+<dd>specifies that all the RHS actions are only to be given i-support when
+the production fires</dd>
+</dl>
+<dl>
+<dt class="c17">:default</dt>
+<dd>specifies that this production is a default production (this matters
+for <b>excise -task</b> and <b>watch task</b>)</dd>
+</dl>
+<dl>
+<dt class="c17">:chunk</dt>
+<dd>specifies that this production is a chunk (this matters for <b>learn
+trace</b>)</dd>
+</dl>
+<h2>LHS GRAMMAR</h2>
+Grammar for left hand sides of productions:
+<pre>
+   <i>lhs</i> ::= <i>cond</i>+
+   <i>cond</i> ::= <i>positive_cond</i>  | - <i>positive_cond</i>
+   <i>positive_cond</i> ::= <i>conds_for_one_id</i>  | { <i>cond</i>+ }
+   <i>conds_for_one_id</i> ::= ( [state |impasse] [<i>id_test</i>] <i>attr_value_tests</i>* )
+   <i>id_test</i> ::= <i>test</i>
+   <i>attr_value_tests</i> ::= [-] ^ <i>attr_test</i> [.<i>attr_test</i>]* <i>value_test</i>*
+   <i>attr_test</i> ::= <i>test</i>
+   <i>value_test</i> ::= <i>test</i> [+]  | <i>conds_for_one_id</i> [+]
+
+   <i>test</i> ::= <i>conjunctive_test</i>  | <i>simple_test</i>
+   <i>conjunctive_test</i> ::= { <i>simple_test</i>+ }
+   <i>simple_test</i> ::= <i>disjunction_test</i>  | <i>relational_test</i>
+   <i>disjunction_test</i> ::= &lt;&lt; <i>constant</i>* &gt;&gt;
+   <i>relational_test</i> ::= [<i>relation</i>] <i>single_test</i>
+   <i>relation</i> ::= &lt;&gt;  | &lt;  | &gt;  | &lt;=  | &gt;=  | =  | &lt;=&gt;
+   <i>single_test</i> ::= variable  | <i>constant</i>
+   <i>constant</i> ::= sym_constant  | int_constant  | float_constant
+</pre>
+<h2>RHS GRAMMAR</h2>
+Grammar for right hand sides of productions:
+<pre>
+   <i>rhs</i> ::= <i>rhs_action</i>*
+   <i>rhs_action</i> ::= ( variable <i>attr_value_make</i>+ )  | <i>function_call</i>
+   <i>function_call</i> ::= ( <i>function_name</i> <i>rhs_value</i>* )
+   <i>function_name</i> ::= sym_constant  | +  | -
+   <i>rhs_value</i> ::= <i>constant</i>  | <i>function_call</i>  | variable
+   <i>constant</i> ::= sym_constant  | int_constant  | float_constant
+   <i>attr_value_make</i> ::= ^ <i>rhs_value</i> [.<i>rhs_value</i>]* <i>value_make</i>+
+   <i>value_make</i> ::= <i>rhs_value</i> <i>preferences</i>
+
+   <i>preferences</i> ::= [,] | <i>preference-specifier</i>+
+   <i>preference-specifier</i> ::= <i>naturally-unary-preference</i> [,]
+                             | <i>forced-unary-preference</i>
+                             | <i>binary-preference</i> <i>rhs_value</i> [,]
+   <i>naturally-unary-preference</i> ::= +  | -  | !  | ~  | @
+   <i>binary-preference</i> ::= &gt;  | =  | &lt;  | &amp;
+   <i>forced-unary-preference</i> ::= <i>binary-preference</i> {,  | )  | ^}
+</pre>
+<h2>EXAMPLES</h2>
+There are many examples in the Soar Users Manual and the demos
+subdirectory. Here is a simple production to create a problem space. It
+comes from the critter-world demo (see the file critter.tcl):
+<pre>
+<b>
+sp {critter*create*space*critter
+   "Formulate the initial problem space"
+  (state &lt;s&gt; ^superstate nil)
+  --&gt;
+  (&lt;s&gt; ^name move-around ^problem-space &lt;p&gt;)
+  (&lt;p&gt; ^name critter)}
+</b>
+</pre>
+<p>The production above has the <i>name</i>
+<b>critter*create*space*critter</b>. It has a documentation string that is
+surrounded by double quotes. The <i>LHS</i> is <b>(state &lt;s&gt;
+^superstate nil)</b> and indicates that this rule will match whenever there
+is a state object that has the attribute-value pair <b>^superstate nil</b>.
+The <b>--&gt;</b> arrow separates the left and right-hand sides. The
+<i>RHS</i> consists of two lines. The first asserts that the state object
+is to be augmented with the name <b>move-around</b> and a problem space
+should be created. The second line of the <i>RHS</i> indicates that this
+problem space should be named <b>critter</b>.</p>
+<p>New for Soar 8, is right-hand-side dot notation. So this production
+could also be written:</p>
+<pre>
+<b>
+sp {critter*create*space*critter
+   "Formulate the initial problem space"
+  (state &lt;s&gt; ^superstate nil)
+  --&gt;
+  (&lt;s&gt; ^name move-around ^problem-space.name critter)}
+</b>
+</pre>
+<p>Here is a variant of the above example using double quotes instead of
+curly braces. Double quotes are needed in order to imbed the value of the
+Tcl variable <b>soar_agent_name</b> in the production. The value of this
+variable is used to name the problem-space created.</p>
+<pre>
+<b>
+sp "critter*create*space*critter
+   (state &lt;s&gt; ^superstate nil)
+  --&gt;
+  (&lt;s&gt; ^name move-around ^problem-space &lt;p&gt;)
+  (&lt;p&gt; ^name $soar_agent_name)"
+</b>
+</pre>
+<p>The primary change in the rule is the last clause of the <i>RHS</i>. In
+that clause, the Tcl variable <b>soar_agent_name</b> is expanded. If this
+rule is given in an interpreter which has the variable
+<b>soar_agent_name</b> set to <b>fred</b>, then the <i>RHS</i> would expand
+to the following before being sent to the Soar kernel to be parsed:</p>
+<pre>
+<b>
+  (&lt;p&gt; ^name fred)
+</b>
+</pre>
+<p>Please be aware that when using double quotes, both the dollar sign
+(variable expansion) and square brackets (command result substitution) will
+be interpreted by Tcl. If these characters (<b>$</b>, <b>[</b>, and
+<b>]</b>) are to be passed to the Soar production parser, they must be
+escaped (using a backslash) to avoid interpretation by Tcl.</p>
+<h2>WARNINGS</h2>
+<p>The last production above does not contain a documentation string. If
+one were added, double quotes would need to be escaped to avoid premature
+termination of the rule:</p>
+<pre>
+<b>
+sp "critter*create*space*critter
+   \"Formulate the initial problem space\"
+   (state ...
+</b>
+</pre>
+<h2>SEE ALSO</h2>
+<b>excise</b>, <b>learn</b>, <b>watch</b>
+</body>
+</html>

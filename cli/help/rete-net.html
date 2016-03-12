@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: rete-net</title>
+
+<style type="text/css">
+/*<![CDATA[*/
+ dt.c15 {font-weight: bold}
+/*]]>*/
+</style>
+</head>
+<body>
+<h2>NAME</h2>
+rete-net - Save and restore the Rete net
+<h2>SYNOPSIS</h2>
+<b>rete-net</b> <i>{-save | -load} filename</i>
+<hr />
+<h2>DESCRIPTION</h2>
+<p>The <b>rete-net</b> command saves and restores the state of the Rete
+network. This command provides a fast method of saving and loading
+productions since a binary format is used. rete-net files are portable
+across platforms that support Soar. The action must be one of the
+following:</p>
+<dl>
+<dt class="c15">-save</dt>
+<dd>Save the Rete network in the given <i>filename</i>. The Rete network
+cannot be saved while there are justifications present. These can be
+eliminated by using the <b>init-soar</b> command.</dd>
+</dl>
+<dl>
+<dt class="c15">-load</dt>
+<dd>Load the productions stored in <i>filename</i> into the Rete network.
+In order to load productions stored in binary form, working memory and
+production memory must both be empty. Working memory can be emptied by
+using the <b>init-soar</b> command. Production memory can be emptied by
+using the <b>excise -all</b> command.</dd>
+</dl>
+<p>If the <i>filename</i> contains a suffix of ".Z", then the file is
+compressed automatically when it is saved and uncompressed when it is
+loaded.</p>
+<h2>WARNINGS</h2>
+Compressed files may not be portable to another platform is that platform
+does not support the same uncompress utility.
+<h2>SEE ALSO</h2>
+<b>excise</b>, <b>init-soar</b>
+</body>
+</html>

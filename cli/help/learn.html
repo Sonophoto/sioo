@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content=
+"HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
+<title>Commands: learn</title>
+
+</head>
+<body>
+<h2>NAME</h2>
+learn - Control the learning of productions
+<h2>SYNOPSIS</h2>
+<b>learn</b> [<i>-on</i> | <i>-off</i> | <i>-except</i> | <i>-only</i> |
+<i>-list</i> | <i>-all-levels</i> | <i>-bottom-up</i>]
+<hr />
+<h2>DESCRIPTION</h2>
+<p>This command is used to control the learning (or "chunking") of
+productions. With no arguments, this command prints out the current
+learning environment status. The <b>watch</b> command can be used to
+provide various levels of detail when productions are learned. Learning is
+on by default.</p>
+<h2>OPTIONS</h2>
+Any <i>option</i>s given must match one of the following keywords:
+<dl>
+<dt>-on</dt>
+<dd>turn learning on</dd>
+</dl>
+<dl>
+<dt>-off</dt>
+<dd>turn all learning off</dd>
+</dl>
+<dl>
+<dt class="c4">-except</dt>
+<dd>learning is on, except as specified by RHS <b>dont-learn</b>
+actions</dd>
+</dl>
+<dl>
+<dt>\fb-only</dt>
+<dd>learning is off, except as specified by RHS <b>force-learn</b>
+actions</dd>
+</dl>
+<dl>
+<dt>\fb-list</dt>
+<dd>lists the force-learn and dont-learn states registered by the RHS
+actions</dd>
+</dl>
+<dl>
+<dt>-all-levels</dt>
+<dd>when learning is on, this allows learning whenever a subgoal returns a
+result (in contrast to bottom-up learning)</dd>
+</dl>
+<dl>
+<dt>-bottom-up</dt>
+<dd>when learning is on, this allows learning at only the lowest level;
+i.e., build chunks only for subgoals that have not yet had any subgoals
+with chunks built.</dd>
+</dl>
+<h2>SEE ALSO</h2>
+<b>watch</b>, <b>explain-backtraces</b>, <b>save_backtraces</b>
+</body>
+</html>
