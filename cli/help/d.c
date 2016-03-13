@@ -1,6 +1,6 @@
 
 /* print command synopsis for: help d */
-int cmd_help_d(int argc, char ** argv, soarResult * res)
+int sioo_cmd_d_help(int argc, const char** argv, soarResult* res)
 {
 print("\
 NAME\n\
@@ -15,9 +15,10 @@ DESCRIPTION\n\
 \n\
 SEE ALSO\n\
  e, run\n\
-\n\n");
+\n\
+LINK\n\
+ d.xhtml\n\
+\n");
 return 0;
 }
-
-
 
