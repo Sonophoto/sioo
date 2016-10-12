@@ -59,3 +59,10 @@ gource/*.png
 *.x86_64
 *.hex
 *.dSYM/
+
+# Build files for kernel
+kernel/Makefile
+kernel/config.cache
+kernel/config.log
+kernel/config.status
+
