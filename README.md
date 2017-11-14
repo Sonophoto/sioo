@@ -1,9 +1,9 @@
 ## SIOO is an acronym for State Input Operator Output
 
-SiOO is an embeddable cognitive architecture based on Soar 8.5.2. It is being enhanced with a *nix style command shell, an embeddable footprint, development tools and modifications to the actual cognitive architecture.
+SiOO is an embeddable cognitive architecture based on Soar 8.5.2. It is being enhanced with a *nix style command shell, an embeddable footprint, and development tools and modifications to the actual cognitive architecture.
 
 ***
-####Sponsored By:
+#### Sponsored By:
 
 SiOO has been made possible by the generous support of Module Master LLC. `http://modulemaster.com/rebuilds/about-us/` Module Master supports the principles of Liberated and Open Source and makes all changes to the underlying system available under the GPLv3 License: `https://gnu.org/licenses/quick-guide-gplv3.html`.
 
@@ -11,7 +11,6 @@ SiOO has been made possible by the generous support of Module Master LLC. `http:
 
 #### This code requires the GNU Compiler Collection (GCC)
 #### This code will probably only run on GNU/Linux.
-#### Use the Vagrantfile with VirtualBox and Vagrant.
 
 ***
 
