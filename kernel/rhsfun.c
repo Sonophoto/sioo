@@ -150,6 +150,9 @@ void remove_rhs_function(Symbol * name)
         else
             prev->next = rf->next;
 
+        /* Release the symbol reference stored in the rhs_function (from add_rhs_function) */
+        symbol_remove_ref(rf->name);
+
         free_memory(rf, MISCELLANEOUS_MEM_USAGE);
     }
 
