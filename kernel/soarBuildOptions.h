@@ -440,9 +440,9 @@
 /* #define FEW_CALLBACKS */
 
 /**
- *  \def NO_TOP_LEVEL_REFS              - suggested (buggy?)
+ *  \def NO_TOP_LEVEL_REFS              - suggested (workaround for #10)
  *
- *       without this options, reference counts on data structures 
+ *       without this option, reference counts on data structures 
  *       which reside in the top state (i.e. level 1) are incremented
  *       just as those which correspond to any other data structure.
  *       However, this method of reference counting results in many
@@ -460,6 +460,13 @@
  *       1.6M DCs before crashing without, runs for 5M+ DCs with this
  *       flag defined. This needs to be figured out so that there are 
  *       NO memory leaks!
+ *
+ *       Update (see PR #26): Additional memory leaks were fixed in
+ *       io.c (leaked symbol refs for input-link/output-link) and 
+ *       rhsfun.c (leaked malloc'd buffer and symbol refs in 
+ *       remove_rhs_function). NO_TOP_LEVEL_REFS remains the primary
+ *       workaround for the core top-level instantiation lifecycle
+ *       leak and should stay enabled for long-running agents.
  */
 /* #define NO_TOP_LEVEL_REFS */
 
@@ -701,7 +708,8 @@
 #define FEW_CALLBACKS
 /* Prevent justifications from being built on the top level, they are useless*/
 #define NO_TOP_JUSTS
-/* Possibly prevent memory links for top state heavy systems (like counter-demo) */
+/* Prevent memory leaks for top state heavy systems (like counter-demo).
+ * See issue #10 and PR #26 for details. */
 #define NO_TOP_LEVEL_REFS 
 
 #endif   /* AKA_SIOO */
