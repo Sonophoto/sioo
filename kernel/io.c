@@ -199,9 +199,16 @@ void do_input_cycle(void)
                                                       current_agent(io_symbol), current_agent(io_header));
         current_agent(io_header_input) = get_new_io_identifier('I');
         current_agent(io_header_output) = get_new_io_identifier('I');
-        w = add_input_wme(current_agent(io_header), make_sym_constant("input-link"), current_agent(io_header_input));
+        {
+            Symbol *input_link_sym, *output_link_sym;
+            input_link_sym = make_sym_constant("input-link");
+            w = add_input_wme(current_agent(io_header), input_link_sym, current_agent(io_header_input));
+            symbol_remove_ref(input_link_sym);
 
-        w = add_input_wme(current_agent(io_header), make_sym_constant("output-link"), current_agent(io_header_output));
+            output_link_sym = make_sym_constant("output-link");
+            w = add_input_wme(current_agent(io_header), output_link_sym, current_agent(io_header_output));
+            symbol_remove_ref(output_link_sym);
+        }
 
         /* --- add top state io link before calling input phase callback so
          * --- code can use "wmem" command.

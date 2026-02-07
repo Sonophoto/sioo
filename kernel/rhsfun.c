@@ -152,6 +152,9 @@ void remove_rhs_function(Symbol * name)
 
         free_memory(rf, MISCELLANEOUS_MEM_USAGE);
     }
+
+    /* Release the symbol reference used for the lookup */
+    symbol_remove_ref(name);
 }
 
 /* ====================================================================
@@ -414,7 +417,9 @@ Symbol *capitalize_symbol_rhs_function_code(list * args)
     symbol_to_capitalize = symbol_to_string(sym, FALSE, NIL, 0);
     symbol_to_capitalize = savestring(symbol_to_capitalize);
     *symbol_to_capitalize = (char) toupper(*symbol_to_capitalize);
-    return make_sym_constant(symbol_to_capitalize);
+    sym = make_sym_constant(symbol_to_capitalize);
+    free(symbol_to_capitalize);
+    return sym;
 }
 
 /* AGR 520 begin     6-May-94 */
