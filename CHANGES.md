@@ -1,3 +1,19 @@
+Ten Years Later...
+
+SiOO was originally intended for a commercial product and sponsored by a private
+company. Things didn't work out because of memory bugs in this system and other
+issues. Here we are in 2026 and there is a fresh itch which needs scratched.
+
+Today, using Claude Opus 4.6 I was able to trace some rather complex side
+effects and find and repair a number of memory bugs. SiOO is still very much a
+work in progress but Opus is giving me the time to get it working again.
+
+So we are still on the 9.9.1 DEVO branch but hope to have some significant 
+progress towards a stable release that will allow us/me to start fleshing out
+some of the features that are essential to an embedded production rule
+proccessor. 
+07-Feb-2026
+
 *******************************************************************************
 
       SiOO: State-input Operator Output   9 . 9 . 1  C H A N G E S 
