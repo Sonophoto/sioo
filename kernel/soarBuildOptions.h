@@ -713,8 +713,6 @@
 #define NO_TOP_LEVEL_REFS 
 /* Enable memory pool statistics for debugging pool usage */
 #define MEMORY_POOL_STATS
-/* Enable instantiation lifecycle debugging */
-#define DEBUG_INST_LIFECYCLE
 
 #endif   /* AKA_SIOO */
 
