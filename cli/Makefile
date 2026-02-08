@@ -122,7 +122,7 @@ $(DEFINE_FLAGS) \
 $(INCLUDE_FLAGS) \
 
 # Library specifications
-MATH_LIBS =		-lieee -lm
+MATH_LIBS =		-lm
 LIBS =			$(KERNEL_LIB_SPEC)  -ldl \
                           $(MATH_LIBS) -lc
 
