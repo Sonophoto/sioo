@@ -600,6 +600,19 @@ void soar_ecPrintMemoryStatistics(void)
     print("%8lu bytes for hash tables\n", current_agent(memory_for_usage)[HASH_TABLE_MEM_USAGE]);
     print("%8lu bytes for various memory pools\n", current_agent(memory_for_usage)[POOL_MEM_USAGE]);
     print("%8lu bytes for miscellaneous other things\n", current_agent(memory_for_usage)[MISCELLANEOUS_MEM_USAGE]);
+#ifdef DEBUG_INST_LIFECYCLE
+    {
+        extern unsigned long debug_pdi_called;
+        extern unsigned long debug_pdi_has_prefs;
+        extern unsigned long debug_pdi_in_ms;
+        extern unsigned long debug_pdi_deallocated;
+        print("\nInstantiation lifecycle debug:\n");
+        print("  possibly_deallocate called: %lu\n", debug_pdi_called);
+        print("  blocked by preferences_generated: %lu\n", debug_pdi_has_prefs);
+        print("  blocked by in_ms: %lu\n", debug_pdi_in_ms);
+        print("  actually deallocated: %lu\n", debug_pdi_deallocated);
+    }
+#endif
 }
 
 void soar_ecPrintReteStatistics(void)

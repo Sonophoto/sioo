@@ -29,6 +29,13 @@
 /* Uncomment the following line to get instantiation printouts */
 /* #define DEBUG_INSTANTIATIONS */
 
+#ifdef DEBUG_INST_LIFECYCLE
+unsigned long debug_pdi_called = 0;
+unsigned long debug_pdi_has_prefs = 0;
+unsigned long debug_pdi_in_ms = 0;
+unsigned long debug_pdi_deallocated = 0;
+#endif
+
 #ifdef NO_TOP_JUST
 void remove_top_level_justifications(instantiation * inst);
 #endif
@@ -842,6 +849,21 @@ void retract_instantiation(instantiation * inst)
 
     /* --- retract any preferences that are in TM and aren't o-supported --- */
     pref = inst->preferences_generated;
+#ifdef DEBUG_INST_LIFECYCLE
+    {
+        int n_prefs = 0, n_osup = 0, n_in_tm = 0;
+        preference *dp;
+        for (dp = pref; dp != NIL; dp = dp->inst_next) {
+            n_prefs++;
+            if (dp->o_supported) n_osup++;
+            if (dp->in_tm) n_in_tm++;
+        }
+        if (inst->prod) {
+            print_with_symbols("  RETRACT: %y", inst->prod->name);
+            print(" n_prefs=%d n_osup=%d n_in_tm=%d\n", n_prefs, n_osup, n_in_tm);
+        }
+    }
+#endif
     while (pref != NIL) {
         next = pref->inst_next;
         if (pref->in_tm && (!pref->o_supported)) {

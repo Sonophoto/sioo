@@ -277,6 +277,16 @@ void remove_preference_from_tm(preference * pref)
     print_preference(pref);
 #endif
 
+#ifdef DEBUG_INST_LIFECYCLE
+    if (pref->inst) {
+        print_with_symbols("  RM_PREF_TM: %y", pref->inst->prod->name);
+        print(" pref refcount=%lu o_sup=%d\n", pref->reference_count, pref->o_supported);
+    } else {
+        print("  RM_PREF_TM: (nil inst) pref refcount=%lu o_sup=%d\n",
+              pref->reference_count, pref->o_supported);
+    }
+#endif
+
     /* --- remove preference from the list for the slot --- */
     remove_from_dll(s->all_preferences, pref, all_of_slot_next, all_of_slot_prev);
     remove_from_dll(s->preferences[pref->type], pref, next, prev);
@@ -342,6 +352,12 @@ void process_o_rejects_and_deallocate_them(preference * o_rejects)
                 p = next_p;
             }
         }
+#ifdef DEBUG_INST_LIFECYCLE
+        if (pref->inst) {
+            print_with_symbols("  OREJECT_DEALLOC: %y", pref->inst->prod->name);
+            print(" refcount=%lu inst_in_ms=%d\n", pref->reference_count, pref->inst->in_ms);
+        }
+#endif
         preference_remove_ref(pref);
         pref = next_pref;
     }

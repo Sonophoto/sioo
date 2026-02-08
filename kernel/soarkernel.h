@@ -2854,10 +2854,30 @@ extern void fill_in_new_instantiation_stuff(instantiation * inst, bool need_to_d
 /* mvp 5-17-94 */
 extern void build_prohibits_list(instantiation * inst);
 
+#ifdef DEBUG_INST_LIFECYCLE
+extern unsigned long debug_pdi_called;
+extern unsigned long debug_pdi_has_prefs;
+extern unsigned long debug_pdi_in_ms;
+extern unsigned long debug_pdi_deallocated;
+#define possibly_deallocate_instantiation(inst) { \
+  debug_pdi_called++; \
+  if ((inst)->preferences_generated) { \
+    debug_pdi_has_prefs++; \
+    if (!(inst)->in_ms && (inst)->prod) { \
+      print_with_symbols("  LEAK: inst of %y", (inst)->prod->name); \
+      print(" has prefs but not in_ms\n"); } \
+  } \
+  if ((inst)->in_ms) debug_pdi_in_ms++; \
+  if ((! (inst)->preferences_generated) && \
+      (! (inst)->in_ms)) { \
+    debug_pdi_deallocated++; \
+    deallocate_instantiation (inst); } }
+#else
 #define possibly_deallocate_instantiation(inst) { \
   if ((! (inst)->preferences_generated) && \
       (! (inst)->in_ms)) \
     deallocate_instantiation (inst); }
+#endif
 
 extern void deallocate_instantiation(instantiation * inst);
 
