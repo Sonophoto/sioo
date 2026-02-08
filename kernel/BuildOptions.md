@@ -1,8 +1,8 @@
-#KERNEL BUILD OPTIONS DOCUMENTATION
+# KERNEL BUILD OPTIONS DOCUMENTATION
 
-#BuildOptions
+# BuildOptions
  
-##Soar's compile time options.
+## Soar's compile time options.
 All compile time options described in this document should
 be defined prior to compilation in a file called
 "soarBuildOptions.h".  This file is included by all of 
@@ -16,30 +16,30 @@ comments in the source code.  It is expected that they will be of
 no particular use, but for completeness, they can be view using the
 second command (soar_ecExcludedBuildInfo)
 
-###About the Options:
+### About the Options:
 The compile time options described below can all be used to modify
 the resulting Soar application.  Some of these options have only
 subtle effects, while others are much more overt.  To those getting
 started down this path, you might want to consider using one of
 the high level build options:
 
-####STD        - make a "normal" version of Soar.
+#### STD        - make a "normal" version of Soar.
 
     do not include Detailed Timers, or debugging facilities
      
     
-####HEAVY      - make a "heavy" version of Soar.
+#### HEAVY      - make a "heavy" version of Soar.
 
     includes Detailed Timers
  
  
-####LITE       - make a "lite" version of Soar.
+#### LITE       - make a "lite" version of Soar.
 
     do not include many of the callbacks
     do not include support for learning
     perform special optimizations when possible
  
-####AKA_SIOO    - make a Soar kernel for SiOO.
+#### AKA_SIOO    - make a Soar kernel for SiOO.
 
 **We use `STD` or the standard set of defines**
 `#define AKA_SIOO`
