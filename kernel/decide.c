@@ -137,19 +137,21 @@ extern void remove_operator_if_necessary(slot * s, wme * w);
    be clear from the code.)
 -------------------------------------------------- */
 
-#define NOTHING_DECIDER_FLAG 0  /* Warning: code relies in this being 0 */
-#define CANDIDATE_DECIDER_FLAG 1
-#define CONFLICTED_DECIDER_FLAG 2
-#define FORMER_CANDIDATE_DECIDER_FLAG 3
-#define BEST_DECIDER_FLAG 4
-#define WORST_DECIDER_FLAG 5
-#define UNARY_INDIFFERENT_DECIDER_FLAG 6
-#define ALREADY_EXISTING_WME_DECIDER_FLAG 7
-#define UNARY_PARALLEL_DECIDER_FLAG 8
-/* REW: 2003-01-02 Behavior Variability Kernel Experiments 
-   A new preference type: unary indifferent + constant (probability) value
-*/
-#define UNARY_INDIFFERENT_CONSTANT_DECIDER_FLAG 9
+enum decider_flag {
+    NOTHING_DECIDER_FLAG = 0,  /* Warning: code relies on this being 0 */
+    CANDIDATE_DECIDER_FLAG = 1,
+    CONFLICTED_DECIDER_FLAG = 2,
+    FORMER_CANDIDATE_DECIDER_FLAG = 3,
+    BEST_DECIDER_FLAG = 4,
+    WORST_DECIDER_FLAG = 5,
+    UNARY_INDIFFERENT_DECIDER_FLAG = 6,
+    ALREADY_EXISTING_WME_DECIDER_FLAG = 7,
+    UNARY_PARALLEL_DECIDER_FLAG = 8,
+    /* REW: 2003-01-02 Behavior Variability Kernel Experiments
+       A new preference type: unary indifferent + constant (probability) value
+    */
+    UNARY_INDIFFERENT_CONSTANT_DECIDER_FLAG = 9
+};
 
 /* ======================================================================
 

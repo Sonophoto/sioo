@@ -207,23 +207,27 @@ typedef struct right_mem_struct {
 ---------------------------------------------------------------------- */
 
 /* --- types of tests found at beta nodes --- */
-#define CONSTANT_RELATIONAL_RETE_TEST 0x00
-#define VARIABLE_RELATIONAL_RETE_TEST 0x10
-#define DISJUNCTION_RETE_TEST         0x20
-#define ID_IS_GOAL_RETE_TEST          0x30
-#define ID_IS_IMPASSE_RETE_TEST       0x31
+enum rete_test_type {
+    CONSTANT_RELATIONAL_RETE_TEST = 0x00,
+    VARIABLE_RELATIONAL_RETE_TEST = 0x10,
+    DISJUNCTION_RETE_TEST         = 0x20,
+    ID_IS_GOAL_RETE_TEST          = 0x30,
+    ID_IS_IMPASSE_RETE_TEST       = 0x31
+};
 #define test_is_constant_relational_test(x) (((x) & 0xF0)==0x00)
 #define test_is_variable_relational_test(x) (((x) & 0xF0)==0x10)
 
 /* --- for the last two (i.e., the relational tests), we add in one of
        the following, to specifiy the kind of relation --- */
-#define RELATIONAL_EQUAL_RETE_TEST            0x00
-#define RELATIONAL_NOT_EQUAL_RETE_TEST        0x01
-#define RELATIONAL_LESS_RETE_TEST             0x02
-#define RELATIONAL_GREATER_RETE_TEST          0x03
-#define RELATIONAL_LESS_OR_EQUAL_RETE_TEST    0x04
-#define RELATIONAL_GREATER_OR_EQUAL_RETE_TEST 0x05
-#define RELATIONAL_SAME_TYPE_RETE_TEST        0x06
+enum relational_rete_test_type {
+    RELATIONAL_EQUAL_RETE_TEST            = 0x00,
+    RELATIONAL_NOT_EQUAL_RETE_TEST        = 0x01,
+    RELATIONAL_LESS_RETE_TEST             = 0x02,
+    RELATIONAL_GREATER_RETE_TEST          = 0x03,
+    RELATIONAL_LESS_OR_EQUAL_RETE_TEST    = 0x04,
+    RELATIONAL_GREATER_OR_EQUAL_RETE_TEST = 0x05,
+    RELATIONAL_SAME_TYPE_RETE_TEST        = 0x06
+};
 #define kind_of_relational_test(x) ((x) & 0x0F)
 #define test_is_not_equal_test(x) (((x)==0x01) || ((x)==0x11))
 
@@ -267,19 +271,21 @@ typedef struct rete_test_struct {
 
 /* Warning: If you change any of these or add ones, be sure to update the
    bit-twiddling macros just below */
-#define UNHASHED_MEMORY_BNODE   0x02
-#define MEMORY_BNODE            0x03
-#define UNHASHED_MP_BNODE       0x06
-#define MP_BNODE                0x07
-#define UNHASHED_POSITIVE_BNODE 0x14
-#define POSITIVE_BNODE          0x15
-#define UNHASHED_NEGATIVE_BNODE 0x08
-#define NEGATIVE_BNODE          0x09
-#define DUMMY_TOP_BNODE         0x40
-#define DUMMY_MATCHES_BNODE     0x41
-#define CN_BNODE                0x42
-#define CN_PARTNER_BNODE        0x43
-#define P_BNODE                 0x44
+enum bnode_type {
+    UNHASHED_MEMORY_BNODE   = 0x02,
+    MEMORY_BNODE            = 0x03,
+    UNHASHED_MP_BNODE       = 0x06,
+    MP_BNODE                = 0x07,
+    UNHASHED_POSITIVE_BNODE = 0x14,
+    POSITIVE_BNODE          = 0x15,
+    UNHASHED_NEGATIVE_BNODE = 0x08,
+    NEGATIVE_BNODE          = 0x09,
+    DUMMY_TOP_BNODE         = 0x40,
+    DUMMY_MATCHES_BNODE     = 0x41,
+    CN_BNODE                = 0x42,
+    CN_PARTNER_BNODE        = 0x43,
+    P_BNODE                 = 0x44
+};
 
 #define bnode_is_hashed(x)   ((x) & 0x01)
 #define bnode_is_memory(x)   ((x) & 0x02)
@@ -325,8 +331,10 @@ typedef struct p_node_data_struct {
     struct ms_change_struct *tentative_retractions;
 } p_node_data;
 
-#define O_LIST 0                /* moved here from soarkernel.h.  only used in rete.c */
-#define I_LIST 1                /*   values for prod->OPERAND_which_assert_list */
+enum operand_assert_list {
+    O_LIST = 0,              /* moved here from soarkernel.h.  only used in rete.c */
+    I_LIST = 1               /*   values for prod->OPERAND_which_assert_list */
+};
 
 /* --- data for all except positive nodes --- */
 typedef struct non_pos_node_data_struct {
