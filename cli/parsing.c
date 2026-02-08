@@ -137,15 +137,30 @@ executeCommand( char *command )
       }
     else if ( !strncmp(command, "edit", 4) )
       {
-printf("command string is: %s.\n", command);
-	strcpy(messy_buffer, "vim ");
-printf("messy_buffer is now: %s\n", messy_buffer);
-        strcat(messy_buffer, tokens[1]);        	
-printf("messy_buffer is now: %s\n", messy_buffer);
+        if ( ntokens < 2 )
+          {
+            print("Error: edit requires a filename argument\n");
+            return SOAR_ERROR;
+          }
+        /* Validate filename: reject shell metacharacters to prevent injection */
+        {
+          const char *p;
+          bool safe = TRUE;
+          for (p = tokens[1]; *p; p++) {
+            if (*p == ';' || *p == '|' || *p == '&' || *p == '$'
+                || *p == '`' || *p == '\'' || *p == '"'
+                || *p == '(' || *p == ')' || *p == '<' || *p == '>') {
+              safe = FALSE;
+              break;
+            }
+          }
+          if (!safe) {
+            print("Error: filename contains invalid characters\n");
+            return SOAR_ERROR;
+          }
+        }
+        snprintf(messy_buffer, sizeof(messy_buffer), "vim %s", tokens[1]);
         system(messy_buffer);
-printf("messy_buffer is now: %s\n", messy_buffer);
-        for(int findex = 0; findex < 256; findex ++) { messy_buffer[findex] = '\0'; }
-printf("messy_buffer is now: %s\n", messy_buffer);
         return SOAR_OK;
       }
     else if ( !strncmp(command, "print-banner", 12) )
