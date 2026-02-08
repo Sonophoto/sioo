@@ -966,7 +966,7 @@ void assert_new_preferences(void)
             for (pref = inst->preferences_generated; pref != NIL; pref = next_pref) {
                 next_pref = pref->inst_next;
                 if ((pref->type == REJECT_PREFERENCE_TYPE) && (pref->o_supported)) {
-                    /* --- o-reject: just put it in the buffer for later --- */
+                    /* --- o-reject: process it by removing matching prefs from the slot --- */
 
                     s = find_slot(pref->id, pref->attr);
                     if (s) {
@@ -979,6 +979,28 @@ void assert_new_preferences(void)
                             p = next_p;
                         }
                     }
+
+                    /* --- now deallocate the o-reject preference itself.
+                     * Without this, the pref stays in inst->preferences_generated
+                     * forever, preventing the instantiation from being freed.
+                     * (Bug fix: the non-O_REJECTS_FIRST path handles this via
+                     * process_o_rejects_and_deallocate_them, but this path did not.) --- */
+                    remove_from_dll(inst->preferences_generated, pref, inst_next, inst_prev);
+                    if (pref->on_goal_list) {
+#ifdef NO_TOP_JUST
+                        Symbol *goal = pref->match_goal;
+#else
+                        Symbol *goal = pref->inst->match_goal;
+#endif
+                        remove_from_dll(goal->id.preferences_from_goal,
+                                        pref, all_of_goal_next, all_of_goal_prev);
+                    }
+                    symbol_remove_ref(pref->id);
+                    symbol_remove_ref(pref->attr);
+                    symbol_remove_ref(pref->value);
+                    if (preference_is_binary(pref->type))
+                        symbol_remove_ref(pref->referent);
+                    free_with_pool(&current_agent(preference_pool), pref);
                 }
             }
         }

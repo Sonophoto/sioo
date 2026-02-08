@@ -73,8 +73,9 @@ sh make-SiOO   # from repo root
     `wme_add_ref`/`wme_remove_ref`, `preference_add_ref`/`preference_remove_ref`,
     `production_add_ref`/`production_remove_ref` are now **static functions**
     in soarkernel.h
-- Known architectural leak: top-level instantiations never deallocated due to
-  persistent WME references (see `NO_TOP_LEVEL_REFS` in soarBuildOptions.h and PR #27)
+- Known architectural concern: top-level instantiations can accumulate if
+  preferences chain indefinitely (see comment at `recmem.c:404`). Mitigated by
+  `NO_TOP_LEVEL_REFS` and the `O_REJECTS_FIRST` fix in this PR.
 
 ### Linked List Operations (DLL macros)
 - `insert_at_head_of_dll()`, `remove_from_dll()`, `fast_remove_from_dll()`
@@ -110,7 +111,42 @@ sh make-SiOO   # from repo root
 - Command injection prevention: shell metacharacter validation
 - NULL pointer dereference fix: `getenv("TERM")` guard
 
-### This Session — Macro-to-C Conversions (kernel only)
+### This PR — Counter Demo Memory Leak Fix
+
+**Root cause identified and fixed:** The `O_REJECTS_FIRST` code path in
+`assert_new_preferences()` (`kernel/recmem.c`) processed o-reject preferences
+(removed matching preferences from slots) but **never deallocated the o-reject
+preference itself**. The preference remained as a zombie in the instantiation's
+`preferences_generated` linked list, preventing the instantiation (and all its
+conditions, symbols, and identifiers) from ever being freed.
+
+**The fix:** After the `O_REJECTS_FIRST` loop processes an o-reject, the
+o-reject preference is now properly removed from `inst->preferences_generated`,
+removed from the goal's `preferences_from_goal` list, its component symbols are
+dereferenced, and it is returned to the preference pool.
+
+**Impact:** Before the fix, RSS grew linearly at ~1KB/decision-cycle (3.3MB →
+103MB over 100K DCs). After the fix, RSS stays flat at 3.3MB indefinitely. All
+pool counts (preference, instantiation, condition, int constant, identifier)
+are now stable.
+
+**Build options added:**
+- `MEMORY_POOL_STATS` has been left enabled in the `AKA_SIOO` build options
+  (`soarBuildOptions.h`) for use in future debugging and testing. It adds
+  `used_count` tracking to memory pools, making the `stats -memory` command
+  show Used/Free item counts per pool. The runtime overhead is minimal (one
+  increment/decrement per pool allocation/free).
+
+**Detailed investigation notes:**
+
+| Pool            | Before Fix (10K DCs) | After Fix (10K DCs) |
+|-----------------|---------------------|---------------------|
+| preference      | 10,008 used         | 9 used              |
+| instantiation   | 10,002 used         | 3 used              |
+| condition       | 60,005 used         | 11 used             |
+| int constant    | 10,000 used         | 2 used              |
+| identifier      | 10,004 used         | 6 used              |
+| wme             | 14 used (stable)    | 14 used (stable)    |
 Converted preprocessor macros to proper C constructs without changing behavior:
 
 **Value constants → enums:**
@@ -179,5 +215,63 @@ Converted preprocessor macros to proper C constructs without changing behavior:
 
 - `system()` passthrough in CLI `parsing.c` (unrestricted shell commands)
 - `memset()` transposed arguments in `cli/demos/toh_demo.c`
-- Top-level instantiation memory lifecycle leak (architectural, needs major refactoring)
+- Top-level instantiation memory lifecycle leak — **partially fixed**: the
+  `O_REJECTS_FIRST` o-reject deallocation bug (the primary leak for the counter
+  demo) is fixed. The broader architectural issue described in the comment at
+  `recmem.c:404` ("gradually accumulate garbage at the top level") is mitigated
+  by `NO_TOP_LEVEL_REFS` but may still apply to other agent patterns.
+- `free_with_pool` never releases memory blocks to the OS — pool blocks grow
+  monotonically. See `ISSUE-free_with_pool-never-releases-memory.md` for
+  details and a proposed fix.
 - Missing `-lieee` library on modern Linux (link failure in CLI)
+
+## Memory Subsystem Reference
+
+### Pool Allocator (`kernel/mem.c`)
+- Pools allocate ~32KB blocks via `allocate_memory()` and link items into a
+  free list. `free_with_pool()` returns items to the free list but never frees
+  blocks back to the OS.
+- `MEMORY_POOL_STATS` (enabled in `AKA_SIOO` builds) adds `used_count` to each
+  pool. Use `stats -memory` in the CLI to see per-pool Used/Free item counts.
+
+### Key Build Flags for Memory (`soarBuildOptions.h`)
+- `NO_TOP_LEVEL_REFS` — skips `wme_add_ref`/`preference_add_ref` for top-level
+  instantiation backtrace conditions. Prevents top-level WME/preference refcount
+  accumulation.
+- `NO_TOP_JUSTS` — prevents justification productions from being built at the
+  top level. Related: `remove_top_level_justifications()` in `recmem.c` sets
+  `pref->inst = NIL` for justification prefs (important for `NO_TOP_JUST` code
+  paths in `deallocate_preference`).
+- `O_REJECTS_FIRST` — processes o-reject preferences before other preferences
+  in `assert_new_preferences()`. **Fixed in this PR** to properly deallocate
+  o-reject preferences after processing.
+- `MEMORY_POOL_STATS` — enables per-pool used/free item counting for debugging.
+
+### Preference Lifecycle
+1. `make_preference()` — allocates, sets `reference_count = 0`
+2. `add_preference_to_tm()` — adds to slot, `preference_add_ref` (+1)
+3. `remove_preference_from_tm()` — removes from slot, `preference_remove_ref` (-1)
+4. When refcount reaches 0: `possibly_deallocate_preference_and_clones()` →
+   `deallocate_preference()` → removes from `inst->preferences_generated` →
+   `possibly_deallocate_instantiation(inst)`
+
+### Instantiation Lifecycle
+1. `create_instantiation()` → `fill_in_new_instantiation_stuff()` — adds refs
+2. `retract_instantiation()` — removes non-o-supported prefs from TM, sets
+   `in_ms = FALSE`, calls `possibly_deallocate_instantiation()`
+3. `possibly_deallocate_instantiation()` — frees inst only if
+   `preferences_generated == NIL && in_ms == FALSE`
+4. O-supported prefs survive retraction (by design) and are removed later by
+   o-rejects or slot changes
+
+### Decision Cycle Phase Order (Operand2/Soar 8)
+- **IE** = Instantiation Elaboration (i-supported productions)
+- **PE** = Production Elaboration (o-supported / operator-application productions)
+```
+INPUT → DETERMINE_LEVEL → [PREFERENCE → WM]* (proposal IE)
+      → DECISION
+      → DETERMINE_LEVEL → [PREFERENCE → WM]* (apply PE/IE)
+      → OUTPUT
+```
+Within PREFERENCE phase: assertions first, then retractions.
+O-reject processing happens during assertion (inside `assert_new_preferences`).

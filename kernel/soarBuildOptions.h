@@ -711,6 +711,8 @@
 /* Prevent memory leaks for top state heavy systems (like counter-demo).
  * See issue #10 and PR #26 for details. */
 #define NO_TOP_LEVEL_REFS 
+/* Enable memory pool statistics for debugging pool usage */
+#define MEMORY_POOL_STATS
 
 #endif   /* AKA_SIOO */
 
