@@ -36,24 +36,22 @@ echo ""
 #sleep 1 
 
 echo "Cleaning the output directory of all files..."
-cd out && pwd && rm *.a && rm *.h && rm sioo && rm SiOO && echo "Successful!"
-cd .. 
+mkdir -p out
+(cd out && pwd && rm -f *.a *.h sioo SiOO) && echo "Successful!"
 
 #echo "We should be in sioo/: "
 #echo "We are in $PWD"
 #sleep 1
 
 echo "Cleaning the kernel build area..."
-cd kernel && pwd && make distclean && echo "Successful!"
-cd ..
+(cd kernel && pwd && make distclean) && echo "Successful!"
 
 #echo "We should be in sioo/: "
 #echo "We are in $PWD"
 #sleep 1
 
 echo "Cleaning the command line interface build area..."
-cd cli && pwd && make distclean && echo "Successful!"
-cd ..
+(cd cli && pwd && make distclean) && echo "Successful!"
 
 echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
@@ -65,33 +63,21 @@ echo ""
 #sleep 1
 
 #First (second) we build the kernel
-cd kernel && chmod u+x ./configure \
-&& ./configure && make && echo "Succesful!" 
-
-echo "\n"
-echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-echo " * Next lets move our finished output to the ../out        *"
-echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
-echo ""
-#echo "We should still be in sioo/kernel:"
-#echo "We are in $PWD"
-#sleep 1
-
-# HEADERS: kernel commands API, core SiOO API, and Extended APIs
-# TODO Headers to ../out/include
-# LIBRARIES: The entire kernel in one static chunk.
-# 1.79MB and shrinking...
-# TODO Libraries to ../out/lib
-#
-cp libsoarkernel.a ../out \
+(cd kernel && chmod u+x ./configure \
+&& ./configure && make && echo "Successful!" \
+&& echo "" \
+&& echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" \
+&& echo " * Next lets move our finished output to the ../out        *" \
+&& echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" \
+&& echo "" \
+&& cp libsoarkernel.a ../out \
 && cp soarkernel.h ../out \
 && cp soarapi.h ../out \
 && cp soar_core_api.h ../out \
 && cp soar_core_utils.h ../out \
 && cp soar_ecore_api.h ../out \
 && cp soar_ecore_utils.h ../out \
-&& echo "Successful!"
-cd ..
+&& echo "Successful!")
 
 #echo "We should be in sioo/: "
 #echo "We are in $PWD"
@@ -109,11 +95,10 @@ echo ""
 # TODO setup the cli as an autotools project
 # chmod u+x ./configure
 # ./configure --prefix=../.. --with-kernel=../kernel
-cd cli && make && ln SiOO sioo \
+(cd cli && make && ln SiOO sioo \
 && chmod u+x SiOO && cp SiOO ../out \
 && chmod u+x sioo && cp sioo ../out \
-&& cp libSiOO.a ../out && echo "Successful!"
-cd ..
+&& cp libSiOO.a ../out && echo "Successful!")
 
 echo "\n\n"
 echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *"
@@ -124,13 +109,11 @@ echo ""
 #echo "We are in $PWD"
 #sleep 1
 
-cd tools
-make \
+(cd tools \
 && chmod u+x siooc && cp siooc ../out \
 && chmod u+x gsioo && cp gsioo ../out \
 && chmod u+x soar2sioo && cp soar2sioo ../out \
-&& echo "Successful!"
-cd ..
+&& echo "Successful!")
 
 #echo "We should be in sioo/: "
 #echo "We are in $PWD"
