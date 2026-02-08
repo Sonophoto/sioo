@@ -84,11 +84,13 @@ void re_fill_in_instantiation_stuff_for_modified_lhs(instantiation * inst, bool 
 
 #endif                          /* SINGLE_THIN_JUSTIFICATION */
 
-#define add_results_if_needed(sym) \
-  { if ((sym)->common.symbol_type==IDENTIFIER_SYMBOL_TYPE) \
-      if ( ((sym)->id.level >= current_agent(results_match_goal_level)) && \
-           ((sym)->id.tc_num != current_agent(results_tc_number)) ) \
-        add_results_for_id(sym); }
+static void add_results_if_needed(Symbol *sym)
+{
+    if (sym->common.symbol_type == IDENTIFIER_SYMBOL_TYPE)
+        if ((sym->id.level >= current_agent(results_match_goal_level)) &&
+            (sym->id.tc_num != current_agent(results_tc_number)))
+            add_results_for_id(sym);
+}
 
 void add_pref_to_results(preference * pref)
 {

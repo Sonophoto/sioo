@@ -34,13 +34,17 @@ extern list *collect_root_variables(condition *, tc_number, bool);
    caller can check for TC membership by looking at id.tc_num on any id.
 ----------------------------------------------------------------------- */
 
-#define add_to_os_tc_if_needed(sym) \
-  { if ((sym)->common.symbol_type==IDENTIFIER_SYMBOL_TYPE) \
-      add_to_os_tc (sym,FALSE); }
+static void add_to_os_tc_if_needed(Symbol *sym)
+{
+    if (sym->common.symbol_type == IDENTIFIER_SYMBOL_TYPE)
+        add_to_os_tc(sym, FALSE);
+}
 
-#define add_to_os_tc_if_id(sym,flag) \
-  { if ((sym)->common.symbol_type==IDENTIFIER_SYMBOL_TYPE) \
-      add_to_os_tc (sym,flag); }
+static void add_to_os_tc_if_id(Symbol *sym, bool flag)
+{
+    if (sym->common.symbol_type == IDENTIFIER_SYMBOL_TYPE)
+        add_to_os_tc(sym, flag);
+}
 
 /* SBH 4/14/93
  * For NNPSCM, we must exclude the operator slot from the transitive closure of a state.
