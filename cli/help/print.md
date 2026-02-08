@@ -61,7 +61,7 @@ All options apply only to arguments which follow them on the command line.
     When printing productions, print the whole production. This is the default when printing a named production.
 
 -name
-    When printing productions, print only the name and not the whole production. This is the default when printing any catorgory of productions, as opposed to a named production.
+    When printing productions, print only the name and not the whole production. This is the default when printing any category of productions, as opposed to a named production.
 
 -stack
     Specifies that the Soar goal stack should be printed. By default this includes both states and operators. The stack listing can be restricted by adding the **-states** and **-operator** restrictions. Giving both options is equivalent to the default. The predefined alias 'ps' is the same as **print -stack**.

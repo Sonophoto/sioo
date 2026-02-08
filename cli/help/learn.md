@@ -25,10 +25,10 @@ Any _option_ s given must match one of the following keywords:
 -except
     learning is on, except as specified by RHS **dont-learn** actions
 
-\fb-only
+-only
     learning is off, except as specified by RHS **force-learn** actions
 
-\fb-list
+-list
     lists the force-learn and dont-learn states registered by the RHS actions
 
 -all-levels

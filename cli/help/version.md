@@ -10,7 +10,7 @@ version - SiOO version
 
 ## DESCRIPTION
 
-This command gives information about the current SiOO version being run. The string returned is formated as follow:
+This command gives information about the current SiOO version being run. The string returned is formatted as follows:
 
 ` PROCESS_NAME XX.XX.XX.XX [devo|alpha|beta|gamma|release] `
 

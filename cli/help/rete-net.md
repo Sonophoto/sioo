@@ -22,7 +22,7 @@ If the _filename_ contains a suffix of ".Z", then the file is compressed automat
 
 ## WARNINGS
 
-Compressed files may not be portable to another platform is that platform does not support the same uncompress utility. 
+Compressed files may not be portable to another platform if that platform does not support the same uncompress utility. 
 
 ## SEE ALSO
 
