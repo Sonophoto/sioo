@@ -158,6 +158,13 @@ Converted preprocessor macros to proper C constructs without changing behavior:
 - Test/RHS encoding macros (pointer bit-twiddling)
 - `make_equality_test`, `make_test_from_complex_test`, etc. — pointer arithmetic
 
+## Spelling and Documentation Quality
+
+- **Always** correct spelling errors in comments and documentation files
+  (`.md`, `.html`, `.txt`, `.text`) whenever they are encountered.
+- This applies to all prose: code comments, README files, build scripts,
+  and any other human-readable text in the repository.
+
 ## Coding Conventions
 
 - `bool` type is `typedef char bool` (not `_Bool` or `stdbool.h`)

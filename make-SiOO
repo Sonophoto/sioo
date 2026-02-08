@@ -64,7 +64,7 @@ echo ""
 
 #First (second) we build the kernel
 (cd kernel && chmod u+x ./configure \
-&& ./configure && make && echo "Succesful!" \
+&& ./configure && make && echo "Successful!" \
 && echo "" \
 && echo " * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *" \
 && echo " * Next lets move our finished output to the ../out        *" \
