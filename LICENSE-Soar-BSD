@@ -1,35 +1,15 @@
 *******************************************************************************
-*                        -->    N O T I C E   <--                             *
+*               -->  C O P Y R I G H T   N O T I C E   <--                    *
 *                                                                             *
-* ONLY the original files in this repository are covered by this license. In  *
-* an interesting twist, the function print_startup_banner(), in the file      *
-* kernel/init_soar.c in fact claims that the "The Soar consortium proclaims   *
-* this software is in the public domain, and is made available AS IS." This   *
-* statement was published everytime this software started... YMMV...          *
-*                                                                             * 
-* In any case, the following applies:                                         *
-*                                                                             *
-*   --> ALL CHANGES to the original files are covered under the GPL. <--      *
-*                                                                             *
-* WHAT THIS MEANS: If you want to hide source then start with Soar 8.5.2 and  *
-* release YOUR changes under whatever license you like. If you want to use    *
-* SiOO then you are legally bound by the GPL when you use ANY of our          *
-* modifications to the original Soar 8.5.2                                    *
-*                                                                             *
-* The original commits to this repo created a README.md and loaded the        * 
-* entire SoarSuite 8.5.2 source tree specifically to enable you to fork       * 
-* from that repository and create a BSD licensed (or possibly public domain)  *
-* Soar 8.5.2 project for your own development.                                *
-*                                                                             *
-* Release Page:                                                               *
-* https://github.com/Sonophoto/sioo/releases/tag/SoarSuite-8.5.2              *
-*                                                                             *
-* Or direct zip link:                                                         *
-* https://github.com/Sonophoto/sioo/archive/SoarSuite-8.5.2.zip               *
-*******************************************************************************
+BSD LICENSE FOR SiOO 9.0.0+
+Copyright 2016-2026 Brig Young
+Sonophoto Studios, https://sonophotostudios.com
+All Rights Reserved
+
+The Original Code as I received it is here:
+OG CODE --> https://github.com/Sonophoto/sioo/archive/SoarSuite-8.5.2.zip
 
 BSD LICENSE FOR SOAR 8.5.2
-
 Copyright 1995-2004 Carnegie Mellon University, University of Michigan, 
 University of Southern California/Information Sciences Institute. 
 All rights reserved.
@@ -54,8 +34,12 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+         Lawyers make everything difficult and conflicting
+
 The views and conclusions contained in the software and documentation are
 those of the authors and should not be interpreted as representing official
 policies, either expressed or implied, of Carnegie Mellon University, the
 University of Michigan, the University of Southern California/Information
 Sciences Institute, or the Soar consortium.
+*******************************************************************************
