@@ -30,6 +30,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <limits.h>
 
 /* Invocation help text */
 void
@@ -63,8 +64,8 @@ main( int argc, char *argv[], char *envp[] )
     char *env_TERM = getenv("TERM");
     char *env_HOME = getenv("HOME");
     char *env_SHELL = getenv("SHELL");
-    char FN_dotConfig[256] = "";
-    char FN_dotHistory[256] = "";
+    char FN_dotConfig[PATH_MAX] = "";
+    char FN_dotHistory[PATH_MAX] = "";
 
 
 /**************************************************************************/
@@ -74,23 +75,24 @@ printf("\n\x1b[32;1mDEBUG: Starting Pre-Setup of %s...\n", progname);
 /**************************************************************************/
 
 
-    if ( !strncmp("xterm",  env_TERM, 5) 
+    if ( env_TERM &&
+         ( !strncmp("xterm",  env_TERM, 5) 
          || !strncmp("vt-100", env_TERM, 6)
-         || !strncmp("ansi",   env_TERM, 4) )
+         || !strncmp("ansi",   env_TERM, 4) ) )
       { printf("DEBUG: Terminal type set to %s.\n", env_TERM); }
-    else
+    else if ( env_TERM )
       { printf("WARNING: TERM set to: %s SiOO may not function correctly.\n", env_TERM); }
+    else
+      { printf("WARNING: TERM environment variable is not Set!\n"); }
 
     if ( env_HOME ) 
       {
         printf("DEBUG: Home Directory set to %s.\n", env_HOME);
         /* setup our history file name */
-        strcat(FN_dotHistory, env_HOME);
-        strcat(FN_dotHistory, "/.sioo_history");	
+        snprintf(FN_dotHistory, sizeof(FN_dotHistory), "%s/.sioo_history", env_HOME);
         printf("DEBUG: History File set to %s.\n", FN_dotHistory);
         /* setup our configuration file name */
-        strcat(FN_dotConfig, env_HOME);
-        strcat(FN_dotConfig, "/.sioorc");	
+        snprintf(FN_dotConfig, sizeof(FN_dotConfig), "%s/.sioorc", env_HOME);
         printf("DEBUG: Config File set to %s.\n", FN_dotConfig);
       }
     else 
