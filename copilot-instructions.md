@@ -126,7 +126,7 @@ removed from the goal's `preferences_from_goal` list, its component symbols are
 dereferenced, and it is returned to the preference pool.
 
 **Impact:** Before the fix, RSS grew linearly at ~1KB/decision-cycle (3.3MB →
-103MB over 100K DCs). After the fix, RSS stays flat at 3.4MB indefinitely. All
+103MB over 100K DCs). After the fix, RSS stays flat at 3.3MB indefinitely. All
 pool counts (preference, instantiation, condition, int constant, identifier)
 are now stable.
 
@@ -265,6 +265,8 @@ Converted preprocessor macros to proper C constructs without changing behavior:
    o-rejects or slot changes
 
 ### Decision Cycle Phase Order (Operand2/Soar 8)
+- **IE** = Instantiation Elaboration (i-supported productions)
+- **PE** = Production Elaboration (o-supported / operator-application productions)
 ```
 INPUT → DETERMINE_LEVEL → [PREFERENCE → WM]* (proposal IE)
       → DECISION

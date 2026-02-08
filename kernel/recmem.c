@@ -986,14 +986,15 @@ void assert_new_preferences(void)
                      * (Bug fix: the non-O_REJECTS_FIRST path handles this via
                      * process_o_rejects_and_deallocate_them, but this path did not.) --- */
                     remove_from_dll(inst->preferences_generated, pref, inst_next, inst_prev);
-                    if (pref->on_goal_list)
+                    if (pref->on_goal_list) {
 #ifdef NO_TOP_JUST
-                        remove_from_dll(pref->match_goal->id.preferences_from_goal,
-                                        pref, all_of_goal_next, all_of_goal_prev);
+                        Symbol *goal = pref->match_goal;
 #else
-                        remove_from_dll(pref->inst->match_goal->id.preferences_from_goal,
-                                        pref, all_of_goal_next, all_of_goal_prev);
+                        Symbol *goal = pref->inst->match_goal;
 #endif
+                        remove_from_dll(goal->id.preferences_from_goal,
+                                        pref, all_of_goal_next, all_of_goal_prev);
+                    }
                     symbol_remove_ref(pref->id);
                     symbol_remove_ref(pref->attr);
                     symbol_remove_ref(pref->value);
