@@ -59,11 +59,13 @@
 #include "soarkernel.h"
 
 /* REW: begin 08.20.97 */
-#define NEW_DECISION         0
-#define SAME_LEVEL           1
-#define HIGHER_LEVEL         2
-#define LOWER_LEVEL          3
-#define NIL_GOAL_RETRACTIONS 4
+enum consistency_decision_type {
+    NEW_DECISION         = 0,
+    SAME_LEVEL           = 1,
+    HIGHER_LEVEL         = 2,
+    LOWER_LEVEL          = 3,
+    NIL_GOAL_RETRACTIONS = 4
+};
 /* REW: end   08.20.97 */
 
 /* REW: begin 09.15.96 */

@@ -216,25 +216,32 @@ void get_next_char(void)
 
 ====================================================================== */
 
-#define record_position_of_start_of_lexeme() { \
-  current_agent(current_file)->column_of_start_of_last_lexeme = \
-    current_agent(current_file)->current_column - 1; \
-  current_agent(current_file)->line_of_start_of_last_lexeme = \
-    current_agent(current_file)->current_line; }
+static void record_position_of_start_of_lexeme(void)
+{
+    current_agent(current_file)->column_of_start_of_last_lexeme =
+        current_agent(current_file)->current_column - 1;
+    current_agent(current_file)->line_of_start_of_last_lexeme =
+        current_agent(current_file)->current_line;
+}
 
-/*  redefined for Soar 7, want case-sensitivity to match Tcl.  KJC 5/96 
+/*  redefined for Soar 7, want case-sensitivity to match Tcl.  KJC 5/96
 #define store_and_advance() { \
   current_agent(lexeme).string[current_agent(lexeme).length++] = (isupper((char)current_agent(current_char)) ? \
                                     tolower((char)current_agent(current_char)) : \
                                     (char)current_agent(current_char)); \
   get_next_char(); }
 */
-#define store_and_advance() { \
-  current_agent(lexeme).string[current_agent(lexeme).length++] = \
-    (char)current_agent(current_char); \
-  get_next_char(); }
+static void store_and_advance(void)
+{
+    current_agent(lexeme).string[current_agent(lexeme).length++] =
+        (char)current_agent(current_char);
+    get_next_char();
+}
 
-#define finish() { current_agent(lexeme).string[current_agent(lexeme).length]=0; }
+static void finish(void)
+{
+    current_agent(lexeme).string[current_agent(lexeme).length] = 0;
+}
 
 void read_constituent_string(void)
 {

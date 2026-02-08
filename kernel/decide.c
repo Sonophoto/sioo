@@ -137,19 +137,21 @@ extern void remove_operator_if_necessary(slot * s, wme * w);
    be clear from the code.)
 -------------------------------------------------- */
 
-#define NOTHING_DECIDER_FLAG 0  /* Warning: code relies in this being 0 */
-#define CANDIDATE_DECIDER_FLAG 1
-#define CONFLICTED_DECIDER_FLAG 2
-#define FORMER_CANDIDATE_DECIDER_FLAG 3
-#define BEST_DECIDER_FLAG 4
-#define WORST_DECIDER_FLAG 5
-#define UNARY_INDIFFERENT_DECIDER_FLAG 6
-#define ALREADY_EXISTING_WME_DECIDER_FLAG 7
-#define UNARY_PARALLEL_DECIDER_FLAG 8
-/* REW: 2003-01-02 Behavior Variability Kernel Experiments 
-   A new preference type: unary indifferent + constant (probability) value
-*/
-#define UNARY_INDIFFERENT_CONSTANT_DECIDER_FLAG 9
+enum decider_flag {
+    NOTHING_DECIDER_FLAG = 0,  /* Warning: code relies on this being 0 */
+    CANDIDATE_DECIDER_FLAG = 1,
+    CONFLICTED_DECIDER_FLAG = 2,
+    FORMER_CANDIDATE_DECIDER_FLAG = 3,
+    BEST_DECIDER_FLAG = 4,
+    WORST_DECIDER_FLAG = 5,
+    UNARY_INDIFFERENT_DECIDER_FLAG = 6,
+    ALREADY_EXISTING_WME_DECIDER_FLAG = 7,
+    UNARY_PARALLEL_DECIDER_FLAG = 8,
+    /* REW: 2003-01-02 Behavior Variability Kernel Experiments
+       A new preference type: unary indifferent + constant (probability) value
+    */
+    UNARY_INDIFFERENT_CONSTANT_DECIDER_FLAG = 9
+};
 
 /* ======================================================================
 
@@ -351,9 +353,11 @@ void post_link_addition(Symbol * from, Symbol * to)
    Promote an id and its transitive closure.
 ---------------------------------------------- */
 
-#define promote_if_needed(sym) \
-  { if ((sym)->common.symbol_type==IDENTIFIER_SYMBOL_TYPE) \
-      promote_id_and_tc(sym,new_level); }
+static void promote_if_needed(Symbol *sym, goal_stack_level new_level)
+{
+    if (sym->common.symbol_type == IDENTIFIER_SYMBOL_TYPE)
+        promote_id_and_tc(sym, new_level);
+}
 
 void promote_id_and_tc(Symbol * id, goal_stack_level new_level)
 {
@@ -384,15 +388,15 @@ void promote_id_and_tc(Symbol * id, goal_stack_level new_level)
 
     /* --- scan through all preferences and wmes for all slots for this id -- */
     for (w = id->id.input_wmes; w != NIL; w = w->next)
-        promote_if_needed(w->value);
+        promote_if_needed(w->value, new_level);
     for (s = id->id.slots; s != NIL; s = s->next) {
         for (pref = s->all_preferences; pref != NIL; pref = pref->all_of_slot_next) {
-            promote_if_needed(pref->value);
+            promote_if_needed(pref->value, new_level);
             if (preference_is_binary(pref->type))
-                promote_if_needed(pref->referent);
+                promote_if_needed(pref->referent, new_level);
         }
         for (w = s->wmes; w != NIL; w = w->next)
-            promote_if_needed(w->value);
+            promote_if_needed(w->value, new_level);
     }                           /* end of for slots loop */
 }
 
@@ -566,9 +570,11 @@ void garbage_collect_id(Symbol * id)
    The marked ids are added to ids_with_unknown_level.
 ---------------------------------------------- */
 
-#define mark_unknown_level_if_needed(sym) \
-  { if ((sym)->common.symbol_type==IDENTIFIER_SYMBOL_TYPE) \
-      mark_id_and_tc_as_unknown_level(sym); }
+static void mark_unknown_level_if_needed(Symbol *sym)
+{
+    if (sym->common.symbol_type == IDENTIFIER_SYMBOL_TYPE)
+        mark_id_and_tc_as_unknown_level(sym);
+}
 
 void mark_id_and_tc_as_unknown_level(Symbol * id)
 {
@@ -631,10 +637,12 @@ void mark_id_and_tc_as_unknown_level(Symbol * id)
    remove it from ids_with_unknown_level.
 ---------------------------------------------- */
 
-#define update_levels_if_needed(sym) \
-  { if ((sym)->common.symbol_type==IDENTIFIER_SYMBOL_TYPE) \
-      if ((sym)->id.tc_num!=current_agent(walk_tc_number)) \
-        walk_and_update_levels(sym); }
+static void update_levels_if_needed(Symbol *sym)
+{
+    if (sym->common.symbol_type == IDENTIFIER_SYMBOL_TYPE)
+        if (sym->id.tc_num != current_agent(walk_tc_number))
+            walk_and_update_levels(sym);
+}
 
 void walk_and_update_levels(Symbol * id)
 {

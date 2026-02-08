@@ -1016,15 +1016,20 @@ extern Symbol *make_int_constant(long value);
 extern Symbol *make_float_constant(float value);
 extern Symbol *make_new_identifier(char name_letter, goal_stack_level level);
 
-/* --- macros used for changing the reference count --- */
-#define symbol_add_ref(x) {(x)->common.reference_count++;}
-#define symbol_remove_ref(x) { \
-  (x)->common.reference_count--; \
-  if ((x)->common.reference_count == 0) \
-  deallocate_symbol(x); \
-  }
+/* --- functions used for changing the reference count --- */
+static void symbol_add_ref(Symbol *x)
+{
+    x->common.reference_count++;
+}
 
 extern void deallocate_symbol(Symbol * sym);
+
+static void symbol_remove_ref(Symbol *x)
+{
+    x->common.reference_count--;
+    if (x->common.reference_count == 0)
+        deallocate_symbol(x);
+}
 
 extern void reset_id_counters(void);
 extern void reset_id_and_variable_tc_numbers(void);
@@ -2157,12 +2162,20 @@ extern void remove_wme_from_wm(wme * w);
 extern void remove_wme_list_from_wm(wme * w);
 extern void do_buffered_wm_changes(void);
 
-#define wme_add_ref(w) { (w)->reference_count++; }
-#define wme_remove_ref(w) { \
-  (w)->reference_count--; \
-  if ((w)->reference_count == 0) deallocate_wme(w); }
-
 extern void deallocate_wme(wme * w);
+
+static void wme_add_ref(wme *w)
+{
+    w->reference_count++;
+}
+
+static void wme_remove_ref(wme *w)
+{
+    w->reference_count--;
+    if (w->reference_count == 0)
+        deallocate_wme(w);
+}
+
 extern Symbol *find_name_of_object(Symbol * id);
 
 /* =======================================================================
@@ -2253,13 +2266,20 @@ extern void remove_garbage_slots(void);
 
 extern preference *make_preference(byte type, Symbol * id, Symbol * attr, Symbol * value, Symbol * referent);
 
-#define preference_add_ref(p) { (p)->reference_count++; }
-#define preference_remove_ref(p) { \
-  (p)->reference_count--; \
-  if ((p)->reference_count == 0) \
-    possibly_deallocate_preference_and_clones(p); }
-
 extern bool possibly_deallocate_preference_and_clones(preference * pref);
+
+static void preference_add_ref(preference *p)
+{
+    p->reference_count++;
+}
+
+static void preference_remove_ref(preference *p)
+{
+    p->reference_count--;
+    if (p->reference_count == 0)
+        possibly_deallocate_preference_and_clones(p);
+}
+
 extern void deallocate_preference(preference * pref);
 
 extern void add_preference_to_tm(preference * pref);
@@ -2777,19 +2797,26 @@ extern Symbol *generate_new_variable(char *prefix);
 
     Deallocate_production() and excise_production() do just what they
     say.  Normally deallocate_production() should be invoked only via
-    the production_remove_ref() macro.
+    the production_remove_ref() function.
 ------------------------------------------------------------------- */
 
-#define production_add_ref(p) { (p)->reference_count++; }
-#define production_remove_ref(p) { \
-  (p)->reference_count--; \
-  if ((p)->reference_count == 0) \
-    deallocate_production(p); }
+extern void deallocate_production(production * prod);
+
+static void production_add_ref(production *p)
+{
+    p->reference_count++;
+}
+
+static void production_remove_ref(production *p)
+{
+    p->reference_count--;
+    if (p->reference_count == 0)
+        deallocate_production(p);
+}
 
 extern production *make_production(byte type,
                                    Symbol * name,
                                    condition ** lhs_top, condition ** lhs_bottom, action ** rhs_top, bool reorder_nccs);
-extern void deallocate_production(production * prod);
 extern void excise_production(production * prod, bool print_sharp_sign);
 
 extern bool canonical_cond_greater(condition * c1, condition * c2);

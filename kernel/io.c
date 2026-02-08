@@ -282,14 +282,16 @@ void do_input_cycle(void)
 ==================================================================== */
 
 /* --- output link statuses --- */
-#define NEW_OL_STATUS 0         /* just created it */
-#define UNCHANGED_OL_STATUS 1   /* normal status */
-#define MODIFIED_BUT_SAME_TC_OL_STATUS 2        /* some value in its TC has been
+enum output_link_status {
+    NEW_OL_STATUS = 0,           /* just created it */
+    UNCHANGED_OL_STATUS = 1,     /* normal status */
+    MODIFIED_BUT_SAME_TC_OL_STATUS = 2,  /* some value in its TC has been
                                                    modified, but the ids in its TC
                                                    are the same */
-#define MODIFIED_OL_STATUS 3    /* the set of ids in its TC has
-                                   changed */
-#define REMOVED_OL_STATUS 4     /* link has just been removed */
+    MODIFIED_OL_STATUS = 3,      /* the set of ids in its TC has
+                                    changed */
+    REMOVED_OL_STATUS = 4        /* link has just been removed */
+};
 
 /* --------------------------------------------------------------------
                    Output Link Status Updates on WM Changes

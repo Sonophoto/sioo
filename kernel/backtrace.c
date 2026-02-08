@@ -92,26 +92,35 @@
    the grounds.
 ==================================================================== */
 
-#define add_to_grounds(cond) { \
-  if ((cond)->bt.wme->grounds_tc != current_agent(grounds_tc)) { \
-    (cond)->bt.wme->grounds_tc = current_agent(grounds_tc); \
-    push ((cond), current_agent(grounds)); } }
+static void add_to_grounds(condition *cond)
+{
+    if (cond->bt.wme->grounds_tc != current_agent(grounds_tc)) {
+        cond->bt.wme->grounds_tc = current_agent(grounds_tc);
+        push(cond, current_agent(grounds));
+    }
+}
 
-#define add_to_potentials(cond) { \
-  if ((cond)->bt.wme->potentials_tc != current_agent(potentials_tc)) { \
-    (cond)->bt.wme->potentials_tc = current_agent(potentials_tc); \
-    (cond)->bt.wme->chunker_bt_pref = (cond)->bt.trace; \
-    push ((cond), current_agent(positive_potentials)); \
-  } else if ((cond)->bt.wme->chunker_bt_pref != (cond)->bt.trace) { \
-    push ((cond), current_agent(positive_potentials)); } }
+static void add_to_potentials(condition *cond)
+{
+    if (cond->bt.wme->potentials_tc != current_agent(potentials_tc)) {
+        cond->bt.wme->potentials_tc = current_agent(potentials_tc);
+        cond->bt.wme->chunker_bt_pref = cond->bt.trace;
+        push(cond, current_agent(positive_potentials));
+    } else if (cond->bt.wme->chunker_bt_pref != cond->bt.trace) {
+        push(cond, current_agent(positive_potentials));
+    }
+}
 
-#define add_to_locals(cond) { \
-  if ((cond)->bt.wme->locals_tc != current_agent(locals_tc)) { \
-    (cond)->bt.wme->locals_tc = current_agent(locals_tc); \
-    (cond)->bt.wme->chunker_bt_pref = (cond)->bt.trace; \
-    push ((cond), current_agent(locals)); \
-  } else if ((cond)->bt.wme->chunker_bt_pref != (cond)->bt.trace) { \
-    push ((cond), current_agent(locals)); } }
+static void add_to_locals(condition *cond)
+{
+    if (cond->bt.wme->locals_tc != current_agent(locals_tc)) {
+        cond->bt.wme->locals_tc = current_agent(locals_tc);
+        cond->bt.wme->chunker_bt_pref = cond->bt.trace;
+        push(cond, current_agent(locals));
+    } else if (cond->bt.wme->chunker_bt_pref != cond->bt.trace) {
+        push(cond, current_agent(locals));
+    }
+}
 
 /* -------------------------------------------------------------------
                      Backtrace Through Instantiation
