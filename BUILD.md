@@ -1,4 +1,4 @@
-#Notes on Building SiOO from Scratch
+# Notes on Building SiOO from Scratch
 
 **Remember! There are prebuilt headers, libraries and executables!**
 
@@ -9,7 +9,7 @@ the latest stable versions, ready to use on GNU/Linux libc systems.
 
 **_It is perfectly reasonable to want to make a custom build so read on:_**
 
-###Requirements:
+## Requirements:
 
 GNU Tool Chain including autotools, gcc, /bin/sh and the *nix userland.
 
@@ -17,7 +17,7 @@ We are using bash but your posix shell should work fine.
 
 There is no porting or portability to MS Windows or Mac OSX. Sorry.
 
-###Overview
+## Overview
 
 The idea here is to use autotools for the actual building of source
 trees but to use a bourne shell script for assembling and installing
@@ -30,7 +30,7 @@ all users that just want to use a working production matcher in
 several different ways but the full power of autotools is under
 the hood when needed by whomever.
 
-###Default Build:
+## Default Build:
 
 First, start a terminal, and change into the root of the project. We will refer to where you put the project directory as `[prefix]` with `[prefix]` being entirely at your discretion. The root of the project is then `[prefix]/sioo`. Go there.
 
@@ -55,7 +55,7 @@ We should have an automagical install target by 9.9.4
 
 ***
 
-###System Build Notes!
+### System Build Notes!
 For now, the make-SiOO(sh) shell script erases all intermediary files and all 
 output files before beginning the build process. This is simply for testing 
 sanity to ensure consistency between builds. Source trees that are controlled 
@@ -65,7 +65,7 @@ created by make-SiOO(sh) are erased by the same.
 
 ***
 
-###Kernel Build Notes!
+### Kernel Build Notes!
 Currently the build options are preset in sioo/kernel/soarBuildOptions.h
 There is a custom tag #define AKA_SIOO that turns on the SiOO option set
 
